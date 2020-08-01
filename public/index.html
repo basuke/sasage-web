@@ -1,65 +1,379 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
-
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/7.17.1/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/7.17.1/firebase-auth.js"></script>
-    <script defer src="/__/firebase/7.17.1/firebase-database.js"></script>
-    <script defer src="/__/firebase/7.17.1/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/7.17.1/firebase-storage.js"></script>
-    <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
-
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
-    </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
-
+<html lang="en">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-164370440-1"></script>
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-        try {
-          let app = firebase.app();
-          let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-          document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
+    gtag('config', 'UA-164370440-1');
     </script>
-  </body>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mayumi Sasage's Website</title>
+
+    <link rel="stylesheet" href="https://use.typekit.net/uij0cen.css">
+    <script src="https://kit.fontawesome.com/2921a6c479.js" crossorigin="anonymous"></script>
+
+    <meta property="og:title" content="Mayumi Sasage" />
+    <meta property="og:url" content="https://mayumi-sasage.info/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://mayumi-sasage.info/images/cover.jpg" />
+    <meta property="og:image:alt" content="Mayumi Sasage's Website" />
+    <meta property="og:description" content="Mayumi Sasage is an illustrator and artist focused on the creation of illustrations with a poetic narrative inspired by nature and botanicals." />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="ja_JP" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@SasageMayumi" />
+</head>
+<body>
+    <style>
+        /* 全体を決める設定 */
+        body {
+            background-color: #b9e6e3;
+            font-family:
+                "Helvetica Neue",
+                Arial,
+                "Hiragino Kaku Gothic ProN",
+                "Hiragino Sans",
+                "BIZ UDPGothic",
+                Meiryo,
+                sans-serif;
+        }
+
+        .container {
+            max-width: 1080px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        p {
+            text-align: justify;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .white-bg {
+            display: flex;
+            justify-content: center;
+
+            background-color: whitesmoke;
+        }
+
+        header {
+            font-family: fredericka-the-greatest, serif;
+            font-weight: 100;
+            font-style: normal;
+            font-size: x-large;
+            text-align: center;
+        }
+
+        /* ============== layout */
+
+        .container {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            min-height: 100vh;
+        }
+
+        .container > * {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        /* ============== site title */
+
+        header.title img {
+            margin-top: 2em;
+            width: 90%;
+            max-width: 510px;
+        }
+
+        header.title h1 {
+            display: none;
+        }
+
+        /* ============== external site links */
+
+        ul.external-links {
+            padding: 0;
+            display: flex;
+        }
+
+        ul.external-links  li {
+            list-style: none;
+            display: flex;
+            margin: 0 0.5em;
+        }
+
+        .external-links a i {
+            color: darkgray;
+            text-shadow: 0px 2px 2px silver;
+            transition: color 0.5s ease;
+        }
+
+        .external-links a:hover i {
+            color: turquoise;
+            text-shadow: 0px 2px 2px silver;
+        }
+
+        /* ============== top image */
+
+        section.site-top img {
+            margin: 2em 0 5em;
+        }
+
+        section.site-top img {
+            display: block;
+            width: 100%;
+        }
+
+        /* ============== headers */
+
+        .anime img {
+            height: 128px;
+        }
+
+        .black-and-white .anime img {
+            height: 72px;
+        }
+
+        header img.h2 {
+            height: 1.3em;
+            margin-bottom: 2em;
+        }
+
+        .lilly-and-cat header img.h2 {
+            height: 1.5em; /* because of "y", height is different :( */
+        }
+
+        header h2 {
+            display: none;
+        }
+
+        /* ============== tiles */
+
+        h2 {
+            margin: 0 0 1.6em;
+        }
+
+        ul.tile {
+            margin: 0;
+            padding-left: 0;
+            display: flex;
+            flex-wrap:wrap;
+            justify-content: space-around;
+            align-items: center;
+            align-content: stretch;
+        }
+
+        ul.tile > li {
+            display: flex;
+            list-style: none;
+            max-width: 90%;
+            margin-bottom: 8%;
+        }
+
+        ul.tile > li div {
+            max-width: 100%;
+            background-color: white;
+            padding: 3%;
+            box-shadow: 0 4px 8px silver;
+        }
+
+        ul.tile > li img {
+            max-width: 100%;
+            display: block;
+        }
+
+        @media only screen and (min-width: 720px) {
+            ul.tile > li {
+                max-width: 42%;
+            }
+
+            ul.tile > li.landscape {
+                max-width: 80%;
+            }
+        }
+
+        /* ============== about */
+
+        .about {
+            margin-top: 2em;
+            padding: 0 2em;
+        }
+
+        .about .en {
+            font-size: 1.1rem;
+        }
+
+        .about article section {
+            margin-bottom: 4em;
+        }
+
+        .about dt {
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .about dd {
+            margin-inline-start: 0;
+            margin-bottom: 1em;
+        }
+
+        @media only screen and (min-width: 840px) {
+            .about {
+                padding: 0;
+            }
+
+            article {
+                display: flex;
+                flex-wrap:wrap;
+                justify-content: space-around;
+                align-content: stretch;
+            }
+
+            .about > article > section {
+                max-width: 42%;
+            }
+        }
+
+    </style>
+
+    <div class="white-bg">
+        <div class="container">
+            <header class="title">
+                <h1>Mayumi Sasage</h1>
+                <img src="images/site-title.png" title="Mayumi Sasage | ILLUSTRATOR & ARTIST">
+            </header>
+            <nav>
+                <ul class="external-links">
+                    <li><a href="https://www.behance.net/mayumi-sasage/" target="_blank"><i class="fab fa-behance fa-2x"></i></a></li>
+                    <li><a href="https://www.instagram.com/mayumi.sasage/" target="_blank"><i class="fab fa-instagram fa-2x"></i></a></li>
+                    <li><a href="mailto:mayumi.sasage@gmail.com"><i class="far fa-envelope fa-2x"></i></a></li>
+                </ul>
+            </nav>
+
+            <main>
+                <section class="site-top">
+                    <picture>
+                        <source media="(min-width: 640px)" srcset="images/cover-wide.jpg">
+                        <img src="images/cover.jpg" alt="Lilly in Pansy">
+                    </picture>
+                </section>
+                <section class="flowers">
+                    <header>
+                        <div class="anime"><img src="images/anime-flowers.gif" alt=""></div>
+                        <h2>Flowers</h2>
+                        <img class="h2" src="images/header-flowers.png" title="Flowers">
+                    </header>
+                    <ul class="tile">
+                        <li><div class="frame"><img src="images/flowers/Camellia.jpg" alt=""></div></li>
+                        <li><div class="frame"><img src="images/flowers/Dendrobium.jpg" alt=""></div></li>
+                        <li><div class="frame"><img src="images/flowers/Sea_Mania.jpg" alt=""></div></li>
+                        <li><div class="frame"><img src="images/flowers/Magnolia.jpg" alt=""></div></li>
+                        <li><div class="frame"><img src="images/flowers/Pentax.jpg" alt=""></div></li>
+                    </ul>
+                </section>
+                <section class="lilly-and-cat">
+                    <header>
+                        <div class="anime"><img src="images/anime-lilly-and-cat.gif" alt=""></div>
+                        <h2>Lilly and Cat</h2>
+                        <img class="h2" src="images/header-lilly-and-cat.png" title="Lilly and Cat">
+                    </header>
+                    <ul class="tile">
+                        <li><div class="frame"><img src="images/lilliy-and-cat/lilly1.jpg" alt=""></div></li>
+                        <li><div class="frame"><img src="images/lilliy-and-cat/lilly2.jpg" alt=""></div></li>
+                        <li><div class="frame"><img src="images/lilliy-and-cat/lilly3.jpg" alt=""></div></li>
+                        <li><div class="frame"><img src="images/lilliy-and-cat/lilly4.jpg" alt=""></div></li>
+                        <li><div class="frame"><img src="images/lilliy-and-cat/lilly5.jpg" alt=""></div></li>
+                        <li><div class="frame"><img src="images/lilliy-and-cat/lilly6.jpg" alt=""></div></li>
+                    </ul>
+                </section>
+                <section class="black-and-white">
+                    <header>
+                        <div class="anime"><img src="images/anime-black-and-white.gif" alt=""></div>
+                        <h2>Black and White</h2>
+                        <img class="h2" src="images/header-black-and-white.png" title="Black and White">
+                    </header>
+                    <ul class="tile">
+                        <li class="landscape"><div class="frame"><img src="images/black-and-white/bw1.jpg" alt=""></div></li>
+                        <li><div class="frame"><img src="images/black-and-white/bw2.jpg" alt=""></div></li>
+                        <li><div class="frame"><img src="images/black-and-white/bw3.jpg" alt=""></div></li>
+                    </ul>
+                </section>
+                <section class="about">
+                    <header>
+                        <h2>About</h2>
+                        <img class="h2" src="images/header-about.png" title="About">
+                    </header>
+                    <article>
+                        <section class="en">
+                            <p>
+                                Mayumi Sasage is an illustrator and artist focused on the creation of illustrations with a poetic narrative inspired by nature and botanicals.
+                                She is writing and illustrating a children's book and Oracle cards.
+                                She explores mixed media such as hand drawing, printmaking and digital etc.
+                                She utilizes color and line to convey mood and story.
+                            </p>
+                            <dl>
+                                <dt>EDUCATION</dt>
+                                <dd><em>1999</em>, Bachelor in textile design, Tokyo Zokei University, Tokyo/Japan.</dd>
+                                
+                                
+                                <dt>EXPERIENCE</dt>
+                                <dd><em>1999-2012</em>, Career as a shoe designer in Tokyo, Japan</dd>
+                                
+                                <dd>
+                                    <em>2019-present</em>,  Freelance  illustrator based in San Francisco, USA
+                                </dd>
+                            </dl>
+                        </section>
+                        <section class="jp">
+                            <p>
+                                捧 真弓（ささげ まゆみ）はイラストレーター兼アーティストとして自然や植物、
+                                人をテーマにした物語のイラスト作品を作成、
+                                その他には絵本や本の挿絵を主に描いています。
+                                彼女は人物(主に女性)と植物をモチーフとして幅広く使用し、
+                                絵具や版画などを使った手描きのテクスチャとデジタルをミックスさせた表現を模索しています。
+                                現在は45枚組のオラクルカードを制作中。
+                            </p>
+                            <dl>
+                                <dt>1999</dt>
+                                <dd>東京造形大学デザイン学科テキスタイルデザイン専攻卒業</dd>
+                                <dt>1999-2012</dt>
+                                <dd>シューズデザイナーとして数々のブランドのデザインを手がける</dd>
+                                <dd>渡米後、2019年よりフリーのイラストレーターとして活動。サンフランシスコ在住</dd>
+                            </dl>
+                        </section>
+                    </article>
+                </section>
+            </main>
+            <footer>
+                <ul class="external-links">
+                    <li><a href="https://www.behance.net/mayumi-sasage/" target="_blank"><i class="fab fa-behance fa-2x"></i></a></li>
+                    <li><a href="https://www.instagram.com/mayumi.sasage/" target="_blank"><i class="fab fa-instagram fa-2x"></i></a></li>
+                    <li><a href="mailto:mayumi.sasage@gmail.com"><i class="far fa-envelope fa-2x"></i></a></li>
+                </ul>
+                <p>&copy; 2020 Mayumi Sasage. All rights reserved.</p>
+            </footer>
+        </div>
+    </div>
+</body>
 </html>
