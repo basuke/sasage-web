@@ -1,9 +1,19 @@
 export const flowers = [
-    { src: "images/flowers/Camellia.jpg", alt: "" },
-    { src: "images/flowers/Dendrobium.jpg", alt: "" },
-    { src: "images/flowers/Sea_Mania.jpg", alt: "" },
-    { src: "images/flowers/Magnolia.jpg", alt: "" },
-    { src: "images/flowers/Pentax.jpg", alt: "" },
+    { src: "images/flowers/1.jpg", alt: "" },
+    { src: "images/flowers/2.jpg", alt: "" },
+    { src: "images/flowers/3.jpg", alt: "" },
+    { src: "images/flowers/4.jpg", alt: "" },
+    { src: "images/flowers/5.jpg", alt: "" },
+    { src: "images/flowers/6.jpg", alt: "" },
+    { src: "images/flowers/7.jpg", alt: "" },
+];
+
+export const foods = [
+    { src: "images/foods/2.jpg", alt: "", landscape: true },
+    { src: "images/foods/3.jpg", alt: "", landscape: true },
+    { src: "images/foods/4.jpg", alt: "", landscape: true },
+    { src: "images/foods/5.jpg", alt: "" },
+    { src: "images/foods/6.jpg", alt: "" },
 ];
 
 export const lillyAndCat = [
@@ -13,6 +23,7 @@ export const lillyAndCat = [
     { src: "images/lilliy-and-cat/lilly4.jpg", alt: "" },
     { src: "images/lilliy-and-cat/lilly5.jpg", alt: "" },
     { src: "images/lilliy-and-cat/lilly6.jpg", alt: "" },
+    { src: "images/lilliy-and-cat/lilly7.jpg", alt: "", landscape: true },
 ];
 
 export const blackAndWhite = [

@@ -5,7 +5,7 @@ import ExternalLinks from "./components/external-links.svelte";
 import About from "./about.svelte";
 import ImageGrid from "./components/image-grid.svelte";
 
-import { flowers, lillyAndCat, blackAndWhite } from './images.js';
+import { flowers, foods, lillyAndCat, blackAndWhite } from './images.js';
 
 </script>
 
@@ -19,8 +19,7 @@ import { flowers, lillyAndCat, blackAndWhite } from './images.js';
         <main>
             <section class="site-top">
                 <picture>
-                    <source media="(min-width: 640px)" srcset="images/cover-wide.jpg">
-                    <img src="images/cover.jpg" alt="Lilly in Pansy">
+                    <img src="images/foods/1.jpg" alt="Have a Picnic">
                 </picture>
             </section>
             <section>
@@ -28,11 +27,15 @@ import { flowers, lillyAndCat, blackAndWhite } from './images.js';
                 <ImageGrid images={flowers}/>
             </section>
             <section>
-                <Header title="Lilly and Cat" anime="images/anime-lilly-and-cat.gif" />
+                <Header title="Foods" />
+                <ImageGrid images={foods}/>
+            </section>
+            <section>
+                <Header title="Lilly and Cat" />
                 <ImageGrid images={lillyAndCat}/>
             </section>
             <section>
-                <Header title="Black and White" anime="images/anime-black-and-white.gif" style="height: 72px"/>
+                <Header title="Black and White" />
                 <ImageGrid images={blackAndWhite}/>
             </section>
             <section class="about">
