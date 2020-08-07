@@ -1,7 +1,7 @@
 <ul>
     <li><a href="https://www.behance.net/mayumi-sasage/" target="_blank"><i class="fab fa-behance fa-2x"></i></a></li>
     <li><a href="https://www.instagram.com/mayumi.sasage/" target="_blank"><i class="fab fa-instagram fa-2x"></i></a></li>
-    <li><a href="mailto:mayumi.sasage@gmail.com"><i class="far fa-envelope fa-2x"></i></a></li>
+    <li><a href="mailto:sasage@hey.com"><i class="far fa-envelope fa-2x"></i></a></li>
 </ul>
 
 <style>
