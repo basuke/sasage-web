@@ -24,19 +24,19 @@ import { flowers, lillyAndCat, blackAndWhite } from './images.js';
                 </picture>
             </section>
             <section>
-                <Header title="Flowers" src="images/header-flowers.png" anime="images/anime-flowers.gif" />
+                <Header title="Flowers" anime="images/anime-flowers.gif" />
                 <ImageGrid images={flowers}/>
             </section>
             <section>
-                <Header title="Lilly and Cat" src="images/header-lilly-and-cat.png" anime="images/anime-lilly-and-cat.gif" />
+                <Header title="Lilly and Cat" anime="images/anime-lilly-and-cat.gif" />
                 <ImageGrid images={lillyAndCat}/>
             </section>
             <section>
-                <Header title="Black and White" src="images/header-black-and-white.png" anime="images/anime-black-and-white.gif" style="height: 72px"/>
+                <Header title="Black and White" anime="images/anime-black-and-white.gif" style="height: 72px"/>
                 <ImageGrid images={blackAndWhite}/>
             </section>
             <section class="about">
-                <Header title="About" src="images/header-about.png" />
+                <Header title="About" />
                 <About/>
             </section>
         </main>
