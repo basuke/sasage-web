@@ -60,3 +60,31 @@ button:not(:disabled):active {
 button:focus {
 	border-color: #666;
 }
+
+h1, h2, h3 {
+	font-family: fredericka-the-greatest, serif;
+	font-style: normal;
+	font-weight: 400;
+}
+
+h1 {
+	font-size: 59px;
+	text-transform: uppercase;
+
+	margin-top: 0.8em;
+	margin-bottom: 0;
+}
+
+h2 {
+	font-size: 42px;
+	margin: 0 0 1em;
+}
+
+p.subtitle {
+	font-size: 26px;
+	text-transform: uppercase;
+	font-family: HelveticaNeue-Light, serif;
+	color: #777;
+
+	margin-top: 0;
+}

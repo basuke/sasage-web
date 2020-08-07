@@ -11,7 +11,7 @@ import { flowers, lillyAndCat, blackAndWhite } from './images.js';
 
 <div class="white-bg">
     <div class="container">
-        <Header major title="Mayumi Sasage" src="images/site-title.png"/>
+        <Header major title="Mayumi Sasage" subtitle="Illustrator & Artist" />
         <nav>
             <ExternalLinks/>
         </nav>
