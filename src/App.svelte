@@ -42,47 +42,6 @@
         width: 100%;
     }
 
-    /* ============== tiles */
-
-    ul.tile {
-        margin: 0;
-        padding-left: 0;
-        display: flex;
-        flex-wrap:wrap;
-        justify-content: space-around;
-        align-items: center;
-        align-content: stretch;
-    }
-
-    ul.tile > li {
-        display: flex;
-        list-style: none;
-        max-width: 90%;
-        margin-bottom: 8%;
-    }
-
-    ul.tile > li div {
-        max-width: 100%;
-        background-color: white;
-        padding: 3%;
-        box-shadow: 0 4px 8px silver;
-    }
-
-    ul.tile > li img {
-        max-width: 100%;
-        display: block;
-    }
-
-    @media only screen and (min-width: 720px) {
-        ul.tile > li {
-            max-width: 42%;
-        }
-
-        ul.tile > li.landscape {
-            max-width: 80%;
-        }
-    }
-
     /* ============== about */
 
     .about {
@@ -103,6 +62,40 @@
 import ExternalLinks from "./components/external-links.svelte";
 import Header from "./components/header.svelte";
 import About from "./components/about.svelte";
+import ImageGrid from "./components/image-grid.svelte";
+
+const images = {
+    flowers: [
+        { path: "images/flowers/1.jpg" },
+        { path: "images/flowers/2.jpg" },
+        { path: "images/flowers/3.jpg" },
+        { path: "images/flowers/4.jpg" },
+        { path: "images/flowers/5.jpg" },
+        { path: "images/flowers/6.jpg" },
+        { path: "images/flowers/7.jpg" },
+    ],
+    foods: [
+        { path: "images/foods/2.jpg", landscape: true },
+        { path: "images/foods/3.jpg", landscape: true },
+        { path: "images/foods/4.jpg", landscape: true },
+        { path: "images/foods/5.jpg" },
+        { path: "images/foods/6.jpg" },
+    ],
+    lillyAndCat: [
+        { path: "images/lilliy-and-cat/lilly1.jpg" },
+        { path: "images/lilliy-and-cat/lilly2.jpg" },
+        { path: "images/lilliy-and-cat/lilly3.jpg" },
+        { path: "images/lilliy-and-cat/lilly4.jpg" },
+        { path: "images/lilliy-and-cat/lilly5.jpg" },
+        { path: "images/lilliy-and-cat/lilly6.jpg" },
+        { path: "images/lilliy-and-cat/lilly7.jpg", landscape: true },
+    ],
+    blackAndWhite: [
+        { path: "images/black-and-white/bw1.jpg", landscape: true },
+        { path: "images/black-and-white/bw2.jpg" },
+        { path: "images/black-and-white/bw3.jpg" },
+    ],
+}
 
 </script>
 
@@ -121,45 +114,19 @@ import About from "./components/about.svelte";
             </section>
             <section class="flowers">
                 <Header title="Flowers" anime="images/anime-flowers.gif"/>
-                <ul class="tile">
-                    <li><div class="frame"><img src="images/flowers/1.jpg" alt=""></div></li>
-                    <li><div class="frame"><img src="images/flowers/2.jpg" alt=""></div></li>
-                    <li><div class="frame"><img src="images/flowers/3.jpg" alt=""></div></li>
-                    <li><div class="frame"><img src="images/flowers/4.jpg" alt=""></div></li>
-                    <li><div class="frame"><img src="images/flowers/5.jpg" alt=""></div></li>
-                    <li><div class="frame"><img src="images/flowers/6.jpg" alt=""></div></li>
-                    <li><div class="frame"><img src="images/flowers/7.jpg" alt=""></div></li>
-                </ul>
+                <ImageGrid images={images.flowers}/>
             </section>
             <section class="foods">
                 <Header title="Foods"/>
-                <ul class="tile">
-                    <li class="landscape"><div class="frame"><img src="images/foods/2.jpg" alt=""></div></li>
-                    <li class="landscape"><div class="frame"><img src="images/foods/3.jpg" alt=""></div></li>
-                    <li class="landscape"><div class="frame"><img src="images/foods/4.jpg" alt=""></div></li>
-                    <li><div class="frame"><img src="images/foods/5.jpg" alt=""></div></li>
-                    <li><div class="frame"><img src="images/foods/6.jpg" alt=""></div></li>
-                </ul>
+                <ImageGrid images={images.foods}/>
             </section>
             <section class="lilly-and-cat">
                 <Header title="Lilly and Cat"/>
-                <ul class="tile">
-                    <li><div class="frame"><img src="images/lilliy-and-cat/lilly1.jpg" alt=""></div></li>
-                    <li><div class="frame"><img src="images/lilliy-and-cat/lilly2.jpg" alt=""></div></li>
-                    <li><div class="frame"><img src="images/lilliy-and-cat/lilly3.jpg" alt=""></div></li>
-                    <li><div class="frame"><img src="images/lilliy-and-cat/lilly4.jpg" alt=""></div></li>
-                    <li><div class="frame"><img src="images/lilliy-and-cat/lilly5.jpg" alt=""></div></li>
-                    <li><div class="frame"><img src="images/lilliy-and-cat/lilly6.jpg" alt=""></div></li>
-                    <li class="landscape"><div class="frame"><img src="images/lilliy-and-cat/lilly7.jpg" alt=""></div></li>
-                </ul>
+                <ImageGrid images={images.lillyAndCat}/>
             </section>
             <section class="black-and-white">
                 <Header title="Black and White"/>
-                <ul class="tile">
-                    <li class="landscape"><div class="frame"><img src="images/black-and-white/bw1.jpg" alt=""></div></li>
-                    <li><div class="frame"><img src="images/black-and-white/bw2.jpg" alt=""></div></li>
-                    <li><div class="frame"><img src="images/black-and-white/bw3.jpg" alt=""></div></li>
-                </ul>
+                <ImageGrid images={images.blackAndWhite}/>
             </section>
             <section class="about">
                 <Header title="About"/>
