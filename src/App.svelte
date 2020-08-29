@@ -1,27 +1,4 @@
 <style>
-    h1 {
-        font-size: 48px;
-        text-transform: uppercase;
-    
-        margin-top: 0.8em;
-        margin-bottom: 0;
-    }
-    
-    h2 {
-        font-size: 38px;
-        margin: 0 0 1em;
-    }
-    
-    p.subtitle {
-        font-size: 23px;
-        text-transform: uppercase;
-        font-family: HelveticaNeue-Light, serif;
-        color: #777;
-    
-        margin-top: -0.1em;
-        margin-bottom: 0.2em;
-    }
-
     /* ============== layout */
 
     .container {
@@ -33,14 +10,6 @@
         justify-content: center;
 
         background-color: whitesmoke;
-    }
-
-    header {
-        font-family: fredericka-the-greatest, serif;
-        font-weight: 100;
-        font-style: normal;
-        font-size: x-large;
-        text-align: center;
     }
 
     .container {
@@ -62,14 +31,6 @@
         flex: 1;
     }
 
-    /* ============== site title */
-
-    header.title img {
-        margin-top: 2em;
-        width: 90%;
-        max-width: 510px;
-    }
-
     /* ============== top image */
 
     section.site-top img {
@@ -81,26 +42,7 @@
         width: 100%;
     }
 
-    /* ============== headers */
-
-    .anime img {
-        height: 128px;
-    }
-
-    .black-and-white .anime img {
-        height: 72px;
-    }
-
-    header img.h2 {
-        height: 1.3em;
-        margin-bottom: 2em;
-    }
-
     /* ============== tiles */
-
-    h2 {
-        margin: 0 0 1.6em;
-    }
 
     ul.tile {
         margin: 0;
@@ -166,6 +108,10 @@
         margin-bottom: 1em;
     }
 
+    .about p {
+        text-align: justify;
+    }
+
     @media only screen and (min-width: 840px) {
         .about {
             padding: 0;
@@ -188,15 +134,13 @@
 <script>
 
 import ExternalLinks from "./components/external-links.svelte";
+import Header from "./components/header.svelte";
 
 </script>
 
 <div class="white-bg">
     <div class="container">
-        <header class="title">
-            <h1>Mayumi Sasage</h1>
-            <p class="subtitle">Illustrator &amp; Artist</p>
-        </header>
+        <Header title="Mayumi Sasage" major subtitle="Illustrator &amp; Artist"/>
         <nav>
             <ExternalLinks/>
         </nav>
@@ -208,10 +152,7 @@ import ExternalLinks from "./components/external-links.svelte";
                 </picture>
             </section>
             <section class="flowers">
-                <header>
-                    <div class="anime"><img src="images/anime-flowers.gif" alt="Icon of Flowers"></div>
-                    <h2>Flowers</h2>
-                </header>
+                <Header title="Flowers" anime="images/anime-flowers.gif"/>
                 <ul class="tile">
                     <li><div class="frame"><img src="images/flowers/1.jpg" alt=""></div></li>
                     <li><div class="frame"><img src="images/flowers/2.jpg" alt=""></div></li>
@@ -223,9 +164,7 @@ import ExternalLinks from "./components/external-links.svelte";
                 </ul>
             </section>
             <section class="foods">
-                <header>
-                    <h2>Foods</h2>
-                </header>
+                <Header title="Foods"/>
                 <ul class="tile">
                     <li class="landscape"><div class="frame"><img src="images/foods/2.jpg" alt=""></div></li>
                     <li class="landscape"><div class="frame"><img src="images/foods/3.jpg" alt=""></div></li>
@@ -235,9 +174,7 @@ import ExternalLinks from "./components/external-links.svelte";
                 </ul>
             </section>
             <section class="lilly-and-cat">
-                <header>
-                    <h2>Lilly and Cat</h2>
-                </header>
+                <Header title="Lilly and Cat"/>
                 <ul class="tile">
                     <li><div class="frame"><img src="images/lilliy-and-cat/lilly1.jpg" alt=""></div></li>
                     <li><div class="frame"><img src="images/lilliy-and-cat/lilly2.jpg" alt=""></div></li>
@@ -249,9 +186,7 @@ import ExternalLinks from "./components/external-links.svelte";
                 </ul>
             </section>
             <section class="black-and-white">
-                <header>
-                    <h2>Black and White</h2>
-                </header>
+                <Header title="Black and White"/>
                 <ul class="tile">
                     <li class="landscape"><div class="frame"><img src="images/black-and-white/bw1.jpg" alt=""></div></li>
                     <li><div class="frame"><img src="images/black-and-white/bw2.jpg" alt=""></div></li>
@@ -259,9 +194,7 @@ import ExternalLinks from "./components/external-links.svelte";
                 </ul>
             </section>
             <section class="about">
-                <header>
-                    <h2>About</h2>
-                </header>
+                <Header title="About"/>
                 <article>
                     <section class="en">
                         <p>
