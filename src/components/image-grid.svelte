@@ -4,9 +4,11 @@ export let images = [];
 
 </script>
 
-<ul class="tile">
+<ul>
     {#each images as image}
-        <li class:landscape={image.landscape}><div class=frame><img src={image.src} alt={image.alt}></div></li>
+        <li class:landscape={image.landscape}>
+            <img src={image.src} alt={image.alt}>
+        </li>
     {/each}
 </ul>
 
@@ -14,33 +16,22 @@ export let images = [];
 
 /* ============== tiles */
 
-ul.tile {
+ul {
     margin: 0;
     padding-left: 0;
-    display: flex;
-    flex-wrap:wrap;
-    justify-content: space-around;
-    align-items: center;
-    align-content: stretch;
+    overflow-x: scroll;
+    white-space: nowrap;
+    width: 100%;
 }
 
-ul.tile > li {
-    display: flex;
+li {
+    display: inline-block;
     list-style: none;
-    max-width: 90%;
-    margin-bottom: 8%;
 }
 
-ul.tile > li div {
-    max-width: 100%;
-    background-color: white;
-    padding: 3%;
-    box-shadow: 0 4px 8px silver;
-}
-
-ul.tile > li img {
-    max-width: 100%;
-    display: block;
+img {
+    height: 200px;
+    cursor: pointer;
 }
 
 @media only screen and (min-width: 720px) {

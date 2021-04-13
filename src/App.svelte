@@ -6,6 +6,7 @@ import About from "./about.svelte";
 import ImageGrid from "./components/image-grid.svelte";
 
 import { flowers, foods, lillyAndCat, blackAndWhite } from './images.js';
+import Parallax from "./components/parallax.svelte";
 
 </script>
 
@@ -18,12 +19,10 @@ import { flowers, foods, lillyAndCat, blackAndWhite } from './images.js';
 
         <main>
             <section class="site-top">
-                <picture>
-                    <img src="images/foods/1.jpg" alt="Have a Picnic">
-                </picture>
+                <Parallax/>
             </section>
             <section>
-                <Header title="Flowers" anime="images/anime-flowers.gif" />
+                <Header title="Flowers"/>
                 <ImageGrid images={flowers}/>
             </section>
             <section>
@@ -56,12 +55,7 @@ import { flowers, foods, lillyAndCat, blackAndWhite } from './images.js';
 
 <style>
 
-.container {
-    max-width: 1080px;
-}
-
 .white-bg {
-    display: flex;
     justify-content: center;
 
     background-color: whitesmoke;
@@ -72,32 +66,7 @@ import { flowers, foods, lillyAndCat, blackAndWhite } from './images.js';
 .container {
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
     min-height: 100vh;
-}
-
-.container > * {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-
-main {
-    flex: 1;
-}
-
-/* ============== top image */
-
-section.site-top img {
-    margin: 2em 0 5em;
-}
-
-section.site-top img {
-    display: block;
-    width: 100%;
 }
 
 /* =============== about */
