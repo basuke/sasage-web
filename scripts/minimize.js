@@ -6,6 +6,20 @@ const imageminJpegtran = require('imagemin-jpegtran');
 const imageminWebp = require('imagemin-webp');
 // const imageminPngquant = require('imagemin-pngquant');
 
+const sourceDirectory = 'public/images';
+const destinationDirectory = 'public/build/images';
+
+function buildImageInfo(sourcePath) {
+    return {
+        hash,
+        width,
+        height,
+        format,
+        path,
+        thumbnail,
+    };
+}
+
 (async () => {
     const files = await globby(['public/**/*.{jpg,png}'], { });
 

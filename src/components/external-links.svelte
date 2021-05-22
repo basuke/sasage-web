@@ -1,22 +1,20 @@
-<ul>
-    <li><a href="https://www.behance.net/mayumi-sasage/" target="_blank"><i class="fab fa-behance fa-2x"></i></a></li>
-    <li><a href="https://www.instagram.com/mayumi.sasage/" target="_blank"><i class="fab fa-instagram fa-2x"></i></a></li>
-    <li><a href="mailto:sasage.mayumi@gmail.com"><i class="far fa-envelope fa-2x"></i></a></li>
+<script>
+
+const links = [
+    { type: "fab fa-behance", url: "https://www.behance.net/mayumi-sasage/", target: "_blank" },
+    { type: "fab fa-instagram", url: "https://www.instagram.com/mayumi.sasage/", target: "_blank" },
+    { type: "far fa-envelope", url: "mailto:sasage.mayumi@gmail.com", target: "_self" },
+];
+
+</script>
+
+<ul class="flex justify-center">
+    {#each links as link}
+        <li class="mx-1"><a href={link.url} target={link.target} rel="noreferrer"><i class="{link.type} fa-2x"></i></a></li>
+    {/each}
 </ul>
 
 <style>
-
-ul {
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-
-li {
-    list-style: none;
-    display: flex;
-    margin: 0 0.5em;
-}
 
 a i {
     color: darkgray;
