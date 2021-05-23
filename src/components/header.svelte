@@ -5,6 +5,7 @@ import ExternalLinks from './external-links.svelte';
 import { imagePath } from '../app';
 
 export let data = {};
+export let lang = '';
 
 const sections = ["Books", "Illustrations", "About"];
 
@@ -12,6 +13,11 @@ const sections = ["Books", "Illustrations", "About"];
 
 <header class="text-center">
     <nav id="topNav">
+        <div class="fixed bg-white left-0 top-0">
+            <button class="border rounded-lg px-2" on:click={() => lang = 'en'}>en</button>
+            <button class="border rounded-lg px-2" on:click={() => lang = 'ja'}>ja</button>
+            current lang = {lang}
+        </div>
         <h1 class="my-3 text-4xl font-extrabold">Mayumi Sasage</h1>
         <p class="mb-3 text-2xl">Illustrator &amp; Artist</p>
         <div><ExternalLinks /></div>

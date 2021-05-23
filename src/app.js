@@ -25,6 +25,9 @@ export const data = {
             She did a happy dance because all of the socks from the dryer matched.
             There was coal in his stocking and he was thrilled.
             `,
+            'title-ja': 'サンプルの本',
+            'description-ja': `最近はすっかり天気も寒くなってきましたね。いかがおすごしでしょうか。なんてね。
+            `,
             images: [
                 { name: 'images-black-and-white-bw1.jpg' },
                 { name: 'images-black-and-white-bw1.jpg' },

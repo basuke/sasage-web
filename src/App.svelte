@@ -10,11 +10,14 @@ import ImagePage from './pages/image-page.svelte';
 
 export let data = {};
 
+let lang = "en";
+
 </script>
 
 <Router>
     <div class="container mx-auto flex flex-col h-screen text-gray-600">
-        <Header {data} />
+        <div class="text-green-400">lang={lang}</div>
+        <Header {data} bind:lang />
 
         <main class="flex-auto">
             <Route path="/">
@@ -30,11 +33,13 @@ export let data = {};
 
                 <div id="About">
                     <h2 class="my-4 text-center text-3xl">About</h2>
-                    <About />
+                    <About {lang} />
                 </div>
             </Route>
 
-            <Route path="/images/*imageId" component={ImagePage} />
+            <Route path="/images/:imageId" let:params>
+                <ImagePage {lang} imageId={params.imageId} />
+            </Route>
 
             <Route>
                 <h1 class="text-9xl text-red-500 text-center">File not found</h1>
