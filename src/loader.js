@@ -1,4 +1,5 @@
 import App from './App.svelte';
+import { data } from './app';
 
 document.addEventListener('DOMContentLoaded', function() {
     // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
@@ -24,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
             target,
             props: {
                 name: 'Svelte',
+                data,
                 app,
             }
         });

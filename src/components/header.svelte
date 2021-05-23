@@ -6,7 +6,9 @@ import { useLocation } from "svelte-navigator";
 
 import ExternalLinks from './external-links.svelte';
 
-import { data, imagePath } from '../app';
+import { imagePath } from '../app';
+
+export let data = {};
 
 const location = useLocation();
 

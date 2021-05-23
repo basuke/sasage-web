@@ -8,13 +8,13 @@ import ImageGrid from './components/image-grid.svelte';
 
 import ImagePage from './pages/image-page.svelte';
 
-import { data, imagePath } from './app';
+export let data = {};
 
 </script>
 
 <Router>
     <div class="container mx-auto flex flex-col h-screen text-gray-600">
-        <Header />
+        <Header {data} />
 
         <main class="flex-auto">
             <Route path="/">
