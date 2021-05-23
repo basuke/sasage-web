@@ -12,7 +12,7 @@ import { data, imagePath } from './app';
 </script>
 
 <Router>
-    <div class="container mx-auto flex flex-col h-screen text-gray-700">
+    <div class="container mx-auto flex flex-col h-screen text-gray-600">
         <Header />
 
         <main class="flex-auto">

@@ -2,10 +2,13 @@
 
 import { onMount } from 'svelte';
 import { fly } from 'svelte/transition';
+import { useLocation } from "svelte-navigator";
 
 import ExternalLinks from './external-links.svelte';
 
 import { data, imagePath } from '../app';
+
+const location = useLocation();
 
 let navFixed = false;
 let navHeight = undefined;
@@ -37,7 +40,10 @@ const sections = ["Books", "Illustrations", "About"];
             Fixed navHeight={navHeight}px
         </nav>
     {/if}
-    <img src={imagePath(data.topImages[0])} alt="top image">
+    <div>pathname: {$location.pathname} hash: {$location.hash} search: {$location.search}</div>
+    {#if $location.pathname === '/'}
+        <img src={imagePath(data.topImages[0])} alt="top image">
+    {/if}
 
     <nav class="my-3">
         <ul class="flex justify-center text-2xl font-semibold space-x-4">
@@ -46,6 +52,15 @@ const sections = ["Books", "Illustrations", "About"];
             {/each}
         </ul>
     </nav>
+
+    <div class=" fixed right-0 top-0">
+        <div class="sm:hidden inline-block">-</div>
+        <div class="md:hidden sm:inline-block hidden">sm: 640px</div>
+        <div class="lg:hidden md:inline-block hidden">md: 768px</div>
+        <div class="xl:hidden lg:inline-block hidden">lg: 1024px</div>
+        <div class="2xl:hidden xl:inline-block hidden">xl: 1280px</div>
+        <div class="2xl:inline-block hidden">2xl: 1536px</div>
+    </div>
 </header>
 
 <style>
