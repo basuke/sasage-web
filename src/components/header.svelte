@@ -1,34 +1,14 @@
 <script>
 
-import { onMount } from 'svelte';
-import { fly } from 'svelte/transition';
-import { useLocation } from "svelte-navigator";
-
 import ExternalLinks from './external-links.svelte';
 
 import { imagePath } from '../app';
 
 export let data = {};
 
-const location = useLocation();
-
-let navFixed = false;
-let navHeight = undefined;
-let y = 0;
-const margin = 20;
-
-onMount(() => {
-    navHeight = document.querySelector('#topNav').scrollHeight + margin;
-    y = window.scrollY;
-});
-
-$: navFixed = (navHeight > 0 && y > navHeight);
-
 const sections = ["Books", "Illustrations", "About"];
 
 </script>
-
-<svelte:window bind:scrollY={y}/>
 
 <header class="text-center">
     <nav id="topNav">
@@ -37,15 +17,7 @@ const sections = ["Books", "Illustrations", "About"];
         <div><ExternalLinks /></div>
     </nav>
 
-    {#if navFixed}
-        <nav transition:fly={{y:-40}} class="fixed top-0 left-0 w-full bg-white border-b">
-            <h1 class="my-3 text-2xl font-extrabold">Mayumi Sasage</h1>
-        </nav>
-    {/if}
-
-    {#if $location.pathname === '/'}
-        <img src={imagePath(data.topImages[0])} alt="top image">
-    {/if}
+    <img src={imagePath(data.topImages[0])} alt="top image">
 
     <nav class="my-3">
         <ul class="flex justify-center text-2xl font-semibold space-x-4">
