@@ -3,9 +3,10 @@
 import { findImage, imagePath } from '../app';
 
 export let imageId;
+export let data = {};
 export let lang = 'en';
 
-const image = findImage(imageId);
+const image = findImage(data.images, imageId);
 
 function translated(key, lang) {
     if (!image) return '';

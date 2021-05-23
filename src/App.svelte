@@ -12,6 +12,9 @@ export let data = {};
 
 let lang = "en";
 
+const books = data.images.filter(image => image.category === 'books');
+const illustrations = data.images.filter(image => image.category === 'illustrations');
+
 </script>
 
 <Router>
@@ -23,12 +26,12 @@ let lang = "en";
             <Route path="/">
                 <div id="Books">
                     <h2 class="my-4 text-center text-3xl">Books</h2>
-                    <ImageGrid images={data.books} category="Books" />
+                    <ImageGrid images={books} category="Books" />
                 </div>
 
                 <div id="Illustrations">
                     <h2 class="my-4 text-center text-3xl">Illustrations</h2>
-                    <ImageGrid images={data.illustrations} category="Illustrations" />
+                    <ImageGrid images={illustrations} category="Illustrations" />
                 </div>
 
                 <div id="About">
@@ -38,7 +41,7 @@ let lang = "en";
             </Route>
 
             <Route path="/images/:imageId" let:params>
-                <ImagePage {lang} imageId={params.imageId} />
+                <ImagePage {data} {lang} imageId={params.imageId} />
             </Route>
 
             <Route>
