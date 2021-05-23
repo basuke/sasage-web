@@ -34,13 +34,13 @@ const sections = ["Books", "Illustrations", "About"];
         <p class="mb-3 text-2xl">Illustrator &amp; Artist</p>
         <div><ExternalLinks /></div>
     </nav>
+
     {#if navFixed}
         <nav transition:fly={{y:-40}} class="fixed top-0 left-0 w-full bg-white border-b">
             <h1 class="my-3 text-2xl font-extrabold">Mayumi Sasage</h1>
-            Fixed navHeight={navHeight}px
         </nav>
     {/if}
-    <div>pathname: {$location.pathname} hash: {$location.hash} search: {$location.search}</div>
+
     {#if $location.pathname === '/'}
         <img src={imagePath(data.topImages[0])} alt="top image">
     {/if}
