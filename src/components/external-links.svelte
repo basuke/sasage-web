@@ -1,7 +1,11 @@
 <script>
 
 const links = [
-    { type: "fab fa-behance", url: "https://www.behance.net/mayumi-sasage/", target: "_blank" },
+    {
+        type: "fab fa-behance",
+        url: "https://www.behance.net/mayumi-sasage/",
+        target: "_blank",
+    },
     { type: "fab fa-instagram", url: "https://www.instagram.com/mayumi.sasage/", target: "_blank" },
     { type: "far fa-envelope", url: "mailto:sasage.mayumi@gmail.com", target: "_self" },
 ];
@@ -10,7 +14,11 @@ const links = [
 
 <ul class="flex justify-center">
     {#each links as link}
-        <li class="mx-1"><a href={link.url} target={link.target} rel="noreferrer"><i class="{link.type} fa-2x"></i></a></li>
+        <li class="px-1">
+            <a href={link.url} target={link.target} rel="noreferrer">
+                <i class="{link.type} fa-2x"></i>
+            </a>
+        </li>
     {/each}
 </ul>
 

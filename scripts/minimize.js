@@ -1,43 +1,93 @@
 const globby = require('globby');
 const path = require('path');
 const fs = require('fs');
-const imagemin = require('imagemin');
-const imageminJpegtran = require('imagemin-jpegtran');
-const imageminWebp = require('imagemin-webp');
-// const imageminPngquant = require('imagemin-pngquant');
+const md5 = require('md5');
+const sharp = require('sharp');
 
 const sourceDirectory = 'public/images';
 const destinationDirectory = 'public/build/images';
+const indexPath = './public/build/images.json';
 
-function buildImageInfo(sourcePath) {
-    return {
-        hash,
-        width,
-        height,
-        format,
-        path,
-        thumbnail,
-    };
+function suffix(option) {
+    let suffix = '';
+    if ('width' in option) suffix += `-w${option.width}`;
+    if ('height' in option) suffix += `-h${option.height}`;
+    return suffix;
+}
+
+function pathToKey(source) {
+    return source.replace('./public/', '');
+}
+
+function pathToHash(source) {
+    return pathToKey(source).replace(/[^0-9A-Za-z._-]/g, '-');
+}
+
+async function saveResizedJpeg(source, option) {
+    const hash = pathToHash(source);
+    const filePath = path.join(destinationDirectory, `${hash}${suffix(option)}.jpg`);
+    await sharp(source)
+        .resize(option)
+        .jpeg({mozjpeg: true})
+        .toFile(filePath);
+}
+
+async function saveResizedWebp(source, option) {
+    const hash = pathToHash(source);
+    const filePath = path.join(destinationDirectory, `${hash}${suffix(option)}.webp`);
+    await sharp(source)
+        .resize(option)
+        .webp({quality: 60})
+        .toFile(filePath);
+}
+
+async function saveJpegImage(source) {
+    const hash = pathToHash(source);
+    const {format, width, height} = await sharp(source).metadata();
+
+    try {
+        await saveResizedJpeg(source, {});
+
+        await saveResizedJpeg(source, {width: 256});
+        await saveResizedJpeg(source, {width: 512});
+        await saveResizedJpeg(source, {width: 1024});
+
+        await saveResizedJpeg(source, {width: 256, height: 256});
+        await saveResizedJpeg(source, {width: 512, height: 512});
+        await saveResizedJpeg(source, {width: 1024, height: 1024});
+
+        await saveResizedWebp(source, {});
+
+        await saveResizedWebp(source, {width: 256});
+        await saveResizedWebp(source, {width: 512});
+        await saveResizedWebp(source, {width: 1024});
+
+        await saveResizedWebp(source, {width: 256, height: 256});
+        await saveResizedWebp(source, {width: 512, height: 512});
+        await saveResizedWebp(source, {width: 1024, height: 1024});
+    } catch (e) {
+        console.error(e);
+    }
+
+    return {format, width, height, hash, source: pathToKey(source)};
 }
 
 (async () => {
-    const files = await globby(['public/**/*.{jpg,png}'], { });
+    const files = await globby(['./public/**/*.jpg'], { });
+    const map = fs.existsSync(indexPath) ? JSON.parse(fs.readFileSync(indexPath)) : {};
 
-    for (const sourcePath of files) {
-        if (sourcePath.indexOf('/build/') >= 0) continue;
+    for (const source of files) {
+        if (source.indexOf('/build/') >= 0) continue;
 
-        const destination = path.dirname(sourcePath).replace('public/', 'public/build/');
+        const key = pathToKey(source);
+        if (key in map) continue;
 
-        fs.mkdir(destination, { recursive: true }, err => {
-            if (err) throw err;
-            imagemin([sourcePath], {
-                destination,
-                plugins: [imageminJpegtran()],
-            });
-            imagemin([sourcePath], {
-                destination,
-                plugins: [imageminWebp({quality: 50})],
-            });
-        });
+        const info = await saveJpegImage(source);
+        map[key] = info;
+        map[source] = info;
+        console.log(source);
     }
+
+    fs.writeFileSync(indexPath, JSON.stringify(map, null, '  '));
+    console.log("written images.json");
 })();

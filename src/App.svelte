@@ -1,46 +1,55 @@
 <script>
 
-import { onMount } from 'svelte';
-import ExternalLinks from './components/external-links.svelte';
-import { flowers, foods, lillyAndCat, blackAndWhite } from './images.js';
+import { Router, Link, Route } from "svelte-navigator";
 
-let navFixed = false;
-let navHeight = undefined;
-let y = 0;
+import Header from './components/header.svelte';
+import About from './components/about.svelte';
 
-onMount(() => {
-    navHeight = document.querySelector('#topNav').scrollHeight;
-    y = window.scrollY;
-});
+import ImagePage from './pages/image-page.svelte';
 
-$: navFixed = (navHeight > 0 && y > navHeight);
+import { data, imagePath } from './app';
 
 </script>
 
-<svelte:window bind:scrollY={y}/>
+<Router>
+    <div class="container mx-auto flex flex-col h-screen text-gray-700">
+        <Header />
 
-<div class="flex flex-col min-h-screen text-gray-700">
-    <header class="text-center">
-        <nav id=topNav class="py-16">
-            <h1 class="text-4xl font-extrabold">Mayumi Sasage</h1>
-            <p class="text-2xl font-extralight">Illustrator &amp; Artist</p>
-            <div class="text-center"><ExternalLinks /></div>
-        </nav>
-    </header>
+        <main class="flex-auto">
+            <Route path="/">
+                <h2 id="Books">Books</h2>
+                <div class="flex flex-wrap">
+                    {#each data.books as image}
+                        <div class="w-1/2">
+                            <Link to="/images/{image.name}"><img src={imagePath(image)} alt="books"></Link>
+                        </div>
+                    {/each}
+                </div>
 
-    <main class="flex-auto">
-        {#if navFixed}
-            <div class="text-yellow-600">Fixed navHeight={navHeight}px</div>
-        {:else}
-            <div class="text-green-600">Not fixed navHeight={navHeight}px</div>
-        {/if}
-        <img src="/renew-march-2021/foods/5.jpg">
-    </main>
+                <h2 id="Illustrations">Illustrations</h2>
+                <div class="flex flex-wrap">
+                    {#each data.illustrations as image}
+                        <div class="w-1/2">
+                            <Link to="/images/{image.name}"><img src={imagePath(image)} alt="illustratioins"></Link>
+                        </div>
+                    {/each}
+                </div>
+                <div>
+                    <h2 id="About">About</h2>
+                    <About />
+                </div>
+            </Route>
+            <Route path="/images/*imageId" component={ImagePage} />
+            <Route>
+                <h1 class="text-9xl text-red-500 text-center">File not found</h1>
+            </Route>
+        </main>
 
-    <footer class="text-center">
-        <p>&copy; 2020-2021 Mayumi Sasage. All rights reserved.</p>
-    </footer>
-</div>
+        <footer class="text-center py-3">
+            <p>&copy; 2020-2021 Mayumi Sasage. All rights reserved.</p>
+        </footer>
+    </div>
+</Router>
 
 <style>
 </style>
