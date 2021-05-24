@@ -1,6 +1,10 @@
 <script>
 
+import { onMount } from 'svelte';
+import { fly } from 'svelte/transition';
+
 import ExternalLinks from './external-links.svelte';
+import ToggleLang from './toggle-lang.svelte';
 
 import { imagePath } from '../app';
 
@@ -9,21 +13,41 @@ export let lang = '';
 
 const sections = ["Books", "Illustrations", "About"];
 
+// fixed header
+
+let y = 0;
+let topNav;
+let topNavThreshold = undefined;
+const margin = 20;
+
+onMount(() => {
+    topNavThreshold = topNav.offsetTop + topNav.offsetHeight + margin;
+});
+
+$: topNavFixed = topNav ? (y > topNavThreshold) : false;
 </script>
 
+<svelte:window bind:scrollY={y} />
+
 <header class="text-center">
-    <nav id="topNav">
-        <div class="fixed bg-white left-0 top-0">
-            <button class="border rounded-lg px-2" on:click={() => lang = 'en'}>en</button>
-            <button class="border rounded-lg px-2" on:click={() => lang = 'ja'}>ja</button>
-            current lang = {lang}
-        </div>
+    <nav bind:this={topNav}>
         <h1 class="my-3 text-4xl font-extrabold">Mayumi Sasage</h1>
         <p class="mb-3 text-2xl">Illustrator &amp; Artist</p>
         <div><ExternalLinks /></div>
+        <ToggleLang bind:lang />
     </nav>
 
-    <img src={imagePath(data.topImages[0])} alt="top image">
+    <img src={imagePath(data.topImages[0], '-w1024-h1024')} alt="top image">
+
+    {#if topNavFixed}
+        <div transition:fly={{y:-40}} class="fixed left-0 top-0 w-full p-2 text-left bg-white bg-opacity-90 border-b">
+            <dic class="flex justify-between">
+                <h1 class="text-2xl font-bold">Mayumi Sasage</h1>
+                <div><ExternalLinks /></div>
+            </dic>
+            <ToggleLang bind:lang />
+        </div>
+    {/if}
 
     <nav class="my-3">
         <ul class="flex justify-center text-2xl font-semibold space-x-4">
@@ -34,7 +58,7 @@ const sections = ["Books", "Illustrations", "About"];
     </nav>
 
     <div class=" fixed right-0 top-0">
-        <div class="sm:hidden inline-block">-</div>
+        <div class="sm:hidden inline-block">: &lt; 640px</div>
         <div class="md:hidden sm:inline-block hidden">sm: 640px</div>
         <div class="lg:hidden md:inline-block hidden">md: 768px</div>
         <div class="xl:hidden lg:inline-block hidden">lg: 1024px</div>

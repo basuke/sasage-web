@@ -19,7 +19,6 @@ const illustrations = data.images.filter(image => image.category === 'illustrati
 
 <Router>
     <div class="container mx-auto flex flex-col h-screen text-gray-600">
-        <div class="text-green-400">lang={lang}</div>
         <Header {data} bind:lang />
 
         <main class="flex-auto">

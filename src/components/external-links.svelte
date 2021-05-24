@@ -7,6 +7,11 @@ const links = [
         target: "_blank",
     },
     { type: "fab fa-instagram", url: "https://www.instagram.com/mayumi.sasage/", target: "_blank" },
+    {
+        type: "fab fa-twitter",
+        url: "https://twitter.com/SasageMayumi",
+        target: "_blank",
+    },
     { type: "far fa-envelope", url: "mailto:sasage.mayumi@gmail.com", target: "_self" },
 ];
 

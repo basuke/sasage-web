@@ -1,7 +1,6 @@
 const globby = require('globby');
 const path = require('path');
 const fs = require('fs');
-const md5 = require('md5');
 const sharp = require('sharp');
 
 const sourceDirectory = 'public/images';
@@ -20,7 +19,9 @@ function pathToKey(source) {
 }
 
 function pathToHash(source) {
-    return pathToKey(source).replace(/[^0-9A-Za-z._-]/g, '-');
+    return pathToKey(source)
+        .replace(/\.[a-zA-Z0-9]+$/, '')    // remove extension
+        .replace(/[^0-9A-Za-z._-]/g, '-'); // escape chars
 }
 
 async function saveResizedJpeg(source, option) {
