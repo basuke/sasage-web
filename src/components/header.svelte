@@ -2,6 +2,7 @@
 
 import { onMount } from 'svelte';
 import { fly } from 'svelte/transition';
+import { useLocation } from "svelte-navigator";
 
 import ExternalLinks from './external-links.svelte';
 import ToggleLang from './toggle-lang.svelte';
@@ -13,6 +14,11 @@ export let lang = '';
 
 const sections = ["Books", "Illustrations", "About"];
 
+// top page detection
+
+const location = useLocation();
+$: isTopPage = $location.pathname === '/';
+
 // fixed header
 
 let y = 0;
@@ -21,28 +27,36 @@ let topNavThreshold = undefined;
 const margin = 20;
 
 onMount(() => {
-    topNavThreshold = topNav.offsetTop + topNav.offsetHeight + margin;
+    if (topNav) {
+        topNavThreshold = topNav.offsetTop + topNav.offsetHeight + margin;
+    }
 });
 
 $: topNavFixed = topNav ? (y > topNavThreshold) : false;
+
 </script>
 
 <svelte:window bind:scrollY={y} />
 
 <header class="text-center">
-    <nav bind:this={topNav}>
-        <h1 class="my-3 text-4xl font-extrabold">Mayumi Sasage</h1>
-        <p class="mb-3 text-2xl">Illustrator &amp; Artist</p>
-        <div><ExternalLinks /></div>
-        <ToggleLang bind:lang />
-    </nav>
 
-    <img src={imagePath(data.topImages[0], '-w1024-h1024')} alt="top image">
+    {#if isTopPage}
+        <nav bind:this={topNav}>
+            <h1 class="my-3 text-4xl font-extrabold">Mayumi Sasage</h1>
+            <p class="mb-3 text-2xl">Illustrator &amp; Artist</p>
+            <div><ExternalLinks /></div>
+            <ToggleLang bind:lang />
+        </nav>
 
-    {#if topNavFixed}
+        <img src={imagePath(data.topImages[0], '-w1024-h1024')} alt="top image">
+    {:else}
+        <div class="h-20"><!-- Fixedなヘッダーのためのスペーサー --></div>
+    {/if}
+
+    {#if topNavFixed || !isTopPage}
         <div transition:fly={{y:-40}} class="fixed left-0 top-0 w-full p-2 text-left bg-white bg-opacity-90 border-b">
             <dic class="flex justify-between">
-                <h1 class="text-2xl font-bold">Mayumi Sasage</h1>
+                <h1 class="text-2xl font-bold"><a href="/">Mayumi Sasage</a></h1>
                 <div><ExternalLinks /></div>
             </dic>
             <ToggleLang bind:lang />
