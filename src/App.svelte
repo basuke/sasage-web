@@ -1,19 +1,20 @@
 <script>
 
 import { Router, Link, Route } from "svelte-navigator";
+import { imagePath } from "./app";
 
 import Header from './components/header.svelte';
 import About from './components/about.svelte';
-import ImageGrid from './components/image-grid.svelte';
 
+import CollectionPage from './pages/collection-page.svelte';
 import ImagePage from './pages/image-page.svelte';
 
 export let data = {};
 
 let lang = "en";
 
-const books = data.images.filter(image => image.category === 'books');
-const illustrations = data.images.filter(image => image.category === 'illustrations');
+const books = data.collections.filter(collection => collection.book);
+const others = data.collections.filter(collection => !collection.book);
 
 </script>
 
@@ -25,12 +26,28 @@ const illustrations = data.images.filter(image => image.category === 'illustrati
             <Route path="/">
                 <div id="Books">
                     <h2 class="my-4 text-center text-3xl">Books</h2>
-                    <ImageGrid images={books} category="Books" />
+                    <ul class="flex flex-wrap">
+                        {#each books as collection}
+                            <li class="w-full">
+                                <Link to="/collection/{collection.id}">
+                                    <img class="my-1 shadow-md" src={imagePath(collection.image)} alt={collection.title}>
+                                </Link>
+                            </li>
+                        {/each}
+                    </ul>
                 </div>
 
                 <div id="Illustrations">
                     <h2 class="my-4 text-center text-3xl">Illustrations</h2>
-                    <ImageGrid images={illustrations} category="Illustrations" />
+                    <ul class="flex flex-wrap">
+                        {#each others as collection}
+                            <li class="w-full">
+                                <Link to="/collection/{collection.id}">
+                                    <img class="my-1 shadow-md" src={imagePath(collection.image)} alt={collection.title}>
+                                </Link>
+                            </li>
+                        {/each}
+                    </ul>
                 </div>
 
                 <div id="About">
@@ -39,8 +56,12 @@ const illustrations = data.images.filter(image => image.category === 'illustrati
                 </div>
             </Route>
 
-            <Route path="/images/:imageId" let:params>
-                <ImagePage {data} {lang} imageId={params.imageId} />
+            <Route path="/collection/:id" let:params>
+                <CollectionPage {data} {lang} id={params.id} />
+            </Route>
+
+            <Route path="/image/:id" let:params>
+                <ImagePage {data} {lang} id={params.id} />
             </Route>
 
             <Route>

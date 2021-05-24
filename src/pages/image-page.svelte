@@ -1,30 +1,23 @@
 <script>
 
-import { findImage, imagePath } from '../app';
+import { findImage, imagePath, translated } from '../app';
 
-export let imageId;
+export let id;
 export let data = {};
 export let lang = 'en';
 
-const image = findImage(data.images, imageId);
+const image = findImage(data.images, id);
 
-function translated(key, lang) {
-    if (!image) return '';
-    let value = image[key];
-    key = key + '-' + lang;
-    if (key in image) value = image[key];
-    return value;
-}
-
-$: description = translated('description', lang);
-$: title = translated('title', lang);
+$: description = translated(image, 'description', lang);
+$: title = translated(image, 'title', lang);
 
 </script>
 
 {#if !image}
     <h1>Image not find</h1>
 {:else}
-    <img src={imagePath(image)} alt={image.title}>
+    id = {id}
+    <img src={imagePath(id)} alt={title}>
 
     {#if title}
         <h2 class="my-3 text-center text-2xl font-bold">{title}</h2>
