@@ -4,6 +4,7 @@ import { Link } from "svelte-navigator";
 import { imagePath } from "../app";
 
 import About from '../components/about.svelte';
+import ImageCell from '../components/image-cell.svelte';
 
 export let data = {};
 export let lang = '';
@@ -31,11 +32,7 @@ const illustrations = data.collections.find(collection => collection.id === 'ill
     <ul class="flex flex-wrap">
         {#each illustrations.images as imageId}
             <li class="w-full">
-                <div class="px-16">
-                    <Link to="/images/{imageId}">
-                        <img class="my-8 shadow-lg" src={imagePath(imageId)} alt={imageId}>
-                    </Link>
-                </div>
+                <ImageCell {data} {lang} id={imageId}/>
             </li>
         {/each}
     </ul>
