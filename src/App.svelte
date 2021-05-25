@@ -8,6 +8,7 @@ import About from './components/about.svelte';
 
 import CollectionPage from './pages/collection-page.svelte';
 import ImagePage from './pages/image-page.svelte';
+import NotFoundPage from './pages/not-found-page.svelte';
 
 export let data = {};
 
@@ -30,7 +31,7 @@ console.log(illustrations);
                     <ul class="flex flex-wrap">
                         {#each books as collection}
                             <li class="w-full">
-                                <Link to="/collection/{collection.id}">
+                                <Link to="/collections/{collection.id}">
                                     <img class="my-1 shadow-md" src={imagePath(collection.image)} alt={collection.title}>
                                 </Link>
                             </li>
@@ -43,7 +44,7 @@ console.log(illustrations);
                     <ul class="flex flex-wrap">
                         {#each illustrations.images as imageId}
                             <li class="w-full px-16">
-                                <Link to="/image/{imageId}">
+                                <Link to="/images/{imageId}">
                                     <img class="my-8 shadow-lg" src={imagePath(imageId)} alt={imageId}>
                                 </Link>
                             </li>
@@ -57,16 +58,16 @@ console.log(illustrations);
                 </div>
             </Route>
 
-            <Route path="/collection/:id" let:params>
+            <Route path="/collections/:id" let:params>
                 <CollectionPage {data} {lang} id={params.id} />
             </Route>
 
-            <Route path="/image/:id" let:params>
+            <Route path="/images/:id" let:params>
                 <ImagePage {data} {lang} id={params.id} />
             </Route>
 
             <Route>
-                <h1 class="text-9xl text-red-500 text-center">File not found</h1>
+                <NotFoundPage/>
             </Route>
         </main>
 

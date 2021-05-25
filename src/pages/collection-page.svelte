@@ -31,7 +31,7 @@ const images = collection && 'images' in collection ? collection.images : [];
     <ul class="flex flex-wrap">
         {#each images as imageId}
             <li class="w-full">
-                <Link to="/image/{imageId}">
+                <Link to="/images/{imageId}">
                     <img class="my-1 shadow-md" src={imagePath(imageId)} alt={imageId}>
                 </Link>
             </li>

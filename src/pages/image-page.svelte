@@ -2,6 +2,8 @@
 
 import { findImage, imagePath, translated } from '../app';
 
+import NotFoundPage from './not-found-page.svelte';
+
 export let id;
 export let data = {};
 export let lang = 'en';
@@ -14,7 +16,7 @@ $: title = translated(image, 'title', lang);
 </script>
 
 {#if !image}
-    <h1>Image not find</h1>
+    <NotFoundPage/>
 {:else}
     id = {id}
     <img src={imagePath(id)} alt={title}>
