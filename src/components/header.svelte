@@ -5,12 +5,10 @@ import { fly } from 'svelte/transition';
 import { useLocation } from "svelte-navigator";
 
 import ExternalLinks from './external-links.svelte';
-import ToggleLang from './toggle-lang.svelte';
 
 import { imagePath } from '../app';
 
 export let data = {};
-export let lang = '';
 
 const sections = ["Books", "Illustrations", "About"];
 
@@ -45,10 +43,9 @@ $: topNavFixed = topNav ? (y > topNavThreshold) : false;
             <h1 class="my-3 text-4xl font-extrabold">Mayumi Sasage</h1>
             <p class="mb-3 text-2xl">Illustrator &amp; Artist</p>
             <div><ExternalLinks /></div>
-            <ToggleLang bind:lang />
         </nav>
 
-        <img src={imagePath(data.topImages[0], '-w1024-h1024')} alt="top image">
+        <img src={imagePath(data.topImages[0], '-w400')} alt="top image">
     {:else}
         <div class="h-20"><!-- Fixedなヘッダーのためのスペーサー --></div>
     {/if}
@@ -57,9 +54,7 @@ $: topNavFixed = topNav ? (y > topNavThreshold) : false;
         <div transition:fly={{y:-40}} class="fixed left-0 top-0 w-full p-2 text-left bg-white bg-opacity-90 border-b">
             <dic class="flex justify-between">
                 <h1 class="text-2xl font-bold"><a href="/">Mayumi Sasage</a></h1>
-                <div><ExternalLinks /></div>
             </dic>
-            <ToggleLang bind:lang />
         </div>
     {/if}
 

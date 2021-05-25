@@ -5,6 +5,7 @@ import { imagePath } from "./app";
 
 import Header from './components/header.svelte';
 import About from './components/about.svelte';
+import ExternalLinks from './components/external-links.svelte';
 
 import CollectionPage from './pages/collection-page.svelte';
 import ImagePage from './pages/image-page.svelte';
@@ -72,7 +73,8 @@ console.log(illustrations);
         </main>
 
         <footer class="text-center py-3">
-            <p>&copy; 2020-2021 Mayumi Sasage. All rights reserved.</p>
+            <ExternalLinks />
+            <p class="text-xs py-4">&copy; 2020-2021 Mayumi Sasage. All rights reserved.</p>
         </footer>
     </div>
 </Router>
