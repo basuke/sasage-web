@@ -14,7 +14,8 @@ export let data = {};
 let lang = "en";
 
 const books = data.collections.filter(collection => collection.book);
-const others = data.collections.filter(collection => !collection.book);
+const illustrations = data.collections.find(collection => collection.id === 'illustrations');
+console.log(illustrations);
 
 </script>
 
@@ -40,10 +41,10 @@ const others = data.collections.filter(collection => !collection.book);
                 <div id="Illustrations">
                     <h2 class="my-4 text-center text-3xl">Illustrations</h2>
                     <ul class="flex flex-wrap">
-                        {#each others as collection}
-                            <li class="w-full">
-                                <Link to="/collection/{collection.id}">
-                                    <img class="my-1 shadow-md" src={imagePath(collection.image)} alt={collection.title}>
+                        {#each illustrations.images as image}
+                            <li class="w-full px-16">
+                                <Link to="/image/{image}">
+                                    <img class="my-8 shadow-lg" src={imagePath(image)} alt={image}>
                                 </Link>
                             </li>
                         {/each}
