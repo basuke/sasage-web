@@ -9,7 +9,7 @@ export function findCollection(collections, id) {
 }
 
 export function findImage(images, id) {
-    return images.find(image => image.id === id);
+    return images[id];
 }
 
 export function translated(obj, key, lang) {
@@ -138,226 +138,356 @@ export const data = {
             ],
         },
     ],
-    images: [
-        {
-            id: 'Book-Farmers-Maket-cover',
-            title: 'Book-Farmers-Maket-cover',
+    images: {
+        "images-cover-wide": {
+            "id": "images-cover-wide",
+            "format": "jpeg",
+            "width": 2673,
+            "height": 1485,
+            "title": "images-cover-wide"
         },
-        {
-            id: 'Book-Farmers-Maket-fm1',
-            title: 'Book-Farmers-Maket-fm1',
+        "images-cover": {
+            "id": "images-cover",
+            "format": "jpeg",
+            "width": 1280,
+            "height": 948,
+            "title": "images-cover"
         },
-        {
-            id: 'Book-Farmers-Maket-fm2',
-            title: 'Book-Farmers-Maket-fm2',
+        "renew-march-2021-picnic": {
+            "id": "renew-march-2021-picnic",
+            "format": "jpeg",
+            "width": 1280,
+            "height": 480,
+            "title": "renew-march-2021-picnic"
         },
-        {
-            id: 'Book-Farmers-Maket-fm3',
-            title: 'Book-Farmers-Maket-fm3',
+        "images-black-and-white-bw1": {
+            "id": "images-black-and-white-bw1",
+            "format": "jpeg",
+            "width": 2700,
+            "height": 2000,
+            "title": "images-black-and-white-bw1"
         },
-        {
-            id: 'Book-Farmers-Maket-fm4',
-            title: 'Book-Farmers-Maket-fm4',
+        "images-black-and-white-bw2": {
+            "id": "images-black-and-white-bw2",
+            "format": "jpeg",
+            "width": 2000,
+            "height": 2700,
+            "title": "images-black-and-white-bw2"
         },
-        {
-            id: 'Book-Flower-1',
-            title: 'Book-Flower-1',
+        "images-black-and-white-bw3": {
+            "id": "images-black-and-white-bw3",
+            "format": "jpeg",
+            "width": 2000,
+            "height": 2700,
+            "title": "images-black-and-white-bw3"
         },
-        {
-            id: 'Book-Flower-10',
-            title: 'Book-Flower-10',
+        "images-foods-1": {
+            "id": "images-foods-1",
+            "format": "jpeg",
+            "width": 1280,
+            "height": 480,
+            "title": "images-foods-1"
         },
-        {
-            id: 'Book-Flower-11',
-            title: 'Book-Flower-11',
+        "images-foods-2": {
+            "id": "images-foods-2",
+            "format": "jpeg",
+            "width": 1280,
+            "height": 480,
+            "title": "images-foods-2"
         },
-        {
-            id: 'Book-Flower-12',
-            title: 'Book-Flower-12',
+        "images-foods-3": {
+            "id": "images-foods-3",
+            "format": "jpeg",
+            "width": 1280,
+            "height": 480,
+            "title": "images-foods-3"
         },
-        {
-            id: 'Book-Flower-13',
-            title: 'Book-Flower-13',
+        "images-foods-4": {
+            "id": "images-foods-4",
+            "format": "jpeg",
+            "width": 1280,
+            "height": 829,
+            "title": "images-foods-4"
         },
-        {
-            id: 'Book-Flower-14',
-            title: 'Book-Flower-14',
+        "images-foods-5": {
+            "id": "images-foods-5",
+            "format": "jpeg",
+            "width": 959,
+            "height": 1280,
+            "title": "images-foods-5"
         },
-        {
-            id: 'Book-Flower-15',
-            title: 'Book-Flower-15',
+        "images-foods-6": {
+            "id": "images-foods-6",
+            "format": "jpeg",
+            "width": 959,
+            "height": 1280,
+            "title": "images-foods-6"
         },
-        {
-            id: 'Book-Flower-16',
-            title: 'Book-Flower-16',
+        "renew-march-2021-flower-1": {
+            "id": "renew-march-2021-flower-1",
+            "format": "jpeg",
+            "width": 989,
+            "height": 1280,
+            "title": "renew-march-2021-flower-1"
         },
-        {
-            id: 'Book-Flower-17',
-            title: 'Book-Flower-17',
+        "renew-march-2021-flower-2": {
+            "id": "renew-march-2021-flower-2",
+            "format": "jpeg",
+            "width": 989,
+            "height": 1280,
+            "title": "renew-march-2021-flower-2"
         },
-        {
-            id: 'Book-Flower-2',
-            title: 'Book-Flower-2',
+        "renew-march-2021-flower-3": {
+            "id": "renew-march-2021-flower-3",
+            "format": "jpeg",
+            "width": 989,
+            "height": 1280,
+            "title": "renew-march-2021-flower-3"
         },
-        {
-            id: 'Book-Flower-3',
-            title: 'Book-Flower-3',
+        "renew-march-2021-flower-4": {
+            "id": "renew-march-2021-flower-4",
+            "format": "jpeg",
+            "width": 989,
+            "height": 1280,
+            "title": "renew-march-2021-flower-4"
         },
-        {
-            id: 'Book-Flower-4',
-            title: 'Book-Flower-4',
+        "renew-march-2021-flower-5": {
+            "id": "renew-march-2021-flower-5",
+            "format": "jpeg",
+            "width": 989,
+            "height": 1280,
+            "title": "renew-march-2021-flower-5"
         },
-        {
-            id: 'Book-Flower-5',
-            title: 'Book-Flower-5',
+        "renew-march-2021-flower-6": {
+            "id": "renew-march-2021-flower-6",
+            "format": "jpeg",
+            "width": 989,
+            "height": 1280,
+            "title": "renew-march-2021-flower-6"
         },
-        {
-            id: 'Book-Flower-6',
-            title: 'Book-Flower-6',
+        "renew-march-2021-flower-7": {
+            "id": "renew-march-2021-flower-7",
+            "format": "jpeg",
+            "width": 989,
+            "height": 1280,
+            "title": "renew-march-2021-flower-7"
         },
-        {
-            id: 'Book-Flower-7',
-            title: 'Book-Flower-7',
+        "images-lilliy-and-cat-lilly1": {
+            "id": "images-lilliy-and-cat-lilly1",
+            "format": "jpeg",
+            "width": 1280,
+            "height": 1280,
+            "title": "images-lilliy-and-cat-lilly1"
         },
-        {
-            id: 'Book-Flower-8',
-            title: 'Book-Flower-8',
+        "images-lilliy-and-cat-lilly2": {
+            "id": "images-lilliy-and-cat-lilly2",
+            "format": "jpeg",
+            "width": 1280,
+            "height": 1280,
+            "title": "images-lilliy-and-cat-lilly2"
         },
-        {
-            id: 'Book-Flower-9',
-            title: 'Book-Flower-9',
+        "images-lilliy-and-cat-lilly3": {
+            "id": "images-lilliy-and-cat-lilly3",
+            "format": "jpeg",
+            "width": 1280,
+            "height": 1280,
+            "title": "images-lilliy-and-cat-lilly3"
         },
-        {
-            id: 'Book-Flower-cover',
-            title: 'Book-Flower-cover',
+        "images-lilliy-and-cat-lilly4": {
+            "id": "images-lilliy-and-cat-lilly4",
+            "format": "jpeg",
+            "width": 1280,
+            "height": 1280,
+            "title": "images-lilliy-and-cat-lilly4"
         },
-        {
-            id: 'Book-Lily-and-the-black-cat-1',
-            title: 'Book-Lily-and-the',
+        "images-lilliy-and-cat-lilly5": {
+            "id": "images-lilliy-and-cat-lilly5",
+            "format": "jpeg",
+            "width": 1280,
+            "height": 1280,
+            "title": "images-lilliy-and-cat-lilly5"
         },
-        {
-            id: 'Book-Lily-and-the-black-cat-2',
-            title: 'Book-Lily-and-the',
+        "images-lilliy-and-cat-lilly6": {
+            "id": "images-lilliy-and-cat-lilly6",
+            "format": "jpeg",
+            "width": 1280,
+            "height": 1280,
+            "title": "images-lilliy-and-cat-lilly6"
         },
-        {
-            id: 'Book-Lily-and-the-black-cat-3',
-            title: 'Book-Lily-and-the',
+        "images-lilliy-and-cat-lilly7": {
+            "id": "images-lilliy-and-cat-lilly7",
+            "format": "jpeg",
+            "width": 1280,
+            "height": 480,
+            "title": "images-lilliy-and-cat-lilly7"
         },
-        {
-            id: 'Book-Lily-and-the-black-cat-4',
-            title: 'Book-Lily-and-the',
+        "images-flowers-1": {
+            "id": "images-flowers-1",
+            "format": "jpeg",
+            "width": 989,
+            "height": 1280,
+            "title": "images-flowers-1"
         },
-        {
-            id: 'Book-Lily-and-the-black-cat-5',
-            title: 'Book-Lily-and-the',
+        "images-flowers-2": {
+            "id": "images-flowers-2",
+            "format": "jpeg",
+            "width": 989,
+            "height": 1280,
+            "title": "images-flowers-2"
         },
-        {
-            id: 'Book-Lost-In-The-Rain-cover',
-            title: 'Book-Lost-In-The',
+        "images-flowers-3": {
+            "id": "images-flowers-3",
+            "format": "jpeg",
+            "width": 989,
+            "height": 1280,
+            "title": "images-flowers-3"
         },
-        {
-            id: 'Book-Lost-In-The-Rain-page1',
-            title: 'Book-Lost-In-The',
+        "images-flowers-4": {
+            "id": "images-flowers-4",
+            "format": "jpeg",
+            "width": 989,
+            "height": 1280,
+            "title": "images-flowers-4"
         },
-        {
-            id: 'Book-Lost-In-The-Rain-page2',
-            title: 'Book-Lost-In-The',
+        "images-flowers-5": {
+            "id": "images-flowers-5",
+            "format": "jpeg",
+            "width": 989,
+            "height": 1280,
+            "title": "images-flowers-5"
         },
-        {
-            id: 'Book-Lost-In-The-Rain-page3',
-            title: 'Book-Lost-In-The',
+        "images-flowers-6": {
+            "id": "images-flowers-6",
+            "format": "jpeg",
+            "width": 989,
+            "height": 1280,
+            "title": "images-flowers-6"
         },
-        {
-            id: 'Book-Lost-In-The-Rain-page4',
-            title: 'Book-Lost-In-The',
+        "images-flowers-7": {
+            "id": "images-flowers-7",
+            "format": "jpeg",
+            "width": 989,
+            "height": 1280,
+            "title": "images-flowers-7"
         },
-        {
-            id: 'Book-Lost-In-The-Rain-page5',
-            title: 'Book-Lost-In-The',
+        "renew-march-2021-foods-1": {
+            "id": "renew-march-2021-foods-1",
+            "format": "jpeg",
+            "width": 1280,
+            "height": 480,
+            "title": "renew-march-2021-foods-1"
         },
-        {
-            id: 'Drawings-1',
-            title: 'Drawings-1',
+        "renew-march-2021-foods-2": {
+            "id": "renew-march-2021-foods-2",
+            "format": "jpeg",
+            "width": 1280,
+            "height": 480,
+            "title": "renew-march-2021-foods-2"
         },
-        {
-            id: 'Drawings-2',
-            title: 'Drawings-2',
+        "renew-march-2021-foods-3": {
+            "id": "renew-march-2021-foods-3",
+            "format": "jpeg",
+            "width": 1280,
+            "height": 480,
+            "title": "renew-march-2021-foods-3"
         },
-        {
-            id: 'Drawings-3',
-            title: 'Drawings-3',
+        "renew-march-2021-foods-4": {
+            "id": "renew-march-2021-foods-4",
+            "format": "jpeg",
+            "width": 1280,
+            "height": 829,
+            "title": "renew-march-2021-foods-4"
         },
-        {
-            id: 'Drawings-4',
-            title: 'Drawings-4',
+        "renew-march-2021-foods-5": {
+            "id": "renew-march-2021-foods-5",
+            "format": "jpeg",
+            "width": 959,
+            "height": 1280,
+            "title": "renew-march-2021-foods-5"
         },
-        {
-            id: 'Drawings-5',
-            title: 'Drawings-5',
+        "renew-march-2021-foods-6": {
+            "id": "renew-march-2021-foods-6",
+            "format": "jpeg",
+            "width": 959,
+            "height": 1280,
+            "title": "renew-march-2021-foods-6"
         },
-        {
-            id: 'Illustration--1',
-            title: 'Illustration--1',
+        "renew-march-2021-picturebook-0": {
+            "id": "renew-march-2021-picturebook-0",
+            "format": "png",
+            "width": 1280,
+            "height": 1280,
+            "title": "renew-march-2021-picturebook-0"
         },
-        {
-            id: 'Spiced-tea-1',
-            title: 'Spiced-tea-1',
+        "renew-march-2021-picturebook-1": {
+            "id": "renew-march-2021-picturebook-1",
+            "format": "png",
+            "width": 1280,
+            "height": 1280,
+            "title": "renew-march-2021-picturebook-1"
         },
-        {
-            id: 'Spiced-tea-2',
-            title: 'Spiced-tea-2',
+        "renew-march-2021-picturebook-2": {
+            "id": "renew-march-2021-picturebook-2",
+            "format": "png",
+            "width": 1280,
+            "height": 1280,
+            "title": "renew-march-2021-picturebook-2"
         },
-        {
-            id: 'Spiced-tea-3',
-            title: 'Spiced-tea-3',
+        "renew-march-2021-picturebook-3": {
+            "id": "renew-march-2021-picturebook-3",
+            "format": "png",
+            "width": 1280,
+            "height": 1280,
+            "title": "renew-march-2021-picturebook-3"
         },
-        {
-            id: 'Summer-a',
-            title: 'Summer-a',
+        "renew-march-2021-picturebook-4": {
+            "id": "renew-march-2021-picturebook-4",
+            "format": "png",
+            "width": 1280,
+            "height": 1280,
+            "title": "renew-march-2021-picturebook-4"
         },
-        {
-            id: 'Summer-b',
-            title: 'Summer-b',
+        "renew-march-2021-picturebook-8": {
+            "id": "renew-march-2021-picturebook-8",
+            "format": "png",
+            "width": 1280,
+            "height": 1280,
+            "title": "renew-march-2021-picturebook-8"
         },
-        {
-            id: 'Summer-c',
-            title: 'Summer-c',
+        "renew-march-2021-thumbnails-1": {
+            "id": "renew-march-2021-thumbnails-1",
+            "format": "png",
+            "width": 1280,
+            "height": 1280,
+            "title": "renew-march-2021-thumbnails-1"
         },
-        {
-            id: 'morning-routine--a',
-            title: 'morning-routine--a',
+        "renew-march-2021-thumbnails-12": {
+            "id": "renew-march-2021-thumbnails-12",
+            "format": "png",
+            "width": 1280,
+            "height": 1280,
+            "title": "renew-march-2021-thumbnails-12"
         },
-        {
-            id: 'morning-routine--b',
-            title: 'morning-routine--b',
+        "renew-march-2021-thumbnails-5": {
+            "id": "renew-march-2021-thumbnails-5",
+            "format": "png",
+            "width": 1280,
+            "height": 1280,
+            "title": "renew-march-2021-thumbnails-5"
         },
-        {
-            id: 'top-square-1',
-            title: 'top-square-1',
+        "renew-march-2021-thumbnails-6": {
+            "id": "renew-march-2021-thumbnails-6",
+            "format": "png",
+            "width": 1280,
+            "height": 1280,
+            "title": "renew-march-2021-thumbnails-6"
         },
-        {
-            id: 'top-square-2',
-            title: 'top-square-2',
-        },
-        {
-            id: 'top-square-3',
-            title: 'top-square-3',
-        },
-        {
-            id: 'top-square-4',
-            title: 'top-square-4',
-        },
-        {
-            id: 'top-square-5',
-            title: 'top-square-5',
-        },
-        {
-            id: 'top-square-6',
-            title: 'top-square-6',
-        },
-        {
-            id: 'top-square-7',
-            title: 'top-square-7',
-        },
-    ],
+        "renew-march-2021-thumbnails-7": {
+            "id": "renew-march-2021-thumbnails-7",
+            "format": "png",
+            "width": 1280,
+            "height": 1280,
+            "title": "renew-march-2021-thumbnails-7"
+        }
+    }
 };

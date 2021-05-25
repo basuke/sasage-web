@@ -10,6 +10,18 @@ const destinationDirectory = 'images';
 const indexPath = './public/build/images.json';
 const storageBucket = 'sasage-website-71713.appspot.com';
 
+const resizeOptions = [
+    {width: 400},
+    {width: 800},
+    {width: 1200},
+
+    {height: 400},
+
+    {width: 400, height: 400},
+    {width: 800, height: 800},
+    {width: 1200, height: 1200},
+];
+
 const args = minimist(process.argv.slice(2));
 const directory = args._.length ? args._[0] : './public';
 
@@ -69,19 +81,10 @@ async function saveResizedWebp(source, option) {
 }
 
 async function saveJpegImage(source) {
-    const hash = pathToHash(source);
     const {format, width, height} = await sharp(source).metadata();
 
     const tasks = [];
-    const options = [
-        {},
-        {width: 512},
-        {width: 1024},
-        {height: 512},
-        {height: 1024},
-        {width: 512, height: 512},
-        {width: 1024, height: 1024},
-    ];
+    const options = [{}, ...resizeOptions];
 
     for (const option of options) {
         tasks.push(saveResizedJpeg(source, option));
@@ -90,7 +93,8 @@ async function saveJpegImage(source) {
 
     await Promise.all(tasks);
 
-    return {format, width, height, hash, source: pathToKey(source)};
+    const hash = pathToHash(source);
+    return {id: hash, format, width, height, title: hash};
 }
 
 const serviceAccountKey = JSON.parse(fs.readFileSync('./serviceAccountKey.json'));
@@ -104,15 +108,13 @@ const bucket = admin.storage().bucket();
 
 (async () => {
     const files = await globby([directory + '/**/*.{jpg,png}'], { });
-    const map = fs.existsSync(indexPath) ? JSON.parse(fs.readFileSync(indexPath)) : {};
+    const map = {};
 
     for (const source of files) {
-        const key = pathToKey(source);
-        if (key in map) continue;
+        const key = pathToHash(source);
 
         const info = await saveJpegImage(source);
         map[key] = info;
-        map[source] = info;
         console.log(source);
     }
 

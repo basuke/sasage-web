@@ -29,10 +29,10 @@ const images = collection && 'images' in collection ? collection.images : [];
         <p class="leading-normal text-lg font-light">{description}</p>
     {/if}
     <ul class="flex flex-wrap">
-        {#each images as image}
+        {#each images as imageId}
             <li class="w-full">
-                <Link to="/image/{image}">
-                    <img class="my-1 shadow-md" src={imagePath(image)} alt={image}>
+                <Link to="/image/{imageId}">
+                    <img class="my-1 shadow-md" src={imagePath(imageId)} alt={imageId}>
                 </Link>
             </li>
         {/each}

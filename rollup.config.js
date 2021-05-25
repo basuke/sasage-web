@@ -7,14 +7,6 @@ import css from 'rollup-plugin-css-only';
 
 const production = !process.env.ROLLUP_WATCH;
 
-const buildImages = () => ({
-	buildStart(opts) {
-		require('child_process').execSync('node scripts/minimize.js', {
-			stdio: ['ignore', 'inherit', 'inherit'],
-		});
-	}
-});
-
 function serve() {
 	let server;
 	
@@ -66,8 +58,6 @@ export default {
 			dedupe: ['svelte']
 		}),
 		commonjs(),
-
-		buildImages(),
 
 		// In dev mode, call `npm run start` once
 		// the bundle has been generated

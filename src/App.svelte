@@ -41,10 +41,10 @@ console.log(illustrations);
                 <div id="Illustrations">
                     <h2 class="my-4 text-center text-3xl">Illustrations</h2>
                     <ul class="flex flex-wrap">
-                        {#each illustrations.images as image}
+                        {#each illustrations.images as imageId}
                             <li class="w-full px-16">
-                                <Link to="/image/{image}">
-                                    <img class="my-8 shadow-lg" src={imagePath(image)} alt={image}>
+                                <Link to="/image/{imageId}">
+                                    <img class="my-8 shadow-lg" src={imagePath(imageId)} alt={imageId}>
                                 </Link>
                             </li>
                         {/each}
