@@ -16,11 +16,11 @@ const illustrations = data.collections.find(collection => collection.id === 'ill
 
 <div id="Books" class="pt-20">
     <h2 class="my-4 text-center text-3xl">Books</h2>
-    <ul class="flex flex-wrap">
+    <ul class="grid grid-cols-1 sm:grid-cols-2  gap-4">
         {#each books as collection}
             <li class="w-full">
                 <Link to="/collections/{collection.id}">
-                    <img class="my-1 shadow-md" src={imagePath(collection.image)} alt={collection.title}>
+                    <img class="my-1 shadow-md" src={imagePath(collection.image, '-w400-h400')} alt={collection.title}>
                 </Link>
             </li>
         {/each}
@@ -29,7 +29,7 @@ const illustrations = data.collections.find(collection => collection.id === 'ill
 
 <div id="Illustrations" class="pt-20">
     <h2 class="my-4 text-center text-3xl">Illustrations</h2>
-    <ul class="flex flex-wrap">
+    <ul class="grid grid-cols-1 sm:grid-cols-2  gap-4">
         {#each illustrations.images as imageId}
             <li class="w-full">
                 <ImageCell {data} {lang} id={imageId} link="/images/{imageId}"/>
