@@ -19,7 +19,7 @@ const links = [
 
 <ul class="flex justify-center">
     {#each links as link}
-        <li class="px-1">
+        <li class="px-2">
             <a href={link.url} target={link.target} rel="noreferrer">
                 <i class="{link.type} fa-2x"></i>
             </a>

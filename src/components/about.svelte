@@ -1,11 +1,15 @@
 <script>
 
 import { fade } from 'svelte/transition';
+import ToggleLang from './toggle-lang.svelte';
 
 export let lang = '';
 
 </script>
 
+<div class="text-right mb-3 mr-4">
+    <ToggleLang bind:lang />
+</div>
 <article>
     {#if lang === 'en'}
         <section transition:fade={{duration:100}} class="en">

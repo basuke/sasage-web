@@ -14,7 +14,7 @@ const illustrations = data.collections.find(collection => collection.id === 'ill
 
 </script>
 
-<div id="Books">
+<div id="Books" class="pt-20">
     <h2 class="my-4 text-center text-3xl">Books</h2>
     <ul class="flex flex-wrap">
         {#each books as collection}
@@ -27,18 +27,18 @@ const illustrations = data.collections.find(collection => collection.id === 'ill
     </ul>
 </div>
 
-<div id="Illustrations">
+<div id="Illustrations" class="pt-20">
     <h2 class="my-4 text-center text-3xl">Illustrations</h2>
     <ul class="flex flex-wrap">
         {#each illustrations.images as imageId}
             <li class="w-full">
-                <ImageCell {data} {lang} id={imageId}/>
+                <ImageCell {data} {lang} id={imageId} link="/images/{imageId}"/>
             </li>
         {/each}
     </ul>
 </div>
 
-<div id="About">
+<div id="About" class="pt-20">
     <h2 class="my-4 text-center text-3xl">About</h2>
     <About {lang} />
 </div>
