@@ -1,7 +1,7 @@
 const baseUrl = 'https://storage.googleapis.com/sasage-website-71713.appspot.com/images/';
 
-export function imagePath(id, variation = '') {
-    return baseUrl + id + variation + '.jpg';
+export function imagePath(id, variation = '', ext = 'jpg') {
+    return baseUrl + id + variation + '.' + ext;
 }
 
 export function findCollection(collections, id) {

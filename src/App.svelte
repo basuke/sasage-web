@@ -40,7 +40,7 @@ let lang = "en";
 
         <footer class="text-center py-3">
             <ExternalLinks />
-            <p class="text-xs py-4">&copy; 2020-2021 Mayumi Sasage. All rights reserved.</p>
+            <p class="text-xs sm:text-sm md:text-base py-4">&copy; 2020-2021 Mayumi Sasage. All rights reserved.</p>
         </footer>
     </div>
 </Router>

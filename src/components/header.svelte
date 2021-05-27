@@ -5,6 +5,7 @@ import { fly } from 'svelte/transition';
 import { useLocation } from "svelte-navigator";
 
 import ExternalLinks from './external-links.svelte';
+import Img from './img.svelte';
 
 import { imagePath } from '../app';
 
@@ -33,13 +34,13 @@ $: navFixed = navElem ? (y > navElem.offsetTop + navElem.offsetHeight + margin) 
 
     {#if isTopPage}
         <nav bind:this={navElem}>
-            <h1 class="my-3 text-4xl font-extrabold">Mayumi Sasage</h1>
-            <p class="mb-3 text-2xl">Illustrator &amp; Artist</p>
-            <div><ExternalLinks /></div>
+            <h1 class="mt-3 text-4xl font-light">MAYUMI SASAGE</h1>
+            <p class="mb-4 text-2xl font-extralight">Illustrator &amp; Artist</p>
+            <div class="mb-4"><ExternalLinks /></div>
 
-            <img src={imagePath(data.topImages[0], '-w400')} alt="top image">
+            <Img {data} id={data.topImages[0]} square />
 
-            <ul class="my-3 flex justify-center text-2xl font-semibold space-x-4">
+            <ul class="my-3 flex justify-center text-xl font-light space-x-4 text-gray-500">
                 {#each sections as title}
                     <li><a class="hover:underline" href={'/#' + title}>{title}</a></li>
                 {/each}
@@ -55,7 +56,7 @@ $: navFixed = navElem ? (y > navElem.offsetTop + navElem.offsetHeight + margin) 
                 <h1 class="text-2xl font-bold"><a href="/">Mayumi Sasage</a></h1>
             </dic>
 
-            <ul class="mt-2 flex justify-center text-xl font-semibold space-x-4">
+            <ul class="mt-2 flex justify-center text-lg font-light space-x-4 text-gray-500">
                 {#each sections as title}
                     <li><a class="hover:underline" href={'/#' + title}>{title}</a></li>
                 {/each}
