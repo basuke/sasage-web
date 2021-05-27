@@ -7,7 +7,7 @@ export let lang = '';
 
 </script>
 
-<div class="text-right mb-3 mr-4">
+<div class="text-right mb-3 mr-4 sm:hidden">
     <ToggleLang bind:lang />
 </div>
 <article>
