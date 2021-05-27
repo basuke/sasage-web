@@ -58,10 +58,6 @@ export let lang = '';
     font-size: 1.1rem;
 }
 
-article > section {
-    margin-bottom: 4em;
-}
-
 dt {
     font-weight: bold;
     font-size: 1rem;

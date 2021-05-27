@@ -1,7 +1,8 @@
 <script>
 
-import { findCollection, findImage, imagePath, translated } from '../app';
-import { Link } from "svelte-navigator";
+import { findCollection, imagePath, translated } from '../app';
+
+import ImageGrid from '../components/image-grid.svelte';
 
 export let id;
 export let data = {};
@@ -9,8 +10,8 @@ export let lang = 'en';
 
 const collection = findCollection(data.collections, id);
 
-$: description = translated(collection, 'description', lang);
-$: title = translated(collection, 'title', lang);
+const description = translated(collection, 'description', lang) ?? '';
+const title = translated(collection, 'title', lang) ?? '';
 
 const images = collection && 'images' in collection ? collection.images : [];
 
@@ -28,13 +29,6 @@ const images = collection && 'images' in collection ? collection.images : [];
     {#if description}
         <p class="leading-normal text-lg font-light">{description}</p>
     {/if}
-    <ul class="flex flex-wrap">
-        {#each images as imageId}
-            <li class="w-full">
-                <Link to="/images/{imageId}">
-                    <img class="my-1 shadow-md" src={imagePath(imageId)} alt={imageId}>
-                </Link>
-            </li>
-        {/each}
-    </ul>
+
+    <ImageGrid {data} {lang} {images} />
 {/if}

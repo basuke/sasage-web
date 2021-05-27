@@ -1,10 +1,9 @@
 <script>
 
 import { Link } from "svelte-navigator";
-import { imagePath } from "../app";
 
 import About from '../components/about.svelte';
-import ImageCell from '../components/image-cell.svelte';
+import ImageGrid from '../components/image-grid.svelte';
 import Img from '../components/img.svelte';
 
 export let data = {};
@@ -30,11 +29,7 @@ const illustrations = data.collections.find(collection => collection.id === 'ill
 
 <div id="Illustrations" class="pt-20">
     <h2 class="my-4 text-center text-2xl md:text-3xl">ILLUSTRATIONS</h2>
-    <div class="grid sm:grid-cols-2 grid-flow-row-dense gap-4 items-center">
-        {#each illustrations.images as imageId}
-            <ImageCell {data} {lang} id={imageId} link="/images/{imageId}"/>
-        {/each}
-    </div>
+    <ImageGrid {data} {lang} images={illustrations.images} />
 </div>
 
 <div id="About" class="pt-20">

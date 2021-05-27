@@ -1,22 +1,15 @@
 <script>
 
-import { Link } from "svelte-navigator";
-import { imagePath } from "../app";
+import ImageCell from '../components/image-cell.svelte';
 
+export let data = {};
+export let lang = '';
 export let images = [];
-export let category = "works";
 
 </script>
 
-<ul class="flex flex-wrap">
-    {#each images as image}
-        <li class="w-full">
-            <Link to="/images/{image.name}">
-                <img class="my-1 shadow-md" src={imagePath(image)} alt={category}>
-            </Link>
-        </li>
+<div class="grid sm:grid-cols-2 grid-flow-row-dense gap-4 items-center">
+    {#each images as id}
+        <ImageCell {data} {lang} {id} link="/images/{id}"/>
     {/each}
-</ul>
-
-<style>
-</style>
+</div>
