@@ -8,37 +8,84 @@ export let data = {};
 export let lang = {};
 export let variation = '';
 export let className = '';
-export let square = false;  // display square
-export let asis = false;    // display original
 
-const breakpoints = [400, 800, 1200];
-const maxWidth = breakpoints[breakpoints.length - 1];
+export let columns = 0;
+export let span = 1;
+
+export let square = false;  // display square
+export let w4h3 = false;    // display 4:3
+export let asis = false;    // display original
 
 if (id) {
     image = findImage(data.images, id);
 }
 
-function variationForWidth(w) {
-    if (square) return `-w${w}-h${w}`;
-    return `-w${w}`;
+const widths = [320, 480, 640, 960, 1280];
+const heights = [240, 480, 720, 960];
+
+const breakpoints = [400, 800, 1200];
+const maxWidth = breakpoints[breakpoints.length - 1];
+
+function genVariation(w, h) {
+    let variation = '';
+    if (w) variation += '-w' + w;
+    if (h) variation += '-h' + h;
+    return variation;
 }
 
-function widthChoices() {
-    if (asis || variation) return [];
-    if (square) return breakpoints.slice(0, -1);
-    return breakpoints;
+function genMedia(w) {
+    if (columns && columns > 1 && span >= 1) {
+        w = w * columns / span;
+    }
+    return `(max-width: ${w}px)`;
 }
 
-function generateSources() {
-    return widthChoices().map(width => ({
-        media: `(max-width: ${width}px)`,
-        variation: variationForWidth(width),
+// function widthChoices() {
+//     if (asis || variation) return [];
+//     if (square) return breakpoints.slice(0, -1);
+//     return breakpoints;
+// }
+
+// function generateSources() {
+//     return widthChoices().map(width => ({
+//         media: `(max-width: ${width}px)`,
+//         variation: variationForWidth(width),
+//     }));
+// }
+
+// const sources = generateSources();
+
+// if (!variation && square) variation = variationForWidth(maxWidth);
+
+let sources = [];
+
+if (variation || asis) {
+    // just list that variation or original for webp and jpg.
+} else if (square) {
+    // list only squares
+    sources = widths.filter(w => heights.indexOf(w) >= 0).map(w => ({
+        media: genMedia(w),
+        variation: genVariation(w, w),
+    }));
+    variation = sources.pop().variation;
+} else if (w4h3) {
+    // list only 4:3
+    const w4h3s = heights.map(h => [h / 3 * 4, h]);
+    sources = heights.map(h => {
+        const w = h / 3 * 4;
+        return {
+            media: genMedia(w),
+            variation: genVariation(w, h),
+        };
+    });
+    variation = sources.pop().variation;
+} else {
+    // list width constraint and original at the end
+    sources = widths.map(w => ({
+        media: genMedia(w),
+        variation: genVariation(w),
     }));
 }
-
-const sources = generateSources();
-
-if (!variation && square) variation = variationForWidth(maxWidth);
 
 </script>
 

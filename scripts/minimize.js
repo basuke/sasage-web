@@ -10,20 +10,18 @@ const destinationDirectory = 'images';
 const indexPath = './public/build/images.json';
 const storageBucket = 'sasage-website-71713.appspot.com';
 
+const widths = [320, 480, 640, 960, 1280];
+const heights = [240, 480, 720, 960];
+
 const resizeOptions = [
-    {width: 400},
-    {width: 800},
-    {width: 1200},
-
-    {height: 400},
-
-    {width: 400, height: 400},
-    {width: 800, height: 800},
-    {width: 1200, height: 1200},
+    ...widths.map(width => ({width})),
+    ...heights.map(height => ({height})),
+    ...[480, 960].map(size => ({width: size, height: size})),
+    ...heights.map(height => ({width: height / 3 * 4, height})),
 ];
 
 const args = minimist(process.argv.slice(2));
-const directory = args._.length ? args._[0] : './public';
+const directory = args._.length ? args._[0] : './images';
 
 function suffix(option) {
     let suffix = '';

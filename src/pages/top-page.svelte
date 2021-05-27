@@ -20,7 +20,7 @@ const illustrations = data.collections.find(collection => collection.id === 'ill
         {#each books as collection}
             <li class="w-full">
                 <Link to="/collections/{collection.id}">
-                    <Img className="my-1 shadow-md" variation="-w800-h800" id={collection.image} {data} />
+                    <Img className="my-1 shadow-md" variation="-w960-h960" id={collection.image} {data} />
                 </Link>
             </li>
         {/each}
