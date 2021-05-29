@@ -4,6 +4,8 @@ import { findCollection, findImage, imagePath, translated } from '../app';
 
 import ImageGrid from '../components/image-grid.svelte';
 import Img from '../components/img.svelte';
+import Container from '../components/container.svelte';
+import NotFoundPage from './not-found-page.svelte';
 
 export let id;
 export let data = {};
@@ -22,9 +24,9 @@ let columns = images.map(toImage).filter(n => n).every(isWide) ? 1 : undefined;
 </script>
 
 {#if !collection}
-    <h1>Collection not find</h1>
+    <NotFoundPage />
 {:else}
-    <div class="px-16">
+    <Container className="px-16">
         <div class="grid sm:grid-cols-2 gap-4 mb-8">
             <Img {data} {lang} id={collection.image} square />
 
@@ -35,5 +37,5 @@ let columns = images.map(toImage).filter(n => n).every(isWide) ? 1 : undefined;
         </div>
 
         <ImageGrid {data} {lang} {images} {columns} />
-    </div>
+    </Container>
 {/if}

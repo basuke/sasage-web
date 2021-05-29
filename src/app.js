@@ -26,14 +26,15 @@ export function translated(obj, key, lang) {
 }
 
 export const data = {
+    debug: true,
     topImages: [
-        'top-square-1',
         'top-square-2',
         'top-square-3',
         'top-square-4',
         'top-square-5',
         'top-square-6',
         'top-square-7',
+        'top-square-1',
     ],
     collections: [
         {
@@ -41,6 +42,7 @@ export const data = {
             book: true,
             image: 'Book-Lost-In-The-Rain-cover',
             title: 'Lost in the Rain',
+            'title-ja': '雨で道に迷い',
             description: `She opened up her third bottle of wine of the night.
             She did a happy dance because all of the socks from the dryer matched.
             There was coal in his stocking and he was thrilled.

@@ -1,14 +1,12 @@
 <script>
 
-import { onMount } from 'svelte';
 import { fly } from 'svelte/transition';
 import { useLocation } from "svelte-navigator";
 
 import ToggleLang from './toggle-lang.svelte';
 import ExternalLinks from './external-links.svelte';
 import Img from './img.svelte';
-
-import { imagePath } from '../app';
+import Container from './container.svelte';
 
 export let data = {};
 export let lang = '';
@@ -36,20 +34,22 @@ $: navFixed = navElem ? (y > navElem.offsetTop + navElem.offsetHeight + margin) 
 
     {#if isTopPage}
         <nav bind:this={navElem} class="relative">
-            <div class="hidden sm:block text-right absolute right-4 top-0">
-                <ToggleLang bind:lang />
-            </div>
-            <h1 class="mt-3 text-4xl font-light">MAYUMI SASAGE</h1>
-            <p class="mb-4 text-2xl font-extralight">Illustrator &amp; Artist</p>
-            <div class="mb-4"><ExternalLinks /></div>
+            <Container>
+                <div class="sm:block text-right fixed right-4 bottom-4">
+                    <ToggleLang bind:lang />
+                </div>
+                <h1 class="mt-3 text-4xl font-light">MAYUMI SASAGE</h1>
+                <p class="mb-4 text-2xl font-extralight">Illustrator &amp; Artist</p>
+                <div class="mb-4"><ExternalLinks /></div>
 
-            <Img {data} id={data.topImages[0]} square />
+                <Img {data} id={data.topImages[0]} square />
 
-            <ul class="my-3 flex justify-center text-xl font-light space-x-4 text-gray-500">
-                {#each sections as title}
-                    <li><a class="hover:underline" href={'/#' + title}>{title}</a></li>
-                {/each}
-            </ul>
+                <ul class="my-3 flex justify-center text-xl font-light space-x-4 text-gray-500">
+                    {#each sections as title}
+                        <li><a class="hover:underline" href={'/#' + title}>{title}</a></li>
+                    {/each}
+                </ul>
+            </Container>
         </nav>
     {:else}
         <div class="h-24"><!-- Fixedなヘッダーのためのスペーサー --></div>
@@ -57,9 +57,6 @@ $: navFixed = navElem ? (y > navElem.offsetTop + navElem.offsetHeight + margin) 
 
     {#if navFixed || !isTopPage}
         <div transition:fly={{y:-40}} class="fixed left-0 top-0 w-full p-2 text-left bg-white bg-opacity-90 border-b">
-            <div class="hidden sm:block text-right absolute right-4 top-2">
-                <ToggleLang bind:lang />
-            </div>
             <dic class="flex justify-center">
                 <h1 class="text-2xl font-bold"><a href="/">Mayumi Sasage</a></h1>
             </dic>
@@ -72,6 +69,7 @@ $: navFixed = navElem ? (y > navElem.offsetTop + navElem.offsetHeight + margin) 
         </div>
     {/if}
 
+    {#if data.debug}
     <div class="px-2 py-1 fixed right-1 bottom-1 text-xs rounded bg-blue-400 bg-opacity-70 text-indigo-100">
         <div class="sm:hidden inline-block">: &lt; 640px</div>
         <div class="md:hidden sm:inline-block hidden">sm: 640px</div>
@@ -80,6 +78,7 @@ $: navFixed = navElem ? (y > navElem.offsetTop + navElem.offsetHeight + margin) 
         <div class="2xl:hidden xl:inline-block hidden">xl: 1280px</div>
         <div class="2xl:inline-block hidden">2xl: 1536px</div>
     </div>
+    {/if}
 </header>
 
 <style>

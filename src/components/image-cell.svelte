@@ -9,6 +9,7 @@ export let data = {};
 export let lang = {};
 export let columns = undefined;
 export let link = null;
+export let title = null;
 export let square = false;
 export let r4x3 = false;
 
@@ -36,9 +37,12 @@ if (image) {
 </script>
 
 {#if image}
-    <div class={cellClass}>
+    <div class="{cellClass} my-8 sm:my-6">
         <Link to={link}>
-            <Img className="my-8 sm:my-6 shadow-xl" {columns} {span} {square} {r4x3} {image} {lang} />
+            <Img className="shadow-xl" {columns} {span} {square} {r4x3} {image} {lang} />
+            {#if title}
+                <p class="mt-3 text-center text-xl lg:text-2xl font-extralight">{title}</p>
+            {/if}
         </Link>
     </div>
 {/if}

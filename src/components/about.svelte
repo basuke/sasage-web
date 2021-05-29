@@ -1,40 +1,24 @@
 <script>
 
 import { fade } from 'svelte/transition';
-import ToggleLang from './toggle-lang.svelte';
 
 export let lang = '';
 
 </script>
 
-<div class="text-right mb-3 mr-4 sm:hidden">
-    <ToggleLang bind:lang />
-</div>
-<article>
+<article class="px-3 sm:px-0 max-w-xl mx-auto text-justify lg:max-w-2xl lg:text-lg">
     {#if lang === 'en'}
-        <section transition:fade={{duration:100}} class="en">
-            <p>
-                Mayumi Sasage is an illustrator and artist focused on the creation of illustrations with a poetic narrative inspired by nature and botanicals.
-                She is writing and illustrating a children's book and Oracle cards.
-                She explores mixed media such as hand drawing, printmaking and digital etc.
-                She utilizes color and line to convey mood and story.
+        <section>
+            <p class="mb-6">
+                Sasage Mayumi is a Japanese illustrator based in the San Francisco Bay Area. She graduated from Tokyo Zokei University with a bachelor’s degree in surface design. After graduating, she worked as a shoe designer in Tokyo, Japan for 13 years for many brands. She has created a picture book and illustrations inspired by Japanese traditional culture, art, and botanicals.
             </p>
-            <dl>
-                <dt>EDUCATION</dt>
-                <dd><em>1999</em>, Bachelor in textile design, Tokyo Zokei University, Tokyo/Japan.</dd>
-                
-                
-                <dt>EXPERIENCE</dt>
-                <dd><em>1999-2012</em>, Career as a shoe designer in Tokyo, Japan</dd>
-                
-                <dd>
-                    <em>2019-present</em>,  Freelance  illustrator based in San Francisco, USA
-                </dd>
-            </dl>
+            <p class="mb-6">
+                Mayumi has been especially dedicated to creating picture books in recent years. She creates lyrical interplays of color and line in modern turns on traditional Japanese aesthetics,. Her work captures a magical world in a way that invites the viewer to enter - and bring their imagination with them. She is interested and engages in mixed media such as hand drawing, printmaking, and digital.When not in her studio drawing, Mayumi loves taking care of plants, drawing with her daughter, and sharing meals with friends and family.
+            </p>
         </section>
     {:else if lang === 'ja'}
-        <section transition:fade={{duration:100}} class="ja">
-            <p>
+        <section>
+            <p class="mb-6">
                 捧 真弓（ささげ まゆみ）はイラストレーター兼アーティストとして自然や植物、
                 人をテーマにした物語のイラスト作品を作成、
                 その他には絵本や本の挿絵を主に描いています。
@@ -54,10 +38,6 @@ export let lang = '';
 
 <style>
 
-.en {
-    font-size: 1.1rem;
-}
-
 dt {
     font-weight: bold;
     font-size: 1rem;
@@ -66,19 +46,6 @@ dt {
 dd {
     margin-inline-start: 0;
     margin-bottom: 1em;
-}
-
-@media only screen and (min-width: 840px) {
-    article {
-        display: flex;
-        flex-wrap:wrap;
-        justify-content: space-around;
-        align-content: stretch;
-    }
-
-    article > section {
-        max-width: 42%;
-    }
 }
 
 </style>
