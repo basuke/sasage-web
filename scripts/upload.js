@@ -37,7 +37,7 @@ function pathToKey(source) {
 function pathToHash(source) {
     return pathToKey(source)
         .replace(/\.[a-zA-Z0-9]+$/, '')    // remove extension
-        .replace(/[^0-9A-Za-z._-]/g, '-'); // escape chars
+        .replace(/[^0-9A-Za-z._/-]/g, '-'); // escape chars
 }
 
 async function upload(dataFile, destinationPath) {
@@ -113,7 +113,7 @@ const bucket = admin.storage().bucket();
 
         const info = await saveJpegImage(source);
         map[key] = info;
-        console.log(source);
+        console.log(key);
     }
 
     fs.writeFileSync(indexPath, JSON.stringify(map, null, '  '));

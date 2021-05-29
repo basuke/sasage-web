@@ -30,433 +30,509 @@ export function translated(obj, key, lang) {
 export const data = {
     debug,
     topImages: [
-        'top-square-2',
-        'top-square-3',
-        'top-square-4',
-        'top-square-5',
-        'top-square-6',
-        'top-square-7',
-        'top-square-1',
+        'top/1',
+        'top/2',
+        'top/3',
+        'top/4',
+        'top/5',
+        'top/6',
+        'top/7',
     ],
     collections: [
         {
             id: 'lost-in-the-rain',
             book: true,
-            image: 'Book-Lost-In-The-Rain-cover',
+            image: "books/lost-in-the-rain/cover",
             title: 'LOST IN THE RAIN',
             subtitle: "Children’s book",
             images: [
-                'Book-Lost-In-The-Rain-page1',
-                'Book-Lost-In-The-Rain-page2',
-                'Book-Lost-In-The-Rain-page3',
-                'Book-Lost-In-The-Rain-page4',
-                'Book-Lost-In-The-Rain-page5',
+
+                "books/lost-in-the-rain/page1",
+                "books/lost-in-the-rain/page2",
+                "books/lost-in-the-rain/page3",
+                "books/lost-in-the-rain/page4",
+                "books/lost-in-the-rain/page5",
             ],
         },
         {
             id: 'book-2',
             book: true,
-            image: 'Book-Flower-cover',
+            image: "books/flowers/cover",
             title: 'Flowers',
             subtitle: 'Oracle Cards',
             images: [
-                'Book-Flower-1',
-                'Book-Flower-2',
-                'Book-Flower-3',
-                'Book-Flower-4',
-                'Book-Flower-5',
-                'Book-Flower-6',
-                'Book-Flower-7',
-                'Book-Flower-8',
-                'Book-Flower-9',
-                'Book-Flower-10',
-                'Book-Flower-11',
-                'Book-Flower-12',
-                'Book-Flower-13',
-                'Book-Flower-14',
-                'Book-Flower-15',
-                'Book-Flower-16',
-                'Book-Flower-17',
+                "books/flowers/1",
+                "books/flowers/2",
+                "books/flowers/3",
+                "books/flowers/4",
+                "books/flowers/5",
+                "books/flowers/6",
+                "books/flowers/7",
+                "books/flowers/8",
+                "books/flowers/9",
+                "books/flowers/10",
+                "books/flowers/11",
+                "books/flowers/12",
+                "books/flowers/13",
+                "books/flowers/14",
+                "books/flowers/15",
+                "books/flowers/16",
+                "books/flowers/17",
             ],
         },
         {
             id: 'book-3',
             book: true,
-            image: 'Book-Farmers-Maket-cover',
+            image: "books/farmersmaket/cover",
             title: 'Farmers Market',
             subtitle: 'The page of the magazine',
             images: [
-                'Book-Farmers-Maket-fm1',
-                'Book-Farmers-Maket-fm2',
-                'Book-Farmers-Maket-fm3',
-                'Book-Farmers-Maket-fm4',
+                "books/farmersmaket/fm2",
+                "books/farmersmaket/fm3",
+                "books/farmersmaket/fm4",
+                "books/farmersmaket/fm1",
             ],
         },
         {
             id: 'book-4',
             book: true,
-            image: 'Book-Lily-and-the-black-cat-4',
+            image: "books/lilly-and-the-black-cat/6",
             title: 'Lilly and The Black Cat',
             subtitle: "Children's Book",
             images: [
-                'Book-Lily-and-the-black-cat-1',
-                'Book-Lily-and-the-black-cat-2',
-                'Book-Lily-and-the-black-cat-3',
-                'Book-Lily-and-the-black-cat-4',
-                'Book-Lily-and-the-black-cat-5',
+                "books/lilly-and-the-black-cat/1",
+                "books/lilly-and-the-black-cat/2",
+                "books/lilly-and-the-black-cat/3",
+                "books/lilly-and-the-black-cat/4",
+                "books/lilly-and-the-black-cat/5",
+                "books/lilly-and-the-black-cat/cover",
             ],
         },
         {
             id: 'illustrations',
             title: 'Illustrations',
             images: [
-                'Spiced-tea-1',
-                'Spiced-tea-2',
-                'Spiced-tea-3',
-                'Summer-a',
-                'Summer-b',
-                'Summer-c',
-                'morning-routine--a',
-                'morning-routine--b',
-                'Illustration--1',
-                'Drawings-1',
-                'Drawings-2',
-                'Drawings-3',
-                'Drawings-4',
-                'Drawings-5',
+                "spiced-tea/1",
+                "spiced-tea/2",
+                "spiced-tea/3",
+
+                "summer/a",
+                "summer/b",
+                "summer/c",
+
+                "morning-routine/a",
+                "morning-routine/b",
+
+                "illustration/1",
+
+                "drawings/1",
+                "drawings/2",
+                "drawings/3",
+                "drawings/4",
+                "drawings/5",
             ],
         },
     ],
-    images: {
-        "Book-Lost-In-The-Rain-cover": {
-            "id": "Book-Lost-In-The-Rain-cover",
-            "format": "png",
-            "width": 1280,
-            "height": 1280
-        },
-        "Book-Lost-In-The-Rain-page1": {
-            "id": "Book-Lost-In-The-Rain-page1",
-            "format": "jpeg",
-            "width": 2362,
-            "height": 1240
-        },
-        "Book-Lost-In-The-Rain-page2": {
-            "id": "Book-Lost-In-The-Rain-page2",
-            "format": "jpeg",
-            "width": 4724,
-            "height": 2480
-        },
-        "Book-Lost-In-The-Rain-page3": {
-            "id": "Book-Lost-In-The-Rain-page3",
-            "format": "jpeg",
-            "width": 2362,
-            "height": 1240
-        },
-        "Book-Lost-In-The-Rain-page4": {
-            "id": "Book-Lost-In-The-Rain-page4",
-            "format": "jpeg",
-            "width": 2362,
-            "height": 1240
-        },
-        "Book-Lost-In-The-Rain-page5": {
-            "id": "Book-Lost-In-The-Rain-page5",
-            "format": "jpeg",
-            "width": 2362,
-            "height": 1240
-        },
-        "Book-Farmers-Maket-cover": {
-            "id": "Book-Farmers-Maket-cover",
-            "format": "jpeg",
-            "width": 4000,
-            "height": 2700
-        },
-        "Book-Farmers-Maket-fm1": {
-            "id": "Book-Farmers-Maket-fm1",
-            "format": "jpeg",
-            "width": 1280,
-            "height": 829
-        },
-        "Book-Farmers-Maket-fm2": {
-            "id": "Book-Farmers-Maket-fm2",
-            "format": "jpeg",
-            "width": 5000,
-            "height": 1875
-        },
-        "Book-Farmers-Maket-fm3": {
-            "id": "Book-Farmers-Maket-fm3",
-            "format": "jpeg",
-            "width": 2048,
-            "height": 2048
-        },
-        "Book-Farmers-Maket-fm4": {
-            "id": "Book-Farmers-Maket-fm4",
-            "format": "jpeg",
-            "width": 2048,
-            "height": 2048
-        },
-        "Drawings-1": {
-            "id": "Drawings-1",
+    images:
+    {
+        "drawings/1": {
+            "id": "drawings/1",
             "format": "jpeg",
             "width": 1024,
-            "height": 1366
+            "height": 1366,
+            "title": "drawings/1"
         },
-        "Drawings-2": {
-            "id": "Drawings-2",
+        "drawings/2": {
+            "id": "drawings/2",
             "format": "jpeg",
             "width": 1366,
-            "height": 1024
+            "height": 1024,
+            "title": "drawings/2"
         },
-        "Drawings-3": {
-            "id": "Drawings-3",
+        "drawings/3": {
+            "id": "drawings/3",
             "format": "jpeg",
             "width": 2048,
-            "height": 2732
+            "height": 2732,
+            "title": "drawings/3"
         },
-        "Drawings-4": {
-            "id": "Drawings-4",
+        "drawings/4": {
+            "id": "drawings/4",
             "format": "jpeg",
             "width": 2048,
-            "height": 2732
+            "height": 2732,
+            "title": "drawings/4"
         },
-        "Drawings-5": {
-            "id": "Drawings-5",
+        "drawings/5": {
+            "id": "drawings/5",
             "format": "jpeg",
             "width": 2048,
-            "height": 2732
+            "height": 2732,
+            "title": "drawings/5"
         },
-        "Book-Flower-1": {
-            "id": "Book-Flower-1",
-            "format": "jpeg",
-            "width": 989,
-            "height": 1280
-        },
-        "Book-Flower-10": {
-            "id": "Book-Flower-10",
-            "format": "jpeg",
-            "width": 989,
-            "height": 1280
-        },
-        "Book-Flower-11": {
-            "id": "Book-Flower-11",
-            "format": "jpeg",
-            "width": 3400,
-            "height": 4400
-        },
-        "Book-Flower-12": {
-            "id": "Book-Flower-12",
-            "format": "jpeg",
-            "width": 3400,
-            "height": 4400
-        },
-        "Book-Flower-13": {
-            "id": "Book-Flower-13",
-            "format": "jpeg",
-            "width": 989,
-            "height": 1280
-        },
-        "Book-Flower-14": {
-            "id": "Book-Flower-14",
-            "format": "jpeg",
-            "width": 3400,
-            "height": 4400
-        },
-        "Book-Flower-15": {
-            "id": "Book-Flower-15",
-            "format": "jpeg",
-            "width": 3400,
-            "height": 4400
-        },
-        "Book-Flower-16": {
-            "id": "Book-Flower-16",
-            "format": "jpeg",
-            "width": 3400,
-            "height": 4400
-        },
-        "Book-Flower-17": {
-            "id": "Book-Flower-17",
-            "format": "jpeg",
-            "width": 3400,
-            "height": 4400
-        },
-        "Book-Flower-2": {
-            "id": "Book-Flower-2",
-            "format": "jpeg",
-            "width": 989,
-            "height": 1280
-        },
-        "Book-Flower-3": {
-            "id": "Book-Flower-3",
-            "format": "jpeg",
-            "width": 3400,
-            "height": 4400
-        },
-        "Book-Flower-4": {
-            "id": "Book-Flower-4",
-            "format": "jpeg",
-            "width": 989,
-            "height": 1280
-        },
-        "Book-Flower-5": {
-            "id": "Book-Flower-5",
-            "format": "jpeg",
-            "width": 3400,
-            "height": 4400
-        },
-        "Book-Flower-6": {
-            "id": "Book-Flower-6",
-            "format": "jpeg",
-            "width": 3400,
-            "height": 4400
-        },
-        "Book-Flower-7": {
-            "id": "Book-Flower-7",
-            "format": "jpeg",
-            "width": 3400,
-            "height": 4400
-        },
-        "Book-Flower-8": {
-            "id": "Book-Flower-8",
-            "format": "jpeg",
-            "width": 3400,
-            "height": 4400
-        },
-        "Book-Flower-9": {
-            "id": "Book-Flower-9",
-            "format": "jpeg",
-            "width": 989,
-            "height": 1280
-        },
-        "Book-Flower-cover": {
-            "id": "Book-Flower-cover",
+        "spiced-tea/1": {
+            "id": "spiced-tea/1",
             "format": "jpeg",
             "width": 5000,
-            "height": 5000
+            "height": 1875,
+            "title": "spiced-tea/1"
         },
-        "Summer-a": {
-            "id": "Summer-a",
+        "spiced-tea/2": {
+            "id": "spiced-tea/2",
             "format": "jpeg",
             "width": 2048,
-            "height": 2732
+            "height": 2732,
+            "title": "spiced-tea/2"
         },
-        "Summer-b": {
-            "id": "Summer-b",
+        "spiced-tea/3": {
+            "id": "spiced-tea/3",
             "format": "jpeg",
             "width": 2048,
-            "height": 2048
+            "height": 2732,
+            "title": "spiced-tea/3"
         },
-        "Summer-c": {
-            "id": "Summer-c",
+        "illustration/1": {
+            "id": "illustration/1",
+            "format": "jpeg",
+            "width": 1280,
+            "height": 480,
+            "title": "illustration/1"
+        },
+        "morning-routine/a": {
+            "id": "morning-routine/a",
+            "format": "jpeg",
+            "width": 2048,
+            "height": 2048,
+            "title": "morning-routine/a"
+        },
+        "morning-routine/b": {
+            "id": "morning-routine/b",
+            "format": "jpeg",
+            "width": 2048,
+            "height": 2048,
+            "title": "morning-routine/b"
+        },
+        "top/1": {
+            "id": "top/1",
+            "format": "png",
+            "width": 1280,
+            "height": 1280,
+            "title": "top/1"
+        },
+        "top/2": {
+            "id": "top/2",
+            "format": "png",
+            "width": 1280,
+            "height": 1280,
+            "title": "top/2"
+        },
+        "top/3": {
+            "id": "top/3",
+            "format": "png",
+            "width": 1280,
+            "height": 1280,
+            "title": "top/3"
+        },
+        "top/4": {
+            "id": "top/4",
+            "format": "png",
+            "width": 1280,
+            "height": 1280,
+            "title": "top/4"
+        },
+        "top/5": {
+            "id": "top/5",
+            "format": "png",
+            "width": 1280,
+            "height": 1280,
+            "title": "top/5"
+        },
+        "top/6": {
+            "id": "top/6",
+            "format": "png",
+            "width": 1280,
+            "height": 1280,
+            "title": "top/6"
+        },
+        "top/7": {
+            "id": "top/7",
+            "format": "png",
+            "width": 1280,
+            "height": 1280,
+            "title": "top/7"
+        },
+        "summer/a": {
+            "id": "summer/a",
+            "format": "jpeg",
+            "width": 2048,
+            "height": 2732,
+            "title": "summer/a"
+        },
+        "summer/b": {
+            "id": "summer/b",
+            "format": "jpeg",
+            "width": 2048,
+            "height": 2048,
+            "title": "summer/b"
+        },
+        "summer/c": {
+            "id": "summer/c",
             "format": "jpeg",
             "width": 2800,
-            "height": 2800
+            "height": 2800,
+            "title": "summer/c"
         },
-        "Book-Lily-and-the-black-cat-1": {
-            "id": "Book-Lily-and-the-black-cat-1",
+        "books/farmersmaket/cover": {
+            "id": "books/farmersmaket/cover",
             "format": "jpeg",
-            "width": 2000,
-            "height": 2000
+            "width": 4000,
+            "height": 2700,
+            "title": "books/farmersmaket/cover"
         },
-        "Book-Lily-and-the-black-cat-2": {
-            "id": "Book-Lily-and-the-black-cat-2",
-            "format": "jpeg",
-            "width": 2000,
-            "height": 2000
-        },
-        "Book-Lily-and-the-black-cat-3": {
-            "id": "Book-Lily-and-the-black-cat-3",
-            "format": "jpeg",
-            "width": 2000,
-            "height": 2000
-        },
-        "Book-Lily-and-the-black-cat-4": {
-            "id": "Book-Lily-and-the-black-cat-4",
-            "format": "jpeg",
-            "width": 2000,
-            "height": 2000
-        },
-        "Book-Lily-and-the-black-cat-5": {
-            "id": "Book-Lily-and-the-black-cat-5",
+        "books/farmersmaket/fm1": {
+            "id": "books/farmersmaket/fm1",
             "format": "jpeg",
             "width": 1280,
-            "height": 480
+            "height": 829,
+            "title": "books/farmersmaket/fm1"
         },
-        "Illustration--1": {
-            "id": "Illustration--1",
-            "format": "jpeg",
-            "width": 1280,
-            "height": 480
-        },
-        "Spiced-tea-1": {
-            "id": "Spiced-tea-1",
+        "books/farmersmaket/fm2": {
+            "id": "books/farmersmaket/fm2",
             "format": "jpeg",
             "width": 5000,
-            "height": 1875
+            "height": 1875,
+            "title": "books/farmersmaket/fm2"
         },
-        "Spiced-tea-2": {
-            "id": "Spiced-tea-2",
+        "books/farmersmaket/fm3": {
+            "id": "books/farmersmaket/fm3",
             "format": "jpeg",
             "width": 2048,
-            "height": 2732
+            "height": 2048,
+            "title": "books/farmersmaket/fm3"
         },
-        "Spiced-tea-3": {
-            "id": "Spiced-tea-3",
+        "books/farmersmaket/fm4": {
+            "id": "books/farmersmaket/fm4",
             "format": "jpeg",
             "width": 2048,
-            "height": 2732
+            "height": 2048,
+            "title": "books/farmersmaket/fm4"
         },
-        "morning-routine--a": {
-            "id": "morning-routine--a",
+        "books/lilly-and-the-black-cat/1": {
+            "id": "books/lilly-and-the-black-cat/1",
+            "format": "jpeg",
+            "width": 1280,
+            "height": 480,
+            "title": "books/lilly-and-the-black-cat/1"
+        },
+        "books/lilly-and-the-black-cat/2": {
+            "id": "books/lilly-and-the-black-cat/2",
+            "format": "jpeg",
+            "width": 2000,
+            "height": 2000,
+            "title": "books/lilly-and-the-black-cat/2"
+        },
+        "books/lilly-and-the-black-cat/3": {
+            "id": "books/lilly-and-the-black-cat/3",
+            "format": "jpeg",
+            "width": 2000,
+            "height": 2000,
+            "title": "books/lilly-and-the-black-cat/3"
+        },
+        "books/lilly-and-the-black-cat/4": {
+            "id": "books/lilly-and-the-black-cat/4",
+            "format": "jpeg",
+            "width": 2000,
+            "height": 2000,
+            "title": "books/lilly-and-the-black-cat/4"
+        },
+        "books/lilly-and-the-black-cat/5": {
+            "id": "books/lilly-and-the-black-cat/5",
+            "format": "jpeg",
+            "width": 2000,
+            "height": 2000,
+            "title": "books/lilly-and-the-black-cat/5"
+        },
+        "books/lilly-and-the-black-cat/6": {
+            "id": "books/lilly-and-the-black-cat/6",
             "format": "jpeg",
             "width": 2048,
-            "height": 2048
+            "height": 2048,
+            "title": "books/lilly-and-the-black-cat/6"
         },
-        "morning-routine--b": {
-            "id": "morning-routine--b",
+        "books/lilly-and-the-black-cat/cover": {
+            "id": "books/lilly-and-the-black-cat/cover",
             "format": "jpeg",
-            "width": 2048,
-            "height": 2048
+            "width": 4000,
+            "height": 2667,
+            "title": "books/lilly-and-the-black-cat/cover"
         },
-        "top-square-1": {
-            "id": "top-square-1",
+        "books/flowers/1": {
+            "id": "books/flowers/1",
+            "format": "jpeg",
+            "width": 989,
+            "height": 1280,
+            "title": "books/flowers/1"
+        },
+        "books/flowers/10": {
+            "id": "books/flowers/10",
+            "format": "jpeg",
+            "width": 989,
+            "height": 1280,
+            "title": "books/flowers/10"
+        },
+        "books/flowers/11": {
+            "id": "books/flowers/11",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/11"
+        },
+        "books/flowers/12": {
+            "id": "books/flowers/12",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/12"
+        },
+        "books/flowers/13": {
+            "id": "books/flowers/13",
+            "format": "jpeg",
+            "width": 989,
+            "height": 1280,
+            "title": "books/flowers/13"
+        },
+        "books/flowers/14": {
+            "id": "books/flowers/14",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/14"
+        },
+        "books/flowers/15": {
+            "id": "books/flowers/15",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/15"
+        },
+        "books/flowers/16": {
+            "id": "books/flowers/16",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/16"
+        },
+        "books/flowers/17": {
+            "id": "books/flowers/17",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/17"
+        },
+        "books/flowers/2": {
+            "id": "books/flowers/2",
+            "format": "jpeg",
+            "width": 989,
+            "height": 1280,
+            "title": "books/flowers/2"
+        },
+        "books/flowers/3": {
+            "id": "books/flowers/3",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/3"
+        },
+        "books/flowers/4": {
+            "id": "books/flowers/4",
+            "format": "jpeg",
+            "width": 989,
+            "height": 1280,
+            "title": "books/flowers/4"
+        },
+        "books/flowers/5": {
+            "id": "books/flowers/5",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/5"
+        },
+        "books/flowers/6": {
+            "id": "books/flowers/6",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/6"
+        },
+        "books/flowers/7": {
+            "id": "books/flowers/7",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/7"
+        },
+        "books/flowers/8": {
+            "id": "books/flowers/8",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/8"
+        },
+        "books/flowers/9": {
+            "id": "books/flowers/9",
+            "format": "jpeg",
+            "width": 989,
+            "height": 1280,
+            "title": "books/flowers/9"
+        },
+        "books/flowers/cover": {
+            "id": "books/flowers/cover",
+            "format": "jpeg",
+            "width": 5000,
+            "height": 5000,
+            "title": "books/flowers/cover"
+        },
+        "books/lost-in-the-rain/cover": {
+            "id": "books/lost-in-the-rain/cover",
             "format": "png",
             "width": 1280,
-            "height": 1280
+            "height": 1280,
+            "title": "books/lost-in-the-rain/cover"
         },
-        "top-square-2": {
-            "id": "top-square-2",
-            "format": "png",
-            "width": 1280,
-            "height": 1280
+        "books/lost-in-the-rain/page1": {
+            "id": "books/lost-in-the-rain/page1",
+            "format": "jpeg",
+            "width": 2362,
+            "height": 1240,
+            "title": "books/lost-in-the-rain/page1"
         },
-        "top-square-3": {
-            "id": "top-square-3",
-            "format": "png",
-            "width": 1280,
-            "height": 1280
+        "books/lost-in-the-rain/page2": {
+            "id": "books/lost-in-the-rain/page2",
+            "format": "jpeg",
+            "width": 4724,
+            "height": 2480,
+            "title": "books/lost-in-the-rain/page2"
         },
-        "top-square-4": {
-            "id": "top-square-4",
-            "format": "png",
-            "width": 1280,
-            "height": 1280
+        "books/lost-in-the-rain/page3": {
+            "id": "books/lost-in-the-rain/page3",
+            "format": "jpeg",
+            "width": 2362,
+            "height": 1240,
+            "title": "books/lost-in-the-rain/page3"
         },
-        "top-square-5": {
-            "id": "top-square-5",
-            "format": "png",
-            "width": 1280,
-            "height": 1280
+        "books/lost-in-the-rain/page4": {
+            "id": "books/lost-in-the-rain/page4",
+            "format": "jpeg",
+            "width": 2362,
+            "height": 1240,
+            "title": "books/lost-in-the-rain/page4"
         },
-        "top-square-6": {
-            "id": "top-square-6",
-            "format": "png",
-            "width": 1280,
-            "height": 1280
-        },
-        "top-square-7": {
-            "id": "top-square-7",
-            "format": "png",
-            "width": 1280,
-            "height": 1280
+        "books/lost-in-the-rain/page5": {
+            "id": "books/lost-in-the-rain/page5",
+            "format": "jpeg",
+            "width": 2362,
+            "height": 1240,
+            "title": "books/lost-in-the-rain/page5"
         }
     }
 };
