@@ -7,6 +7,7 @@ import ToggleLang from './toggle-lang.svelte';
 import ExternalLinks from './external-links.svelte';
 import Img from './img.svelte';
 import Container from './container.svelte';
+import SlideShow from './slideshow.svelte';
 
 export let data = {};
 export let lang = '';
@@ -43,7 +44,7 @@ $: navFixed = navElem ? (y > navElem.offsetTop + navElem.offsetHeight + margin) 
                 <p class="mb-4 text-2xl font-extralight">Illustrator &amp; Artist</p>
                 <div class="mb-4 px-4 md:text-right"><ExternalLinks /></div>
 
-                <Img {data} id={data.topImages[0]} square />
+                <SlideShow {data} images={data.topImages} />
 
                 <ul class="my-3 flex justify-center text-xl font-light space-x-4 text-gray-500">
                     {#each sections as title}

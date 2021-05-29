@@ -31,17 +31,3 @@ export let lang = '';
         </section>
     {/if}
 </article>
-
-<style>
-
-dt {
-    font-weight: bold;
-    font-size: 1rem;
-}
-
-dd {
-    margin-inline-start: 0;
-    margin-bottom: 1em;
-}
-
-</style>
