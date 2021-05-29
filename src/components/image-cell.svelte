@@ -1,7 +1,7 @@
 <script>
 
 import { findImage, imagePath } from '../app';
-import { Link } from 'svelte-navigator';
+import Link from './Link.svelte';
 import Img from './img.svelte';
 
 export let id = '';

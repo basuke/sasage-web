@@ -9,6 +9,7 @@ import TopPage from './pages/top-page.svelte';
 import CollectionPage from './pages/collection-page.svelte';
 import ImagePage from './pages/image-page.svelte';
 import NotFoundPage from './pages/not-found-page.svelte';
+import ToggleLang from './components/toggle-lang.svelte';
 
 export let data = {};
 
@@ -42,6 +43,11 @@ let lang = "en";
             <ExternalLinks />
             <p class="text-xs sm:text-sm md:text-base py-4">&copy; 2020-2021 Mayumi Sasage. All rights reserved.</p>
         </footer>
+
+        <div class="sm:block text-right fixed right-4 bottom-4">
+            <ToggleLang bind:lang />
+        </div>
+    
     </div>
 </Router>
 

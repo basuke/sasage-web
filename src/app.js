@@ -1,3 +1,5 @@
+const debug = false;
+
 export const imageDirectory = 'images';
 export const storageBucket = 'sasage-website-71713.appspot.com';
 export const baseUrl = `https://storage.googleapis.com/${storageBucket}/${imageDirectory}/`;
@@ -26,7 +28,7 @@ export function translated(obj, key, lang) {
 }
 
 export const data = {
-    debug: true,
+    debug,
     topImages: [
         'top-square-2',
         'top-square-3',
@@ -43,10 +45,6 @@ export const data = {
             image: 'Book-Lost-In-The-Rain-cover',
             title: 'LOST IN THE RAIN',
             subtitle: "Children’s book",
-            description: `She opened up her third bottle of wine of the night.
-            She did a happy dance because all of the socks from the dryer matched.
-            There was coal in his stocking and he was thrilled.
-            `,
             images: [
                 'Book-Lost-In-The-Rain-page1',
                 'Book-Lost-In-The-Rain-page2',
@@ -61,10 +59,6 @@ export const data = {
             image: 'Book-Flower-cover',
             title: 'Flowers',
             subtitle: 'Oracle Cards',
-            description: `She opened up her third bottle of wine of the night.
-            She did a happy dance because all of the socks from the dryer matched.
-            There was coal in his stocking and he was thrilled.
-            `,
             images: [
                 'Book-Flower-1',
                 'Book-Flower-2',
@@ -91,13 +85,6 @@ export const data = {
             image: 'Book-Farmers-Maket-cover',
             title: 'Farmers Market',
             subtitle: 'The page of the magazine',
-            description: `She opened up her third bottle of wine of the night.
-            She did a happy dance because all of the socks from the dryer matched.
-            There was coal in his stocking and he was thrilled.
-            `,
-            'title-ja': 'サンプルの本',
-            'description-ja': `最近はすっかり天気も寒くなってきましたね。いかがおすごしでしょうか。なんてね。
-            `,
             images: [
                 'Book-Farmers-Maket-fm1',
                 'Book-Farmers-Maket-fm2',
@@ -111,10 +98,6 @@ export const data = {
             image: 'Book-Lily-and-the-black-cat-4',
             title: 'Lilly and The Black Cat',
             subtitle: "Children's Book",
-            description: `She opened up her third bottle of wine of the night.
-            She did a happy dance because all of the socks from the dryer matched.
-            There was coal in his stocking and he was thrilled.
-            `,
             images: [
                 'Book-Lily-and-the-black-cat-1',
                 'Book-Lily-and-the-black-cat-2',
@@ -126,10 +109,6 @@ export const data = {
         {
             id: 'illustrations',
             title: 'Illustrations',
-            description: `She opened up her third bottle of wine of the night.
-            She did a happy dance because all of the socks from the dryer matched.
-            There was coal in his stocking and he was thrilled.
-            `,
             images: [
                 'Spiced-tea-1',
                 'Spiced-tea-2',

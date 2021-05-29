@@ -1,7 +1,5 @@
 <script>
 
-import { Link } from "svelte-navigator";
-
 import About from '../components/about.svelte';
 import CollectionGrid from '../components/collection-grid.svelte';
 import ImageGrid from '../components/image-grid.svelte';

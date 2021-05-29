@@ -18,6 +18,7 @@ const pickImage = () => {
 }
 
 let stack = [pickImage(), pickImage()];
+const spaceHolderImage = stack[0];
 
 const ticket = setInterval(() => {
     const prevImage = stack[0];
@@ -31,7 +32,7 @@ onDestroy(() => clearInterval(ticket));
 
 <div class="relative">
     <div class="opacity-0">
-        <Img {data} id={images[0]} square/>
+        <Img image={spaceHolderImage} square/>
     </div>
     {#each stack as image, index (image.id)}
         <div in:fade={{duration: 2000}} class="absolute top-0 left-0">

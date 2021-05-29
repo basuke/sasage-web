@@ -3,9 +3,7 @@
 import { fly } from 'svelte/transition';
 import { useLocation } from "svelte-navigator";
 
-import ToggleLang from './toggle-lang.svelte';
 import ExternalLinks from './external-links.svelte';
-import Img from './img.svelte';
 import Container from './container.svelte';
 import SlideShow from './slideshow.svelte';
 
@@ -32,10 +30,6 @@ $: navFixed = navElem ? (y > navElem.offsetTop + navElem.offsetHeight + margin) 
 <svelte:window bind:scrollY={y} />
 
 <header class="text-center">
-
-    <div class="sm:block text-right fixed right-4 bottom-4">
-        <ToggleLang bind:lang />
-    </div>
 
     {#if isTopPage}
         <nav bind:this={navElem} class="relative">

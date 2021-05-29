@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     try {
         let app = firebase.app();
         let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-        console.log(`Firebase SDK loaded with ${features.join(', ')}`);
+        // console.log(`Firebase SDK loaded with ${features.join(', ')}`);
 
         const target = document.querySelector('#app');
         // remove all contents.
@@ -24,9 +24,9 @@ document.addEventListener('DOMContentLoaded', function() {
         new App({
             target,
             props: {
-                name: 'Svelte',
+                // name: 'Svelte',
                 data,
-                app,
+                // app,
             }
         });
     } catch (e) {

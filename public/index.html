@@ -43,11 +43,32 @@
 </head>
 <body>
     <div id=app>
-        <p id="load">Firebase SDK Loading&hellip;</p>
+        <div class="initializing">
+            <div>Mayumi Sasage's Website</div>
+            <p>Loading contents&hellip;</p>
+        </div>
     </div>
     <style>
+        .initializing {
+            display: flex;
+            height: 100vh;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        
+        .initializing header {
+            color: #444;
+            font-size:larger;
+        }
+
+        .initializing p {
+            color: #666;
+        }
+
         h1, h2, h3, h4 {
-            font-family: 'Big Shoulders Display', cursive;
+            font-family: 'Big Shoulders Display';
         }
     </style>
     <script defer src='/build/bundle.js'></script>
