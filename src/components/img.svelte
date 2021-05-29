@@ -1,6 +1,6 @@
 <script>
 
-import { findImage, imagePath, translated } from '../app';
+import { findImage, imagePath, translated, widths, heights } from '../app';
 
 export let id = null;
 export let image = null;
@@ -13,18 +13,12 @@ export let columns = 0;
 export let span = 1;
 
 export let square = false;  // display square
-export let w4h3 = false;    // display 4:3
+export let r4x3 = false;    // display 4:3
 export let asis = false;    // display original
 
 if (id) {
     image = findImage(data.images, id);
 }
-
-const widths = [320, 480, 640, 960, 1280];
-const heights = [240, 480, 720, 960];
-
-const breakpoints = [400, 800, 1200];
-const maxWidth = breakpoints[breakpoints.length - 1];
 
 function genVariation(w, h) {
     let variation = '';
@@ -40,23 +34,6 @@ function genMedia(w) {
     return `(max-width: ${w}px)`;
 }
 
-// function widthChoices() {
-//     if (asis || variation) return [];
-//     if (square) return breakpoints.slice(0, -1);
-//     return breakpoints;
-// }
-
-// function generateSources() {
-//     return widthChoices().map(width => ({
-//         media: `(max-width: ${width}px)`,
-//         variation: variationForWidth(width),
-//     }));
-// }
-
-// const sources = generateSources();
-
-// if (!variation && square) variation = variationForWidth(maxWidth);
-
 let sources = [];
 
 if (variation || asis) {
@@ -68,9 +45,8 @@ if (variation || asis) {
         variation: genVariation(w, w),
     }));
     variation = sources.pop().variation;
-} else if (w4h3) {
+} else if (r4x3) {
     // list only 4:3
-    const w4h3s = heights.map(h => [h / 3 * 4, h]);
     sources = heights.map(h => {
         const w = h / 3 * 4;
         return {
@@ -90,6 +66,7 @@ if (variation || asis) {
 </script>
 
 {#if image}
+<span class="hidden">square: {square} r4x3: {r4x3} asis: {asis} columns: {columns} span: {span}</span>
 <picture>
     {#each sources as source}
         <source type="image/webp" media={source.media} srcset={imagePath(image.id, source.variation, 'webp')}>
@@ -102,6 +79,7 @@ if (variation || asis) {
         width={image.width}
         height={image.height}
         alt={translated(image, 'title', lang)}
+        loading="lazy"
     >
 </picture>
 {/if}

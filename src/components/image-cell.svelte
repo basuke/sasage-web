@@ -6,8 +6,11 @@ import Img from './img.svelte';
 
 export let id = '';
 export let data = {};
-export let columns = 1;
+export let lang = {};
+export let columns = undefined;
 export let link = null;
+export let square = false;
+export let r4x3 = false;
 
 const image = findImage(data.images, id);
 let cellClass = 'px-16 sm:px-8';
@@ -17,7 +20,7 @@ if (image) {
     const {width, height} = image;
     
     if (width && height) {
-        const ratio = width / height;
+        const ratio = square ? 1.01 : r4x3 ? (4 / 3) : width / height;
         if (ratio >= 1.5) {
             cellClass = 'px-2';
 
@@ -35,7 +38,7 @@ if (image) {
 {#if image}
     <div class={cellClass}>
         <Link to={link}>
-            <Img className="my-8 sm:my-6 shadow-xl" {columns} {span} {image} />
+            <Img className="my-8 sm:my-6 shadow-xl" {columns} {span} {square} {r4x3} {image} {lang} />
         </Link>
     </div>
 {/if}

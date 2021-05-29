@@ -3,6 +3,7 @@
 import { Link } from "svelte-navigator";
 
 import About from '../components/about.svelte';
+import CollectionGrid from '../components/collection-grid.svelte';
 import ImageGrid from '../components/image-grid.svelte';
 import Img from '../components/img.svelte';
 
@@ -16,15 +17,7 @@ const illustrations = data.collections.find(collection => collection.id === 'ill
 
 <div id="Books" class="pt-20">
     <h2 class="my-4 text-center text-2xl md:text-3xl">BOOKS</h2>
-    <ul class="px-4 grid sm:grid-cols-2 grid-flow-row-dense gap-4">
-        {#each books as collection}
-            <li class="w-full">
-                <Link to="/collections/{collection.id}">
-                    <Img className="my-1 shadow-md" variation="-w960-h960" id={collection.image} {data} />
-                </Link>
-            </li>
-        {/each}
-    </ul>
+    <CollectionGrid {data} {lang} collections={books} />
 </div>
 
 <div id="Illustrations" class="pt-20">

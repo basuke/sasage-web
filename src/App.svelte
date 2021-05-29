@@ -16,7 +16,7 @@ let lang = "en";
 
 </script>
 
-<Router>
+<Router primary={false}>
     <div class="mx-auto flex flex-col h-screen text-gray-600">
         <Header {data} bind:lang />
 

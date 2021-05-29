@@ -1,4 +1,9 @@
-const baseUrl = 'https://storage.googleapis.com/sasage-website-71713.appspot.com/images/';
+export const imageDirectory = 'images';
+export const storageBucket = 'sasage-website-71713.appspot.com';
+export const baseUrl = `https://storage.googleapis.com/${storageBucket}/${imageDirectory}/`;
+
+export const widths = [320, 480, 640, 960, 1280];
+export const heights = [240, 480, 720, 960];
 
 export function imagePath(id, variation = '', ext = 'jpg') {
     return baseUrl + id + variation + '.' + ext;

@@ -31,9 +31,6 @@ function toggle(event) {
 
 <style>
 
-div {
-    background-color: chocolate;
-}
 rect {
     fill: #ccc;
 }
