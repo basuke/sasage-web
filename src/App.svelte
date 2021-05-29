@@ -30,7 +30,7 @@ let lang = "en";
                 <CollectionPage {data} {lang} id={params.id} />
             </Route>
 
-            <Route path="/images/:id" let:params>
+            <Route path="/images/*id" let:params>
                 <ImagePage {data} {lang} id={params.id} />
             </Route>
 

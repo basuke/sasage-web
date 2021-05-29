@@ -19,8 +19,8 @@ const description = translated(image, 'description', lang) ?? '';
     <NotFoundPage/>
 {:else}
     <div class="h-full flex flex-col justify-between">
-        <h2 class="mt-3 text-center text-2xl font-bold">{title}</h2>
+        <!-- <h2 class="mt-3 text-center text-2xl font-bold">{title}</h2> -->
         <Img {image} asis />
-        <p class="leading-normal text-lg font-light">{description}</p>
+        <!-- <p class="leading-normal text-lg font-light">{description}</p> -->
     </div>
 {/if}
