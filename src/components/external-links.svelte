@@ -17,7 +17,7 @@ const links = [
 
 </script>
 
-<ul class="flex justify-center">
+<ul class="inline-flex">
     {#each links as link}
         <li class="px-2">
             <a href={link.url} target={link.target} rel="noreferrer">

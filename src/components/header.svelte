@@ -32,15 +32,16 @@ $: navFixed = navElem ? (y > navElem.offsetTop + navElem.offsetHeight + margin) 
 
 <header class="text-center">
 
+    <div class="sm:block text-right fixed right-4 bottom-4">
+        <ToggleLang bind:lang />
+    </div>
+
     {#if isTopPage}
         <nav bind:this={navElem} class="relative">
             <Container>
-                <div class="sm:block text-right fixed right-4 bottom-4">
-                    <ToggleLang bind:lang />
-                </div>
-                <h1 class="mt-3 text-4xl font-light">MAYUMI SASAGE</h1>
+                <h1 class="mt-3 text-4xl md:text-5xl font-light">MAYUMI SASAGE</h1>
                 <p class="mb-4 text-2xl font-extralight">Illustrator &amp; Artist</p>
-                <div class="mb-4"><ExternalLinks /></div>
+                <div class="mb-4 px-4 md:text-right"><ExternalLinks /></div>
 
                 <Img {data} id={data.topImages[0]} square />
 
@@ -57,6 +58,7 @@ $: navFixed = navElem ? (y > navElem.offsetTop + navElem.offsetHeight + margin) 
 
     {#if navFixed || !isTopPage}
         <div transition:fly={{y:-40}} class="fixed left-0 top-0 w-full p-2 text-left bg-white bg-opacity-90 border-b">
+            <div class="hidden md:inline-block absolute right-3 top-2"><ExternalLinks /></div>
             <dic class="flex justify-center">
                 <h1 class="text-2xl font-bold"><a href="/">Mayumi Sasage</a></h1>
             </dic>

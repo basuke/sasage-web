@@ -13,7 +13,7 @@ export let lang = 'en';
 
 const collection = findCollection(data.collections, id);
 
-const description = translated(collection, 'description', lang) ?? '';
+const subtitle = translated(collection, 'subtitle', lang) ?? '';
 const title = translated(collection, 'title', lang) ?? '';
 
 const images = collection && 'images' in collection ? collection.images : [];
@@ -30,9 +30,9 @@ let columns = images.map(toImage).filter(n => n).every(isWide) ? 1 : undefined;
         <div class="grid sm:grid-cols-2 gap-4 mb-8">
             <Img {data} {lang} id={collection.image} square />
 
-            <div>
-                <h2 class="my-3 text-center text-2xl font-bold">{title}</h2>
-                <p class="leading-normal text-lg font-light">{description}</p>
+            <div class="flex flex-col justify-center">
+                <h2 class="my-3 text-center text-3xl font-bold">{title}</h2>
+                <p class="text-center text-lg font-light">{subtitle}</p>
             </div>
         </div>
 
