@@ -8,7 +8,6 @@ import Container from './container.svelte';
 import SlideShow from './slideshow.svelte';
 
 export let data = {};
-export let lang = '';
 
 const sections = ["Books", "Illustrations", "About"];
 
