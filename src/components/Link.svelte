@@ -1,14 +1,16 @@
 <script>
 
 import { Link as OriginalLink } from 'svelte-navigator';
-import { scrollToTop } from '../utils';
+import { scrollToTop, afterTick } from '../utils';
+import { tagPage } from '../app';
 
 export let to = '';
 
 const click = (ev) => {
     if (to && to[0] === '/') {
-        scrollToTop();
+        afterTick(scrollToTop);
     }
+    tagPage(to);
 };
 
 </script>

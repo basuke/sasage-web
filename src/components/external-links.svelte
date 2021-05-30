@@ -1,18 +1,33 @@
 <script>
+import { tagEvent } from "../app";
+
+
 
 const links = [
     {
         type: "fab fa-behance",
         url: "https://www.behance.net/mayumi-sasage/",
+        category: "behance",
         target: "_blank",
     },
-    { type: "fab fa-instagram", url: "https://www.instagram.com/mayumi.sasage/", target: "_blank" },
+    {
+        type: "fab fa-instagram",
+        url: "https://www.instagram.com/mayumi.sasage/",
+        category: "instagram",
+        target: "_blank"
+    },
     {
         type: "fab fa-twitter",
         url: "https://twitter.com/SasageMayumi",
+        category: "twitter",
         target: "_blank",
     },
-    { type: "far fa-envelope", url: "mailto:sasage.mayumi@gmail.com", target: "_self" },
+    {
+        type: "far fa-envelope",
+        url: "mailto:sasage.mayumi@gmail.com",
+        category: "mail",
+        target: "_self"
+    },
 ];
 
 </script>
@@ -20,7 +35,7 @@ const links = [
 <ul class="inline-flex">
     {#each links as link}
         <li class="px-2">
-            <a href={link.url} target={link.target} rel="noreferrer">
+            <a on:click={() => tagEvent('link', link.category)} href={link.url} target={link.target} rel="noreferrer">
                 <i class="{link.type} fa-2x"></i>
             </a>
         </li>

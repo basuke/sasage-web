@@ -3,6 +3,7 @@
 import { fly } from 'svelte/transition';
 import { useLocation, useNavigate } from "svelte-navigator";
 import { scrollToTop, scrollTo, afterTick } from '../utils';
+import { tagPage } from '../app';
 
 import ExternalLinks from './external-links.svelte';
 import Container from './container.svelte';
@@ -29,6 +30,7 @@ function linkToTop(ev) {
         afterTick(scrollToTop);
     }
 
+    tagPage('/');
 }
 
 function linkToAnchor(ev) {
@@ -43,6 +45,8 @@ function linkToAnchor(ev) {
         navigate('/');
         afterTick(() => scrollTo('#' + hash));
     }
+
+    tagPage('/' + hash);
 }
 
 // fixed header

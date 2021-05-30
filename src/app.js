@@ -3,9 +3,18 @@ const debug = false;
 export const imageDirectory = 'images';
 export const storageBucket = 'sasage-website-71713.appspot.com';
 export const baseUrl = `https://storage.googleapis.com/${storageBucket}/${imageDirectory}/`;
+export const gtagId = 'UA-164370440-1';
 
 export const widths = [320, 480, 640, 960, 1280];
 export const heights = [240, 480, 720, 960];
+
+export function tagPage(page_path) {
+    gtag('config', gtagId, {page_path});
+}
+
+export function tagEvent(action, event_category, event_label = '', value = '') {
+    gtag('event', action, {event_category, event_label, value});
+}
 
 export function imagePath(id, variation = '', ext = 'jpg') {
     return baseUrl + id + variation + '.' + ext;
