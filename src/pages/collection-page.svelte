@@ -24,7 +24,7 @@ let columns = images.map(toImage).filter(n => n).every(isWide) ? 1 : undefined;
 </script>
 
 {#if !collection}
-    <NotFoundPage />
+    <NotFoundPage {lang} />
 {:else}
     <Container className="px-16">
         <div class="grid sm:grid-cols-2 gap-4 mb-8">

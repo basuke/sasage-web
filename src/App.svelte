@@ -35,7 +35,7 @@ let lang = "en";
             </Route>
 
             <Route>
-                <NotFoundPage/>
+                <NotFoundPage {lang} />
             </Route>
         </main>
 

@@ -1,7 +1,8 @@
 <script>
 
 import { fly } from 'svelte/transition';
-import { useLocation } from "svelte-navigator";
+import { useLocation, useNavigate } from "svelte-navigator";
+import { scrollToTop, scrollTo, afterTick } from '../utils';
 
 import ExternalLinks from './external-links.svelte';
 import Container from './container.svelte';
@@ -15,6 +16,34 @@ const sections = ["Books", "Illustrations", "About"];
 
 const location = useLocation();
 $: isTopPage = $location.pathname === '/';
+
+const navigate = useNavigate();
+
+function linkToTop(ev) {
+    ev.preventDefault();
+    
+    if (isTopPage) {
+        scrollToTop();
+    } else {
+        navigate('/');
+        afterTick(scrollToTop);
+    }
+
+}
+
+function linkToAnchor(ev) {
+    const hash = ev.target.href.split('#')[1];
+    if (!hash) return;
+
+    ev.preventDefault();
+
+    if (isTopPage) {
+        scrollTo('#' + hash);
+    } else {
+        navigate('/');
+        afterTick(() => scrollTo('#' + hash));
+    }
+}
 
 // fixed header
 
@@ -41,7 +70,7 @@ $: navFixed = navElem ? (y > navElem.offsetTop + navElem.offsetHeight + margin) 
 
                 <ul class="my-3 flex justify-center text-xl font-light space-x-4 text-gray-500">
                     {#each sections as title}
-                        <li><a class="hover:underline" href={'/#' + title}>{title}</a></li>
+                        <li><a on:click={linkToAnchor} class="hover:underline" href={'/#' + title}>{title}</a></li>
                     {/each}
                 </ul>
             </Container>
@@ -54,12 +83,12 @@ $: navFixed = navElem ? (y > navElem.offsetTop + navElem.offsetHeight + margin) 
         <div transition:fly={{y:-40}} class="fixed left-0 top-0 w-full p-2 text-left bg-white bg-opacity-90 border-b">
             <div class="hidden md:inline-block absolute right-3 top-2"><ExternalLinks /></div>
             <dic class="flex justify-center">
-                <h1 class="text-2xl font-bold"><a href="/">Mayumi Sasage</a></h1>
+                <h1 class="text-2xl font-bold"><a on:click={linkToTop} href="/">Mayumi Sasage</a></h1>
             </dic>
 
             <ul class="mt-2 flex justify-center text-lg font-light space-x-4 text-gray-500">
                 {#each sections as title}
-                    <li><a class="hover:underline" href={'/#' + title}>{title}</a></li>
+                    <li><a on:click={linkToAnchor} class="hover:underline" href={'/#' + title}>{title}</a></li>
                 {/each}
             </ul>
         </div>

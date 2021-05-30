@@ -1,16 +1,13 @@
 <script>
 
 import { Link as OriginalLink } from 'svelte-navigator';
+import { scrollToTop } from '../utils';
+
 export let to = '';
 
 const click = (ev) => {
     if (to && to[0] === '/') {
-        setTimeout(() => {
-            window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-        });
-        }, 50);
+        scrollToTop();
     }
 };
 
