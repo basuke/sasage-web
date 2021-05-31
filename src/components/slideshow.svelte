@@ -8,6 +8,7 @@ import Img from './img.svelte';
 
 export let data = {};
 export let images = [];
+export let wide = false;
 
 const interval = 8000;
 let duration = 0;
@@ -37,11 +38,11 @@ onDestroy(() => clearInterval(ticket));
 
 <div class="relative">
     <div class="opacity-0">
-        <Img image={spaceHolderImage} square/>
+        <Img image={spaceHolderImage} square={!wide} {wide} />
     </div>
-    {#each stack as image, index (image.id)}
+    {#each stack as image (image.id)}
         <div in:fade={{duration}} class="absolute top-0 left-0">
-            <Img image={image} square/>
+            <Img image={image} square={!wide} {wide} />
         </div>
     {/each}
 </div>

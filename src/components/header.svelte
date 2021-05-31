@@ -70,7 +70,13 @@ $: navFixed = navElem ? (y > navElem.offsetTop + navElem.offsetHeight + margin) 
                 <p class="mb-4 text-2xl font-extralight">Illustrator &amp; Artist</p>
                 <div class="mb-4 px-4 md:text-right"><ExternalLinks /></div>
 
-                <SlideShow {data} images={data.topImages} />
+                <div class="lg:hidden">
+                    <SlideShow {data} images={data.topImages} />
+                </div>
+
+                <div class="hidden lg:block">
+                    <SlideShow {data} images={data.topImagesWide} wide />
+                </div>
 
                 <ul class="my-3 flex justify-center text-xl font-light space-x-4 text-gray-500">
                     {#each sections as title}

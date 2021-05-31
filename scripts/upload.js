@@ -17,6 +17,7 @@ const resizeOptions = [
     ...widths.map(width => ({width})),
     ...heights.map(height => ({height})),
     ...[480, 960].map(size => ({width: size, height: size})),
+    ...[960, 1280].map(size => ({width: size, height: size / 2})),
     ...heights.map(height => ({width: height / 3 * 4, height})),
 ];
 

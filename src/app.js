@@ -9,11 +9,11 @@ export const widths = [320, 480, 640, 960, 1280];
 export const heights = [240, 480, 720, 960];
 
 export function tagPage(page_path) {
-    gtag('config', gtagId, {page_path});
+    gtag('config', gtagId, { page_path });
 }
 
 export function tagEvent(action, event_category, event_label = '', value = '') {
-    gtag('event', action, {event_category, event_label, value});
+    gtag('event', action, { event_category, event_label, value });
 }
 
 export function imagePath(id, variation = '', ext = 'jpg') {
@@ -46,6 +46,15 @@ export const data = {
         'top/5',
         'top/6',
         'top/7',
+    ],
+    topImagesWide: [
+        'top/wide-1',
+        'top/wide-2',
+        'top/wide-3',
+        'top/wide-4',
+        'top/wide-5',
+        'top/wide-6',
+        'top/wide-7',
     ],
     collections: [
         {
@@ -85,8 +94,6 @@ export const data = {
                 "books/flowers/13",
                 "books/flowers/14",
                 "books/flowers/15",
-                "books/flowers/16",
-                "books/flowers/17",
             ],
         },
         {
@@ -134,6 +141,16 @@ export const data = {
 
                 "illustration/1",
 
+                'food/food-1',
+                'food/food-2',
+                'food/food-3',
+                'food/food-4',
+                'food/food-5',
+                'food/food-6',
+                'food/food-7',
+                'food/food-8',
+                'food/food-9',
+
                 "drawings/1",
                 "drawings/2",
                 "drawings/3",
@@ -142,8 +159,7 @@ export const data = {
             ],
         },
     ],
-    images:
-    {
+    images: {
         "drawings/1": {
             "id": "drawings/1",
             "format": "jpeg",
@@ -179,6 +195,13 @@ export const data = {
             "height": 2732,
             "title": "drawings/5"
         },
+        "illustration/1": {
+            "id": "illustration/1",
+            "format": "jpeg",
+            "width": 5000,
+            "height": 1875,
+            "title": "illustration/1"
+        },
         "spiced-tea/1": {
             "id": "spiced-tea/1",
             "format": "jpeg",
@@ -200,12 +223,89 @@ export const data = {
             "height": 2732,
             "title": "spiced-tea/3"
         },
-        "illustration/1": {
-            "id": "illustration/1",
+        "summer/a": {
+            "id": "summer/a",
             "format": "jpeg",
-            "width": 1280,
-            "height": 480,
-            "title": "illustration/1"
+            "width": 2048,
+            "height": 2732,
+            "title": "summer/a"
+        },
+        "summer/b": {
+            "id": "summer/b",
+            "format": "jpeg",
+            "width": 2048,
+            "height": 2048,
+            "title": "summer/b"
+        },
+        "summer/c": {
+            "id": "summer/c",
+            "format": "jpeg",
+            "width": 2800,
+            "height": 2800,
+            "title": "summer/c"
+        },
+        "food/food-1": {
+            "id": "food/food-1",
+            "format": "jpeg",
+            "width": 1200,
+            "height": 1200,
+            "title": "food/food-1"
+        },
+        "food/food-2": {
+            "id": "food/food-2",
+            "format": "jpeg",
+            "width": 1200,
+            "height": 1200,
+            "title": "food/food-2"
+        },
+        "food/food-3": {
+            "id": "food/food-3",
+            "format": "jpeg",
+            "width": 1200,
+            "height": 1200,
+            "title": "food/food-3"
+        },
+        "food/food-4": {
+            "id": "food/food-4",
+            "format": "jpeg",
+            "width": 1200,
+            "height": 1200,
+            "title": "food/food-4"
+        },
+        "food/food-5": {
+            "id": "food/food-5",
+            "format": "jpeg",
+            "width": 1200,
+            "height": 1200,
+            "title": "food/food-5"
+        },
+        "food/food-6": {
+            "id": "food/food-6",
+            "format": "jpeg",
+            "width": 1200,
+            "height": 1200,
+            "title": "food/food-6"
+        },
+        "food/food-7": {
+            "id": "food/food-7",
+            "format": "jpeg",
+            "width": 1200,
+            "height": 1200,
+            "title": "food/food-7"
+        },
+        "food/food-8": {
+            "id": "food/food-8",
+            "format": "jpeg",
+            "width": 1200,
+            "height": 1200,
+            "title": "food/food-8"
+        },
+        "food/food-9": {
+            "id": "food/food-9",
+            "format": "jpeg",
+            "width": 1200,
+            "height": 1200,
+            "title": "food/food-9"
         },
         "morning-routine/a": {
             "id": "morning-routine/a",
@@ -270,26 +370,54 @@ export const data = {
             "height": 1280,
             "title": "top/7"
         },
-        "summer/a": {
-            "id": "summer/a",
+        "top/wide-1": {
+            "id": "top/wide-1",
             "format": "jpeg",
-            "width": 2048,
-            "height": 2732,
-            "title": "summer/a"
+            "width": 2362,
+            "height": 1240,
+            "title": "top/wide-1"
         },
-        "summer/b": {
-            "id": "summer/b",
+        "top/wide-2": {
+            "id": "top/wide-2",
             "format": "jpeg",
-            "width": 2048,
-            "height": 2048,
-            "title": "summer/b"
+            "width": 4724,
+            "height": 2480,
+            "title": "top/wide-2"
         },
-        "summer/c": {
-            "id": "summer/c",
+        "top/wide-3": {
+            "id": "top/wide-3",
             "format": "jpeg",
-            "width": 2800,
-            "height": 2800,
-            "title": "summer/c"
+            "width": 5000,
+            "height": 1875,
+            "title": "top/wide-3"
+        },
+        "top/wide-4": {
+            "id": "top/wide-4",
+            "format": "jpeg",
+            "width": 5000,
+            "height": 1875,
+            "title": "top/wide-4"
+        },
+        "top/wide-5": {
+            "id": "top/wide-5",
+            "format": "jpeg",
+            "width": 5000,
+            "height": 1875,
+            "title": "top/wide-5"
+        },
+        "top/wide-6": {
+            "id": "top/wide-6",
+            "format": "jpeg",
+            "width": 5000,
+            "height": 1875,
+            "title": "top/wide-6"
+        },
+        "top/wide-7": {
+            "id": "top/wide-7",
+            "format": "jpeg",
+            "width": 5197,
+            "height": 3366,
+            "title": "top/wide-7"
         },
         "books/farmersmaket/cover": {
             "id": "books/farmersmaket/cover",
@@ -301,8 +429,8 @@ export const data = {
         "books/farmersmaket/fm1": {
             "id": "books/farmersmaket/fm1",
             "format": "jpeg",
-            "width": 1280,
-            "height": 829,
+            "width": 5197,
+            "height": 3366,
             "title": "books/farmersmaket/fm1"
         },
         "books/farmersmaket/fm2": {
@@ -326,11 +454,123 @@ export const data = {
             "height": 2048,
             "title": "books/farmersmaket/fm4"
         },
+        "books/flowers/1": {
+            "id": "books/flowers/1",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/1"
+        },
+        "books/flowers/10": {
+            "id": "books/flowers/10",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/10"
+        },
+        "books/flowers/11": {
+            "id": "books/flowers/11",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/11"
+        },
+        "books/flowers/12": {
+            "id": "books/flowers/12",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/12"
+        },
+        "books/flowers/13": {
+            "id": "books/flowers/13",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/13"
+        },
+        "books/flowers/14": {
+            "id": "books/flowers/14",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/14"
+        },
+        "books/flowers/15": {
+            "id": "books/flowers/15",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/15"
+        },
+        "books/flowers/2": {
+            "id": "books/flowers/2",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/2"
+        },
+        "books/flowers/3": {
+            "id": "books/flowers/3",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/3"
+        },
+        "books/flowers/4": {
+            "id": "books/flowers/4",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/4"
+        },
+        "books/flowers/5": {
+            "id": "books/flowers/5",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/5"
+        },
+        "books/flowers/6": {
+            "id": "books/flowers/6",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/6"
+        },
+        "books/flowers/7": {
+            "id": "books/flowers/7",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/7"
+        },
+        "books/flowers/8": {
+            "id": "books/flowers/8",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/8"
+        },
+        "books/flowers/9": {
+            "id": "books/flowers/9",
+            "format": "jpeg",
+            "width": 3400,
+            "height": 4400,
+            "title": "books/flowers/9"
+        },
+        "books/flowers/cover": {
+            "id": "books/flowers/cover",
+            "format": "jpeg",
+            "width": 5000,
+            "height": 5000,
+            "title": "books/flowers/cover"
+        },
         "books/lilly-and-the-black-cat/1": {
             "id": "books/lilly-and-the-black-cat/1",
             "format": "jpeg",
-            "width": 1280,
-            "height": 480,
+            "width": 5000,
+            "height": 1875,
             "title": "books/lilly-and-the-black-cat/1"
         },
         "books/lilly-and-the-black-cat/2": {
@@ -374,132 +614,6 @@ export const data = {
             "width": 4000,
             "height": 2667,
             "title": "books/lilly-and-the-black-cat/cover"
-        },
-        "books/flowers/1": {
-            "id": "books/flowers/1",
-            "format": "jpeg",
-            "width": 989,
-            "height": 1280,
-            "title": "books/flowers/1"
-        },
-        "books/flowers/10": {
-            "id": "books/flowers/10",
-            "format": "jpeg",
-            "width": 989,
-            "height": 1280,
-            "title": "books/flowers/10"
-        },
-        "books/flowers/11": {
-            "id": "books/flowers/11",
-            "format": "jpeg",
-            "width": 3400,
-            "height": 4400,
-            "title": "books/flowers/11"
-        },
-        "books/flowers/12": {
-            "id": "books/flowers/12",
-            "format": "jpeg",
-            "width": 3400,
-            "height": 4400,
-            "title": "books/flowers/12"
-        },
-        "books/flowers/13": {
-            "id": "books/flowers/13",
-            "format": "jpeg",
-            "width": 989,
-            "height": 1280,
-            "title": "books/flowers/13"
-        },
-        "books/flowers/14": {
-            "id": "books/flowers/14",
-            "format": "jpeg",
-            "width": 3400,
-            "height": 4400,
-            "title": "books/flowers/14"
-        },
-        "books/flowers/15": {
-            "id": "books/flowers/15",
-            "format": "jpeg",
-            "width": 3400,
-            "height": 4400,
-            "title": "books/flowers/15"
-        },
-        "books/flowers/16": {
-            "id": "books/flowers/16",
-            "format": "jpeg",
-            "width": 3400,
-            "height": 4400,
-            "title": "books/flowers/16"
-        },
-        "books/flowers/17": {
-            "id": "books/flowers/17",
-            "format": "jpeg",
-            "width": 3400,
-            "height": 4400,
-            "title": "books/flowers/17"
-        },
-        "books/flowers/2": {
-            "id": "books/flowers/2",
-            "format": "jpeg",
-            "width": 989,
-            "height": 1280,
-            "title": "books/flowers/2"
-        },
-        "books/flowers/3": {
-            "id": "books/flowers/3",
-            "format": "jpeg",
-            "width": 3400,
-            "height": 4400,
-            "title": "books/flowers/3"
-        },
-        "books/flowers/4": {
-            "id": "books/flowers/4",
-            "format": "jpeg",
-            "width": 989,
-            "height": 1280,
-            "title": "books/flowers/4"
-        },
-        "books/flowers/5": {
-            "id": "books/flowers/5",
-            "format": "jpeg",
-            "width": 3400,
-            "height": 4400,
-            "title": "books/flowers/5"
-        },
-        "books/flowers/6": {
-            "id": "books/flowers/6",
-            "format": "jpeg",
-            "width": 3400,
-            "height": 4400,
-            "title": "books/flowers/6"
-        },
-        "books/flowers/7": {
-            "id": "books/flowers/7",
-            "format": "jpeg",
-            "width": 3400,
-            "height": 4400,
-            "title": "books/flowers/7"
-        },
-        "books/flowers/8": {
-            "id": "books/flowers/8",
-            "format": "jpeg",
-            "width": 3400,
-            "height": 4400,
-            "title": "books/flowers/8"
-        },
-        "books/flowers/9": {
-            "id": "books/flowers/9",
-            "format": "jpeg",
-            "width": 989,
-            "height": 1280,
-            "title": "books/flowers/9"
-        },
-        "books/flowers/cover": {
-            "id": "books/flowers/cover",
-            "format": "jpeg",
-            "width": 5000,
-            "height": 5000,
-            "title": "books/flowers/cover"
         },
         "books/lost-in-the-rain/cover": {
             "id": "books/lost-in-the-rain/cover",

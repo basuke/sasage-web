@@ -6,7 +6,6 @@ export let id = null;
 export let image = null;
 export let data = {};
 export let lang = {};
-export let variation = '';
 export let className = '';
 
 export let columns = 0;
@@ -14,10 +13,16 @@ export let span = 1;
 
 export let square = false;  // display square
 export let r4x3 = false;    // display 4:3
+export let wide = false;    // display 2:1
 export let asis = false;    // display original
 
+let width, height;
 if (id) {
     image = findImage(data.images, id);
+    if (image) {
+        width = image.width;
+        height = image.height;
+    }
 }
 
 function genVariation(w, h) {
@@ -35,26 +40,46 @@ function genMedia(w) {
 }
 
 let sources = [];
+let variation = '';
 
-if (variation || asis) {
-    // just list that variation or original for webp and jpg.
+if (asis) {
+    // just list that original for webp and jpg.
 } else if (square) {
     // list only squares
     sources = widths.filter(w => heights.indexOf(w) >= 0).map(w => ({
         media: genMedia(w),
+        width: w,
+        height: w,
         variation: genVariation(w, w),
     }));
-    variation = sources.pop().variation;
+    const source = sources.pop();
+    width = source.wide;
+    height = source.height;
+    variation = source.variation;
 } else if (r4x3) {
     // list only 4:3
     sources = heights.map(h => {
         const w = h / 3 * 4;
         return {
             media: genMedia(w),
+            width: w,
+            height: h,
             variation: genVariation(w, h),
         };
     });
+    const source = sources.pop();
+    width = source.wide;
+    height = source.height;
+    variation = source.variation;
+} else if (wide) {
+    // list only squares
+    sources = [960, 1280].map(w => ({
+        media: genMedia(w),
+        variation: genVariation(w, w /2),
+    }));
     variation = sources.pop().variation;
+    width = 1280;
+    height = 640;
 } else {
     // list width constraint and original at the end
     sources = widths.map(w => ({
@@ -76,8 +101,8 @@ if (variation || asis) {
     <img
         class={className}
         src={imagePath(image.id, variation)}
-        width={image.width}
-        height={image.height}
+        {width}
+        {height}
         alt={translated(image, 'title', lang)}
         loading="lazy"
     >
