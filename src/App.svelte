@@ -3,13 +3,13 @@
 import { Router, Route } from "svelte-navigator";
 
 import Header from './components/header.svelte';
-import ExternalLinks from './components/external-links.svelte';
+import Footer from './components/footer.svelte';
 
 import TopPage from './pages/top-page.svelte';
 import CollectionPage from './pages/collection-page.svelte';
 import ImagePage from './pages/image-page.svelte';
 import NotFoundPage from './pages/not-found-page.svelte';
-import ToggleLang from './components/toggle-lang.svelte';
+import SignInPage from './pages/signin-page.svelte';
 
 export let data = {};
 
@@ -34,20 +34,16 @@ let lang = "en";
                 <ImagePage {data} {lang} id={params.id} />
             </Route>
 
+            <Route path="/admin/signin">
+                <SignInPage {data} />
+            </Route>
+
             <Route>
                 <NotFoundPage {lang} />
             </Route>
         </main>
 
-        <footer class="text-center mt-3 py-3">
-            <ExternalLinks />
-            <p class="text-xs sm:text-sm md:text-base py-4">&copy; 2020-2021 Mayumi Sasage. All rights reserved.</p>
-        </footer>
-
-        <div class="sm:block text-right fixed right-4 bottom-4">
-            <ToggleLang bind:lang />
-        </div>
-    
+        <Footer {data} bind:lang />
     </div>
 </Router>
 
