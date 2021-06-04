@@ -62,7 +62,7 @@ export const data = {
             book: true,
             image: "books/lost-in-the-rain/cover",
             title: 'LOST IN THE RAIN',
-            subtitle: "Children’s book",
+            subtitle: "Children’s book (2020)",
             images: [
 
                 "books/lost-in-the-rain/page1",
@@ -77,7 +77,7 @@ export const data = {
             book: true,
             image: "books/flowers/cover",
             title: 'Flowers',
-            subtitle: 'Oracle Cards',
+            subtitle: 'Oracle Cards (2019)',
             images: [
                 "books/flowers/1",
                 "books/flowers/2",
@@ -101,7 +101,7 @@ export const data = {
             book: true,
             image: "books/farmersmaket/cover",
             title: 'Farmers Market',
-            subtitle: 'The page of the magazine',
+            subtitle: 'The page of the magazine (2020)',
             images: [
                 "books/farmersmaket/fm2",
                 "books/farmersmaket/fm3",
@@ -114,7 +114,7 @@ export const data = {
             book: true,
             image: "books/lilly-and-the-black-cat/6",
             title: 'Lilly and The Black Cat',
-            subtitle: "Children's Book",
+            subtitle: "Children's Book (2019 - 20)",
             images: [
                 "books/lilly-and-the-black-cat/1",
                 "books/lilly-and-the-black-cat/2",
