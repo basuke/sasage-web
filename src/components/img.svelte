@@ -91,7 +91,6 @@ if (asis) {
 </script>
 
 {#if image}
-<span class="hidden">square: {square} r4x3: {r4x3} asis: {asis} columns: {columns} span: {span}</span>
 <picture>
     {#each sources as source}
         <source type="image/webp" media={source.media} srcset={imagePath(image.id, source.variation, 'webp')}>
