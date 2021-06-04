@@ -5,6 +5,8 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
+    "preview": "firebase hosting:channel:deploy preview",
+    "deploy": "firebase deploy",
     "start": "firebase serve --host 0.0.0.0"
   },
   "devDependencies": {
