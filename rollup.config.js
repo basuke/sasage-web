@@ -4,10 +4,25 @@ import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import postcss from 'rollup-plugin-postcss'
+import child_process from 'child_process';
 
 const production = !process.env.ROLLUP_WATCH;
 
 process.env.NODE_ENV = production ? 'production' : 'development';
+
+
+function clean(dir) {
+	return {
+		options(opts) {
+			console.log(`clean before build`);
+			child_process.spawnSync('git', ['clean', '-dxf', dir], {
+				stdio: ['ignore', 'inherit', 'inherit'],
+				shell: true
+			});
+			return opts;
+		}
+	};
+}
 
 function serve() {
 	let server;
@@ -19,7 +34,7 @@ function serve() {
 	return {
 		writeBundle() {
 			if (server) return;
-			server = require('child_process').spawn('firebase', ['serve', '--host', '0.0.0.0'], {
+			server = child_process.spawn('firebase', ['serve', '--host', '0.0.0.0'], {
 				stdio: ['ignore', 'inherit', 'inherit'],
 				shell: true
 			});
@@ -68,6 +83,9 @@ export default {
 		// Watch the `public` directory and refresh the
 		// browser on changes when not in production
 		!production && livereload('public'),
+
+		// Clean before build
+		production && clean('public/build'),
 
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify
