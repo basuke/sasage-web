@@ -2,8 +2,9 @@
 
 import { fly } from 'svelte/transition';
 import { useLocation, useNavigate } from "svelte-navigator";
-import { scrollToTop, scrollTo, afterTick } from '../utils';
+import { scrollToTop, scrollTo } from '../utils';
 import { tagPage } from '../app';
+import { tick } from 'svelte';
 
 import ExternalLinks from './external-links.svelte';
 import Container from './container.svelte';
@@ -27,7 +28,7 @@ function linkToTop(ev) {
         scrollToTop();
     } else {
         navigate('/');
-        afterTick(scrollToTop);
+        tick().then(scrollToTop);
     }
 
     tagPage('/');
@@ -43,7 +44,7 @@ function linkToAnchor(ev) {
         scrollTo('#' + hash);
     } else {
         navigate('/');
-        afterTick(() => scrollTo('#' + hash));
+        tick().then(() => scrollTo('#' + hash));
     }
 
     tagPage('/' + hash);

@@ -13,8 +13,3 @@ export const scrollTo = selector => {
         });
     }
 };
-
-
-export const afterTick = (task) => {
-    setTimeout(task, 16);
-}
