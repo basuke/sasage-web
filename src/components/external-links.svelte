@@ -1,7 +1,5 @@
 <script>
-import { tagEvent } from "../app";
-
-
+import { tagEvent, email } from "../app"; 
 
 const links = [
     {
@@ -24,7 +22,7 @@ const links = [
     },
     {
         type: "far fa-envelope",
-        url: "mailto:sasage.mayumi@gmail.com",
+        url: `mailto:${email}`,
         category: "mail",
         target: "_self"
     },

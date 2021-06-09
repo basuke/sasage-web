@@ -1,6 +1,6 @@
 <script>
 
-import { fade } from 'svelte/transition';
+import { email } from '../app';
 
 export let lang = '';
 
@@ -40,7 +40,7 @@ export let lang = '';
             </p>
             <p class="mb-6">
                 最新のイラストはインスタに随時載せていますので、そちらもご覧ください。
-                お仕事のご依頼はメールにてご連絡ください。
+                お仕事のご依頼は<a href="mailto:{email}" class="underline">メール</a>にてご連絡ください。
             </p>
         </section>
     {/if}

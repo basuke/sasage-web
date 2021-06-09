@@ -1,5 +1,7 @@
 const debug = false;
 
+export const email = 'sasage.mayumi@gmail.com';
+
 export const imageDirectory = 'images';
 export const storageBucket = 'sasage-website-71713.appspot.com';
 export const baseUrl = `https://storage.googleapis.com/${storageBucket}/${imageDirectory}/`;
