@@ -64,7 +64,10 @@ export const data = {
             book: true,
             image: "books/lost-in-the-rain/cover",
             title: 'LOST IN THE RAIN',
-            subtitle: "Children’s book (2020)",
+            subtitle: `Children’s book (2020)<br>
+            <br>
+            This work was selected for<br>
+            <a class="underline text-red-700 hover:text-red-400" href="https://theaoi.com/wia/mayumi-sasage-lost-in-the-rain/">The AOI World Illustration Awards longlist</a>.`,
             images: [
 
                 "books/lost-in-the-rain/page1",
