@@ -24,3 +24,14 @@ Replace images in /images/ directory and run
 > node scripts/upload.js
 
 The iamges are cached in Firebase Storage. It takes a few minutes to be reflected with new image.
+
+# serviceAccountKey.json
+
+This file is required to upload images to Google Cloud Storage. It can be created and downloaded from the Cloud Console.
+
+1. Go to https://console.cloud.google.com/iam-admin/serviceaccounts/
+2. Choose Sasage-website
+3. Choose firebase-adminsdk
+4. Select "Keys" tab
+5. Create a new key and download JSON file.
+6. Name it as `serviceAccountKey.json` and place it in the root of this project.

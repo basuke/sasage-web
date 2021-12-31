@@ -1,10 +1,11 @@
-const globby = require('globby');
-const path = require('path');
-const fs = require('fs');
-const sharp = require('sharp');
-const admin = require('firebase-admin');
-const tempy = require('tempy');
-const minimist = require('minimist');
+import { globby } from 'globby';
+
+import path from 'path';
+import fs  from 'fs';
+import sharp  from 'sharp';
+import admin  from 'firebase-admin';
+import tempy  from 'tempy';
+import minimist  from 'minimist';
 
 const destinationDirectory = 'images';
 const indexPath = './public/build/images.json';
@@ -23,6 +24,7 @@ const resizeOptions = [
 
 const args = minimist(process.argv.slice(2));
 const directory = args._.length ? args._[0] : './images';
+const dryRun = args['n'] || args['dry-run'];
 
 function suffix(option) {
     let suffix = '';
@@ -42,7 +44,13 @@ function pathToHash(source) {
 }
 
 async function upload(dataFile, destinationPath) {
-    return bucket.upload(dataFile, { destination: destinationPath, pubic: true });
+    if (dryRun) {
+        console.log(`=> ${destinationPath}`);
+        return;
+    }
+
+    return bucket.upload(dataFile, { destination: destinationPath, pubic: true })
+        .then(data => data[0].makePublic());
 }
 
 async function saveResizedFile({source, resize, extension, format, opt}) {
@@ -55,7 +63,6 @@ async function saveResizedFile({source, resize, extension, format, opt}) {
         .toFormat(format, opt)
         .toFile(dataFile)
         .then(() => upload(dataFile, filePath))
-        .then(data => data[0].makePublic());
 }
 
 
