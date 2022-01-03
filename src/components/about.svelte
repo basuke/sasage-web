@@ -1,6 +1,6 @@
 <script>
 
-import { email } from '../app';
+import { email, agencyEmail } from '../app';
 
 export let lang = '';
 
@@ -23,6 +23,25 @@ export let lang = '';
                 She is interested and engages in mixed media such as hand drawing, printmaking, and digital.
                 When not in her studio drawing, Mayumi loves taking care of plants, drawing with her daughter,
                 and sharing meals with friends and family.
+            </p>
+            <p class="mb-6">
+                She's represented by Essie White at <a href="https://www.stormliteraryagency.com/" class="underline" target="_blank">Storm Literary Agency</a>.
+            </p>
+        </section>
+
+        <h2 class="mt-12 mb-4 text-center text-2xl md:text-3xl">CONTACT</h2>
+        <section class="text-left">
+            <p class="mb-6">
+                Always looking for new opportunities and exciting projects!
+            </p>
+            <p class="mb-6">
+                For publishing/book enquiries, please contact <a href="mailto:{agencyEmail}" class="underline">{agencyEmail}</a>
+            </p>
+            <p class="mb-6">
+                For illustration work or questions, please email me at <a href="mailto:{email}" class="underline">{email}</a>
+            </p>
+            <p class="mb-6">
+                Thanks!
             </p>
         </section>
     {:else if lang === 'ja'}

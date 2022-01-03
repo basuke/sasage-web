@@ -12,7 +12,11 @@ import SlideShow from './slideshow.svelte';
 
 export let data = {};
 
-const sections = ["Books", "Illustrations", "About"];
+const sections = {
+    Books: "Books",
+    Illustrations: "Illustrations",
+    About: "About / Contact",
+};
 
 // top page detection
 
@@ -80,8 +84,8 @@ $: navFixed = navElem ? (y > navElem.offsetTop + navElem.offsetHeight + margin) 
                 </div>
 
                 <ul class="my-3 flex justify-center text-xl font-light space-x-4 text-gray-500">
-                    {#each sections as title}
-                        <li><a on:click={linkToAnchor} class="hover:underline" href={'/#' + title}>{title}</a></li>
+                    {#each Object.keys(sections) as key}
+                        <li><a on:click={linkToAnchor} class="hover:underline" href={'/#' + key}>{sections[key]}</a></li>
                     {/each}
                 </ul>
             </Container>
@@ -98,8 +102,8 @@ $: navFixed = navElem ? (y > navElem.offsetTop + navElem.offsetHeight + margin) 
             </dic>
 
             <ul class="mt-2 flex justify-center text-lg font-light space-x-4 text-gray-500">
-                {#each sections as title}
-                    <li><a on:click={linkToAnchor} class="hover:underline" href={'/#' + title}>{title}</a></li>
+                {#each Object.keys(sections) as key}
+                    <li><a on:click={linkToAnchor} class="hover:underline" href={'/#' + key}>{sections[key]}</a></li>
                 {/each}
             </ul>
         </div>
