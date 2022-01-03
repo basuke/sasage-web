@@ -27,9 +27,10 @@ export let lang = '';
             <p class="mb-6">
                 She's represented by Essie White at <a href="https://www.stormliteraryagency.com/" class="underline" target="_blank">Storm Literary Agency</a>.
             </p>
+        </section>
 
-            <h2 class="mt-12 mb-4 text-center text-2xl md:text-3xl">CONTACT</h2>
-
+        <h2 class="mt-12 mb-4 text-center text-2xl md:text-3xl">CONTACT</h2>
+        <section class="text-left">
             <p class="mb-6">
                 Always looking for new opportunities and exciting projects!
             </p>
