@@ -1,6 +1,7 @@
 const debug = false;
 
 export const email = 'sasage.mayumi@gmail.com';
+export const agencyEmail = 'stormliteraryagency@gmail.com';
 
 export const imageDirectory = 'images';
 export const storageBucket = 'sasage-website-71713.appspot.com';
