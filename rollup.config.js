@@ -92,6 +92,7 @@ export default {
 		production && terser()
 	],
 	watch: {
-		clearScreen: false
+		clearScreen: false,
+		include: 'src/**',
 	}
 };
