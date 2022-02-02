@@ -1,6 +1,6 @@
 const debug = false;
 
-import images from '../public/build/images.json';
+import images from '../images/images.json';
 
 export const email = 'sasage.mayumi@gmail.com';
 export const agencyEmail = 'stormliteraryagency@gmail.com';

@@ -8,7 +8,7 @@ import tempy  from 'tempy';
 import minimist  from 'minimist';
 
 const destinationDirectory = 'images';
-const indexPath = './public/build/images.json';
+const indexPath = './images.json';
 const storageBucket = 'sasage-website-71713.appspot.com';
 
 const widths = [320, 480, 640, 960, 1280];
