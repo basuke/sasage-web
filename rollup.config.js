@@ -5,6 +5,7 @@ import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import postcss from 'rollup-plugin-postcss'
 import child_process from 'child_process';
+import json from '@rollup/plugin-json';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -75,6 +76,7 @@ export default {
 			dedupe: ['svelte']
 		}),
 		commonjs(),
+		json(),
 
 		// In dev mode, call `npm run start` once
 		// the bundle has been generated
