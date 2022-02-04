@@ -11,13 +11,13 @@ export let data = {};
 <article class="px-3 max-w-xl mx-auto text-justify sm:px-0 lg:flex lg:max-w-full lg:text-lg lg:justify-center lg:px-4">
     <div class="hidden max-w-sm pr-8 lg:block">
         <h2 class="my-5 text-3xl">&nbsp;</h2>
-        <div><Img id="profile" {data} r4x3 /></div>
+        <div><Img id="profile" {data} square /></div>
     </div>
 
     <div class="max-w-xl mb-12">
         <h2 class="my-4 text-center text-2xl md:text-3xl">ABOUT</h2>
 
-        <div class="my-12 lg:hidden"><Img id="profile" {data} r4x3 /></div>
+        <div class="my-12 px-20 lg:hidden"><Img id="profile" {data} square /></div>
 
         {#if lang === 'en'}
             <section>
