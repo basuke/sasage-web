@@ -25,7 +25,6 @@ const illustrations = data.collections.find(collection => collection.id === 'ill
     </div>
 
     <div id="About" class="pt-20">
-        <h2 class="my-4 text-center text-2xl md:text-3xl">ABOUT</h2>
-        <About bind:lang />
+        <About bind:lang {data} />
     </div>
 </Container>
