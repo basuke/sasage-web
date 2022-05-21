@@ -1,18 +1,16 @@
 <script>
+    import { findImage, translated } from '../data';
 
-import { findImage, translated } from '../app';
+    import Img from '$lib/img.svelte';
+    import NotFoundPage from './not-found-page.svelte';
 
-import Img from '../components/img.svelte';
-import NotFoundPage from './not-found-page.svelte';
+    export let id;
+    export let data = {};
+    export let lang = 'en';
 
-export let id;
-export let data = {};
-export let lang = 'en';
-
-const image = findImage(data.images, id);
-const title = translated(image, 'title', lang) ?? '';
-const description = translated(image, 'description', lang) ?? '';
-
+    const image = findImage(data.images, id);
+    const title = translated(image, 'title', lang) ?? '';
+    const description = translated(image, 'description', lang) ?? '';
 </script>
 
 {#if !image}

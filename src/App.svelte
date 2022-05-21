@@ -1,20 +1,16 @@
 <script>
+    import Header from './components/header.svelte';
+    import Footer from './components/footer.svelte';
 
-import { Router, Route } from "svelte-navigator";
+    import TopPage from './pages/top-page.svelte';
+    import CollectionPage from './pages/collection-page.svelte';
+    import ImagePage from './pages/image-page.svelte';
+    import NotFoundPage from './pages/not-found-page.svelte';
+    import SignInPage from './pages/signin-page.svelte';
 
-import Header from './components/header.svelte';
-import Footer from './components/footer.svelte';
+    export let data = {};
 
-import TopPage from './pages/top-page.svelte';
-import CollectionPage from './pages/collection-page.svelte';
-import ImagePage from './pages/image-page.svelte';
-import NotFoundPage from './pages/not-found-page.svelte';
-import SignInPage from './pages/signin-page.svelte';
-
-export let data = {};
-
-let lang = "en";
-
+    let lang = 'en';
 </script>
 
 <Router primary={false}>
@@ -23,7 +19,7 @@ let lang = "en";
 
         <main class="flex-auto">
             <Route path="/">
-                <TopPage {data} {lang}/>
+                <TopPage {data} {lang} />
             </Route>
 
             <Route path="/collections/:id" let:params>
