@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
     import { fly } from 'svelte/transition';
     import { scrollToTop, scrollTo } from '../utils';
-    import { tagPage } from '../data';
+    import { data, tagPage } from '../data';
     import { tick } from 'svelte';
     import { page } from '$app/stores';
     import ExternalLinks from './external-links.svelte';
@@ -9,19 +9,17 @@
     import SlideShow from './slideshow.svelte';
     import { goto } from '$app/navigation';
 
-    export let data = {};
-
-    const sections = {
-        Books: 'Books',
-        Illustrations: 'Illustrations',
-        About: 'About / Contact',
-    };
+    const sections = [
+        { title: 'Books', href: '/#Books' },
+        { title: 'Illustrations', href: '/#Illustrations' },
+        { title: 'About / Contact', href: '/#About' },
+    ];
 
     // top page detection
 
     $: isTopPage = $page.url.pathname === '/';
 
-    function linkToTop(ev) {
+    function linkToTop(ev: Event) {
         ev.preventDefault();
 
         if (isTopPage) {
@@ -34,9 +32,12 @@
         tagPage('/');
     }
 
-    function linkToAnchor(ev) {
-        const hash = ev?.target?.href.split('#')[1];
-        if (!hash) return;
+    function linkToAnchor(ev: Event) {
+        const target = ev?.target;
+        if (target instanceof HTMLElement) {
+            const hash = target.href.split('#')[1];
+            if (!hash) return;
+        }
 
         ev.preventDefault();
 
@@ -53,7 +54,7 @@
     // fixed header
 
     let y = 0;
-    let navElem;
+    let navElem: HTMLElement;
     const margin = 20;
 
     $: navFixed = navElem ? y > navElem.offsetTop + navElem.offsetHeight + margin : false;
@@ -78,11 +79,9 @@
                 </div>
 
                 <ul class="my-3 flex justify-center text-xl font-light space-x-4 text-gray-500">
-                    {#each Object.keys(sections) as key}
+                    {#each sections as { title, href }}
                         <li>
-                            <a on:click={linkToAnchor} class="hover:underline" href={'/#' + key}
-                                >{sections[key]}</a
-                            >
+                            <a on:click={linkToAnchor} class="hover:underline" {href}>{title}</a>
                         </li>
                     {/each}
                 </ul>
@@ -105,11 +104,9 @@
             </dic>
 
             <ul class="mt-2 flex justify-center text-lg font-light space-x-4 text-gray-500">
-                {#each Object.keys(sections) as key}
+                {#each sections as { title, href }}
                     <li>
-                        <a on:click={linkToAnchor} class="hover:underline" href={'/#' + key}
-                            >{sections[key]}</a
-                        >
+                        <a on:click={linkToAnchor} class="hover:underline" {href}>{title}</a>
                     </li>
                 {/each}
             </ul>

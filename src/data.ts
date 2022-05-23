@@ -1,6 +1,9 @@
 const debug = false;
 
-import images from '../images/images.json';
+import { writable } from 'svelte/store';
+import type { Writable } from 'svelte/store';
+import images from './images.json';
+import { browser } from '$app/env';
 
 export const email = 'sasage.mayumi@gmail.com';
 export const agencyEmail = 'stormliteraryagency@gmail.com';
@@ -13,27 +16,65 @@ export const gtagId = 'UA-164370440-1';
 export const widths = [320, 480, 640, 960, 1280];
 export const heights = [240, 480, 720, 960];
 
+interface gtagFunction {
+    (title: string, message: string, params: Record<string, any>): void;
+}
+
+declare const gtag: gtagFunction;
+
+export type Image = {
+    id: string;
+    format: 'jpeg' | 'png';
+    width: number;
+    height: number;
+    title: string;
+};
+
+export type ImageSet = Record<string, Image>;
+
+export type Collection = {
+    id: string;
+    book?: boolean;
+    image?: string;
+    title: string;
+    subtitle?: string;
+    images: string[];
+};
+
+export type Collections = Collection[];
+
 export function tagPage(page_path: string) {
-    gtag('config', gtagId, { page_path });
+    if (browser) {
+        gtag('config', gtagId, { page_path });
+    }
 }
 
-export function tagEvent(action, event_category, event_label = '', value = '') {
-    gtag('event', action, { event_category, event_label, value });
+export function tagEvent(action: string, event_category: string, event_label = '', value = '') {
+    if (browser) {
+        gtag('event', action, { event_category, event_label, value });
+    }
 }
 
-export function imagePath(id, variation = '', ext = 'jpg') {
+export function imagePath(id: string, variation = '', ext = 'jpg') {
     return baseUrl + id + variation + '.' + ext;
 }
 
-export function findCollection(collections, id) {
+export function findCollection(collections: Collections, id: string): Collection | undefined {
     return collections.find((collection) => collection.id === id);
 }
 
-export function findImage(images, id) {
+export function findImage(images: ImageSet, id: string): Image {
     return images[id];
 }
 
-export function translated(obj, key, lang) {
+type Lang = 'en' | 'ja';
+
+export const lang: Writable<Lang> = writable('en');
+lang.subscribe(($lang) => tagEvent('lang', $lang));
+
+type Translatable = Record<string, any>;
+
+export function translated(obj: Translatable | undefined, key: string, lang: string): string {
     if (!obj) return '';
     let value = obj[key];
     key = key + '-' + lang;
@@ -41,7 +82,13 @@ export function translated(obj, key, lang) {
     return value;
 }
 
-export const data = {
+export const data: {
+    debug: boolean;
+    topImages: string[];
+    topImagesWide: string[];
+    collections: Collections;
+    images: ImageSet;
+} = {
     debug,
     topImages: ['top/1', 'top/2', 'top/3', 'top/4', 'top/5', 'top/6', 'top/7'],
     topImagesWide: [
@@ -169,5 +216,5 @@ export const data = {
             ],
         },
     ],
-    images,
+    images: images as ImageSet,
 };

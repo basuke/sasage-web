@@ -1,8 +1,6 @@
 <script>
     import ExternalLinks from './external-links.svelte';
     import ToggleLang from './toggle-lang.svelte';
-
-    export let lang = '';
 </script>
 
 <footer class="text-center mt-3 py-3">
@@ -13,5 +11,5 @@
 </footer>
 
 <div class="sm:block text-right fixed right-4 bottom-4">
-    <ToggleLang bind:lang />
+    <ToggleLang />
 </div>

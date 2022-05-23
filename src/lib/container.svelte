@@ -1,9 +1,7 @@
 <script>
-
-export let className = '';
-
+    export let className = '';
 </script>
 
 <div class="{className} xl:container xl:mx-auto">
-    <slot/>
+    <slot />
 </div>

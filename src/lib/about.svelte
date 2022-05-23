@@ -1,9 +1,6 @@
-<script>
-    import { email, agencyEmail } from '../data';
+<script lang="ts">
+    import { email, lang, agencyEmail } from '../data';
     import Img from '$lib/img.svelte';
-
-    export let lang = '';
-    export let data = {};
 </script>
 
 <article
@@ -11,15 +8,15 @@
 >
     <div class="hidden max-w-sm pr-8 lg:block">
         <h2 class="my-5 text-3xl">&nbsp;</h2>
-        <div><Img id="profile" {data} square /></div>
+        <div><Img id="profile" square /></div>
     </div>
 
     <div class="max-w-xl mb-12">
         <h2 class="my-4 text-center text-2xl md:text-3xl">ABOUT</h2>
 
-        <div class="my-12 px-20 lg:hidden"><Img id="profile" {data} square /></div>
+        <div class="my-12 px-20 lg:hidden"><Img id="profile" square /></div>
 
-        {#if lang === 'en'}
+        {#if $lang === 'en'}
             <section>
                 <p class="mb-6">
                     Sasage Mayumi is a Japanese illustrator based in the San Francisco Bay Area. She
@@ -63,7 +60,7 @@
                 </p>
                 <p class="mb-6">Thanks!</p>
             </section>
-        {:else if lang === 'ja'}
+        {:else if $lang === 'ja'}
             <section>
                 <p class="mb-6">
                     サンフランシスコ・ベイエリアを拠点に活動するイラストレーターのササゲマユミです。

@@ -1,25 +1,25 @@
 import { globby } from 'globby';
 
 import path from 'path';
-import fs  from 'fs';
-import sharp  from 'sharp';
-import admin  from 'firebase-admin';
-import tempy  from 'tempy';
-import minimist  from 'minimist';
+import fs from 'fs';
+import sharp from 'sharp';
+import admin from 'firebase-admin';
+import tempy from 'tempy';
+import minimist from 'minimist';
 
 const destinationDirectory = 'images';
-const indexPath = './images.json';
+const indexPath = './src/images.json';
 const storageBucket = 'sasage-website-71713.appspot.com';
 
 const widths = [320, 480, 640, 960, 1280];
 const heights = [240, 480, 720, 960];
 
 const resizeOptions = [
-    ...widths.map(width => ({width})),
-    ...heights.map(height => ({height})),
-    ...[480, 960].map(size => ({width: size, height: size})),
-    ...[960, 1280].map(size => ({width: size, height: size / 2})),
-    ...heights.map(height => ({width: height / 3 * 4, height})),
+    ...widths.map((width) => ({ width })),
+    ...heights.map((height) => ({ height })),
+    ...[480, 960].map((size) => ({ width: size, height: size })),
+    ...[960, 1280].map((size) => ({ width: size, height: size / 2 })),
+    ...heights.map((height) => ({ width: (height / 3) * 4, height })),
 ];
 
 const args = minimist(process.argv.slice(2));
@@ -39,7 +39,7 @@ function pathToKey(source) {
 
 function pathToHash(source) {
     return pathToKey(source)
-        .replace(/\.[a-zA-Z0-9]+$/, '')    // remove extension
+        .replace(/\.[a-zA-Z0-9]+$/, '') // remove extension
         .replace(/[^0-9A-Za-z._/-]/g, '-'); // escape chars
 }
 
@@ -49,11 +49,12 @@ async function upload(dataFile, destinationPath) {
         return;
     }
 
-    return bucket.upload(dataFile, { destination: destinationPath, pubic: true })
-        .then(data => data[0].makePublic());
+    return bucket
+        .upload(dataFile, { destination: destinationPath, pubic: true })
+        .then((data) => data[0].makePublic());
 }
 
-async function saveResizedFile({source, resize, extension, format, opt}) {
+async function saveResizedFile({ source, resize, extension, format, opt }) {
     const hash = pathToHash(source);
     const dataFile = tempy.file();
     const filePath = path.join(destinationDirectory, `${hash}${suffix(resize)}.${extension}`);
@@ -62,9 +63,8 @@ async function saveResizedFile({source, resize, extension, format, opt}) {
         .resize(resize)
         .toFormat(format, opt)
         .toFile(dataFile)
-        .then(() => upload(dataFile, filePath))
+        .then(() => upload(dataFile, filePath));
 }
-
 
 async function saveResizedJpeg(source, option) {
     return saveResizedFile({
@@ -72,7 +72,7 @@ async function saveResizedJpeg(source, option) {
         resize: option,
         extension: 'jpg',
         format: 'jpeg',
-        option: { mozjpeg: true }
+        option: { mozjpeg: true },
     });
 }
 
@@ -82,12 +82,12 @@ async function saveResizedWebp(source, option) {
         resize: option,
         extension: 'webp',
         format: 'webp',
-        option: { quality: 60 }
+        option: { quality: 60 },
     });
 }
 
 async function saveJpegImage(source) {
-    const {format, width, height} = await sharp(source).metadata();
+    const { format, width, height } = await sharp(source).metadata();
 
     const tasks = [];
     const options = [{}, ...resizeOptions];
@@ -100,20 +100,20 @@ async function saveJpegImage(source) {
     await Promise.all(tasks);
 
     const hash = pathToHash(source);
-    return {id: hash, format, width, height, title: hash};
+    return { id: hash, format, width, height, title: hash };
 }
 
 const serviceAccountKey = JSON.parse(fs.readFileSync('./serviceAccountKey.json'));
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccountKey),
-    storageBucket
+    storageBucket,
 });
 
 const bucket = admin.storage().bucket();
 
 (async () => {
-    const files = await globby([directory + '/**/*.{jpg,png}'], { });
+    const files = await globby([directory + '/**/*.{jpg,png}'], {});
     const map = {};
 
     for (const source of files) {
@@ -125,5 +125,5 @@ const bucket = admin.storage().bucket();
     }
 
     fs.writeFileSync(indexPath, JSON.stringify(map, null, '  '));
-    console.log("written images.json");
+    console.log('written images.json');
 })();
