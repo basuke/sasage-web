@@ -67,8 +67,6 @@ export function findImage(images: ImageSet, id: string): Image | null {
     return images[id];
 }
 
-type Lang = 'en' | 'ja';
-
 export const lang: Writable<Lang> = writable('en');
 lang.subscribe(($lang) => tagEvent('lang', $lang));
 

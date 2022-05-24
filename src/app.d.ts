@@ -1,15 +1,19 @@
 /// <reference types="@sveltejs/kit" />
 
+type Lang = 'en' | 'ja';
+
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
 declare namespace App {
-	interface Locals {
-		userid: string;
-	}
+    interface Locals {
+        lang: Lang;
+    }
 
-	// interface Platform {}
+    // interface Platform {}
 
-	// interface Session {}
+    interface Session {
+        lang: Lang;
+    }
 
-	// interface Stuff {}
+    // interface Stuff {}
 }

@@ -83,7 +83,7 @@
 
     {#if data.debug}
         <div
-            class="px-2 py-1 fixed right-1 bottom-1 text-xs rounded bg-blue-400 bg-opacity-70 text-indigo-100"
+            class="px-2 py-1 fixed left-1 bottom-1 text-xs rounded bg-blue-400 bg-opacity-70 text-indigo-100"
         >
             <div class="sm:hidden inline-block">: &lt; 640px</div>
             <div class="md:hidden sm:inline-block hidden">sm: 640px</div>
