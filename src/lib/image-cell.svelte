@@ -32,7 +32,7 @@
 
 {#if image}
     <div class="{cellClass} my-8 sm:my-6">
-        <a href={link}>
+        <a href={link} sveltekit:prefetch>
             <Img className="shadow-xl" {columns} {span} {square} {r4x3} {image} />
             {#if title}
                 <p class="mt-3 text-center text-xl lg:text-2xl font-extralight">{title}</p>

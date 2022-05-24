@@ -12,44 +12,12 @@
     const sections = [
         { title: 'Books', href: '/#Books' },
         { title: 'Illustrations', href: '/#Illustrations' },
-        { title: 'About / Contact', href: '/#About' },
+        { title: 'About / Contact', href: '/about' },
     ];
 
     // top page detection
 
     $: isTopPage = $page.url.pathname === '/';
-
-    function linkToTop(ev: Event) {
-        ev.preventDefault();
-
-        if (isTopPage) {
-            scrollToTop();
-        } else {
-            goto('/');
-            tick().then(scrollToTop);
-        }
-
-        tagPage('/');
-    }
-
-    function linkToAnchor(ev: Event) {
-        const target = ev?.target;
-        if (target instanceof HTMLElement) {
-            const hash = target.href.split('#')[1];
-            if (!hash) return;
-        }
-
-        ev.preventDefault();
-
-        if (isTopPage) {
-            scrollTo('#' + hash);
-        } else {
-            goto('/');
-            tick().then(() => scrollTo('#' + hash));
-        }
-
-        tagPage('/' + hash);
-    }
 
     // fixed header
 
@@ -81,7 +49,7 @@
                 <ul class="my-3 flex justify-center text-xl font-light space-x-4 text-gray-500">
                     {#each sections as { title, href }}
                         <li>
-                            <a on:click={linkToAnchor} class="hover:underline" {href}>{title}</a>
+                            <a class="hover:underline" {href}>{title}</a>
                         </li>
                     {/each}
                 </ul>
@@ -99,14 +67,14 @@
             <div class="hidden md:inline-block absolute right-3 top-2"><ExternalLinks /></div>
             <dic class="flex justify-center">
                 <h1 class="text-2xl font-bold">
-                    <a on:click={linkToTop} href="/">Mayumi Sasage</a>
+                    <a href="/">Mayumi Sasage</a>
                 </h1>
             </dic>
 
             <ul class="mt-2 flex justify-center text-lg font-light space-x-4 text-gray-500">
                 {#each sections as { title, href }}
                     <li>
-                        <a on:click={linkToAnchor} class="hover:underline" {href}>{title}</a>
+                        <a class="hover:underline" {href}>{title}</a>
                     </li>
                 {/each}
             </ul>

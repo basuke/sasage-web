@@ -1,4 +1,4 @@
-const debug = false;
+const debug = true;
 
 import { writable } from 'svelte/store';
 import type { Writable } from 'svelte/store';
@@ -63,7 +63,7 @@ export function findCollection(collections: Collections, id: string): Collection
     return collections.find((collection) => collection.id === id);
 }
 
-export function findImage(images: ImageSet, id: string): Image {
+export function findImage(images: ImageSet, id: string): Image | null {
     return images[id];
 }
 

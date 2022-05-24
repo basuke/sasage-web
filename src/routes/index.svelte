@@ -5,7 +5,6 @@
 <script lang="ts">
     import { data } from '../data';
 
-    import About from '../lib/about.svelte';
     import CollectionGrid from '$lib/collection-grid.svelte';
     import ImageGrid from '$lib/image-grid.svelte';
     import Container from '$lib/container.svelte';
@@ -30,8 +29,4 @@
             <ImageGrid images={illustrations.images} />
         </div>
     {/if}
-
-    <div id="About" class="pt-20">
-        <About />
-    </div>
 </Container>
