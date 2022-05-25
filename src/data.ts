@@ -1,4 +1,4 @@
-const debug = true;
+const debug = process.env.NODE_ENV === 'development';
 
 import { writable } from 'svelte/store';
 import type { Writable } from 'svelte/store';
