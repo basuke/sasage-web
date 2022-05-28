@@ -8,6 +8,7 @@
     import Container from './container.svelte';
     import SlideShow from './slideshow.svelte';
     import { goto } from '$app/navigation';
+    import { source } from './slideshow-source';
 
     const sections = [
         { title: 'Books', href: '/#Books' },
@@ -39,11 +40,11 @@
                 <div class="mb-4 px-4 md:text-right"><ExternalLinks /></div>
 
                 <div class="lg:hidden">
-                    <SlideShow {data} images={data.topImages} />
+                    <SlideShow images={data.topImages} />
                 </div>
 
                 <div class="hidden lg:block">
-                    <SlideShow {data} images={data.topImagesWide} wide />
+                    <SlideShow images={data.topImagesWide} wide />
                 </div>
 
                 <ul class="my-3 flex justify-center text-xl font-light space-x-4 text-gray-500">
