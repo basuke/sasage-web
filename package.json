@@ -4,10 +4,10 @@
     "license": "MIT",
     "scripts": {
         "upload-images": "node scripts/upload.mjs",
-        "dev": "svelte-kit dev",
-        "build": "svelte-kit build",
+        "dev": "vite dev",
+        "build": "vite build",
         "package": "svelte-kit package",
-        "preview": "svelte-kit preview",
+        "preview": "vite preview",
         "prepare": "svelte-kit sync",
         "test": "playwright test",
         "check": "svelte-check --tsconfig ./tsconfig.json",
@@ -46,7 +46,8 @@
         "tailwindcss": "^3.0.8",
         "tempy": "^3.0.0",
         "tslib": "^2.3.1",
-        "typescript": "^4.7.4"
+        "typescript": "^4.7.4",
+        "vite": "^3.0.4"
     },
     "type": "module"
 }
