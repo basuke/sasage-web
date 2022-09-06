@@ -1,25 +1,10 @@
-<script context="module" lang="ts">
-    import { data, findImage, type Image } from '../../data';
-
-    export async function load({ params }: { params: { id: string } }) {
-        const image = findImage(data.images, params.id);
-        return image
-            ? {
-                  status: 200,
-                  props: { image },
-              }
-            : {
-                  status: 404,
-              };
-    }
-</script>
-
 <script lang="ts">
-    import { lang, translated } from '../../data';
+    import { lang, translated, type Image } from '../../../data';
     import Img from '$lib/img.svelte';
 
-    export let image: Image;
-
+    /** @type {import('./$types').PageData} */
+    export let data;
+    const image: Image = data.image;
     const title = translated(image, 'title', $lang) ?? '';
     const description = translated(image, 'description', $lang) ?? '';
 </script>
