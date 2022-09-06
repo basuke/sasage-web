@@ -1,23 +1,5 @@
 {
-  "hosting": {
-    "predeploy": "yarn build",
-    "public": "public",
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ],
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ]
-  },
   "emulators": {
-    "hosting": {
-      "port": 5000
-    },
     "ui": {
       "enabled": true
     }
