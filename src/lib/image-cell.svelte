@@ -31,8 +31,8 @@
 </script>
 
 {#if image}
-    <div class="{cellClass} my-8 sm:my-6">
-        <a href={link} sveltekit:prefetch>
+    <div class="{cellClass} my-8 sm:my-6" data-sveltekit-prefetch>
+        <a href={link}>
             <Img className="shadow-xl" {columns} {span} {square} {r4x3} {image} />
             {#if title}
                 <p class="mt-3 text-center text-xl lg:text-2xl font-extralight">{title}</p>

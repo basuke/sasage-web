@@ -49,12 +49,6 @@ export function tagPage(page_path: string) {
     }
 }
 
-export function tagEvent(action: string, event_category: string, event_label = '', value = '') {
-    if (browser) {
-        gtag('event', action, { event_category, event_label, value });
-    }
-}
-
 export function imagePath(id: string, variation = '', ext = 'jpg') {
     return baseUrl + id + variation + '.' + ext;
 }
@@ -68,7 +62,6 @@ export function findImage(images: ImageSet, id: string): Image | null {
 }
 
 export const lang: Writable<Lang> = writable('en');
-lang.subscribe(($lang) => tagEvent('lang', $lang));
 
 type Translatable = Record<string, any>;
 
