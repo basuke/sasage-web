@@ -1,5 +1,5 @@
 <script>
-    import { tagEvent, email } from '../data';
+    import { email } from '../data';
 
     const links = [
         {
@@ -33,7 +33,6 @@
     {#each links as link}
         <li class="px-2">
             <a
-                on:click={() => tagEvent('link', link.category)}
                 href={link.url}
                 target={link.target}
                 rel="noreferrer"
