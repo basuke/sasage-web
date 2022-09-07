@@ -1,29 +1,14 @@
-<script context="module" lang="ts">
-    import { data, findCollection, findImage, type Collection, type Image } from '../../data';
-
-    export async function load({ params }: { params: { id: string } }) {
-        const collection = findCollection(data.collections, params.id);
-        if (!collection) {
-            return { status: 404 };
-        }
-
-        const images = collection.images ?? [];
-
-        return {
-            status: 200,
-            props: { collection, images },
-        };
-    }
-</script>
-
 <script lang="ts">
-    import { lang, translated } from '../../data';
+    import { lang, translated, type Collection } from '../../../data';
     import Img from '$lib/img.svelte';
     import ImageGrid from '$lib/image-grid.svelte';
     import Container from '$lib/container.svelte';
 
-    export let collection: Collection;
-    export let images: string[];
+    /** @type {import('./$types').PageData} */
+    export let data;
+
+    const collection: Collection = data.collection;
+    const images: string[] = data.images;
 
     const title = translated(collection, 'title', $lang) ?? '';
     const subtitle = translated(collection, 'subtitle', $lang) ?? '';
