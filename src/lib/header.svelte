@@ -1,14 +1,10 @@
 <script lang="ts">
     import { fly } from 'svelte/transition';
-    import { scrollToTop, scrollTo } from '../utils';
-    import { data, tagPage } from '../data';
-    import { tick } from 'svelte';
+    import { data } from './data';
     import { page } from '$app/stores';
     import ExternalLinks from './external-links.svelte';
     import Container from './container.svelte';
     import SlideShow from './slideshow.svelte';
-    import { goto } from '$app/navigation';
-    import { source } from './slideshow-source';
 
     const sections = [
         { title: 'Books', href: '/#Books' },

@@ -1,5 +1,5 @@
 <script>
-    import { email } from '../data';
+    import { email } from './data';
 
     const links = [
         {

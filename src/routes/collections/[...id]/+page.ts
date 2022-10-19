@@ -1,8 +1,7 @@
 import { error } from '@sveltejs/kit';
-import { data, findCollection } from '../../../data';
+import { data, findCollection } from '$lib/data';
 
-/** @type {import('./$types').PageLoad} */
-export function load({ params }) {
+export function load({ params }: { params: { id: string } }) {
     const collection = findCollection(data.collections, params.id);
     if (!collection) {
         throw error(404, 'Not found');

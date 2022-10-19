@@ -1,6 +1,6 @@
 <script lang="ts">
     import ImageCell from '$lib/image-cell.svelte';
-    import { data, findImage } from '../data';
+    import { data, findImage } from './data';
 
     export let images: string[] = [];
     export let columns: number = 0;

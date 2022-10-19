@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { lang, translated } from '../data';
-    import type { Collections } from '../data';
+    import { lang, translated } from './data';
+    import type { Collections } from './data';
     import ImageCell from '$lib/image-cell.svelte';
 
     export let collections: Collections = [];
