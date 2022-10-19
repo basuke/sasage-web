@@ -1,5 +1,5 @@
 import { readable, type Readable } from 'svelte/store';
-import { data, findImage, type Image } from '../data';
+import { data, findImage, type Image } from './data';
 
 export function source(imageIds: string[], interval: number = 5000): Readable<Image> {
     const images: Image[] = imageIds

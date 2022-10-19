@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { onMount, tick } from 'svelte';
     import { fade } from 'svelte/transition';
     import Img from './img.svelte';
     import { source } from './slideshow-source';

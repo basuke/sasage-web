@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { data } from '../data';
+    import { data } from '$lib/data';
 
     import CollectionGrid from '$lib/collection-grid.svelte';
     import ImageGrid from '$lib/image-grid.svelte';

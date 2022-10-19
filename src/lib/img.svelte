@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { data, lang, findImage, imagePath, translated, widths, heights } from '../data';
-    import type { Image } from '../data';
+    import { data, lang, findImage, imagePath, translated, widths, heights } from './data';
+    import type { Image } from './data';
 
     export let id: string | null = null;
     export let image: Image | null = null;

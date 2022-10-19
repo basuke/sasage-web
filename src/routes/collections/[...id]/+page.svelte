@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { lang, translated, type Collection } from '../../../data';
+    import { lang, translated, type Collection } from '$lib/data';
     import Img from '$lib/img.svelte';
     import ImageGrid from '$lib/image-grid.svelte';
     import Container from '$lib/container.svelte';

@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { data, findImage } from '../../../data';
+import { data, findImage } from '$lib/data';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ params }: { params: { id: string } }) {

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { lang, translated, type Image } from '../../../data';
+    import { lang, translated, type Image } from '$lib/data';
     import Img from '$lib/img.svelte';
 
     /** @type {import('./$types').PageData} */

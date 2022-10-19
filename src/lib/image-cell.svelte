@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { findImage, data } from '../data';
+    import { findImage, data } from './data';
     import Img from './img.svelte';
 
     export let id = '';

@@ -2,7 +2,6 @@
     import Header from '$lib/header.svelte';
     import Footer from '$lib/footer.svelte';
     import '../app.css';
-    import { lang } from '../data';
 </script>
 
 <div class="mx-auto flex flex-col h-screen text-gray-600">

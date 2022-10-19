@@ -2,7 +2,7 @@ const debug = process.env.NODE_ENV === 'development';
 
 import { writable } from 'svelte/store';
 import type { Writable } from 'svelte/store';
-import images from './images.json';
+import images from '../images.json';
 import { browser } from '$app/environment';
 
 export const email = 'sasage.mayumi@gmail.com';
