@@ -34,7 +34,7 @@ export type ImageSet = Record<string, Image>;
 
 export type Collection = {
     id: string;
-    book?: boolean;
+    isWork?: boolean;
     image?: string;
     title: string;
     subtitle?: string;
@@ -94,7 +94,7 @@ export const data: {
     collections: [
         {
             id: 'lost-in-the-rain',
-            book: true,
+            isWork: true,
             image: 'books/lost-in-the-rain/cover',
             title: 'LOST IN THE RAIN',
             subtitle: `Children’s book (2020)<br>
@@ -111,7 +111,7 @@ export const data: {
         },
         {
             id: 'book-2',
-            book: true,
+            isWork: true,
             image: 'books/flowers/cover',
             title: 'Flowers',
             subtitle: 'Oracle Cards (2019)',
@@ -135,7 +135,7 @@ export const data: {
         },
         {
             id: 'book-3',
-            book: true,
+            isWork: true,
             image: 'books/farmersmaket/cover',
             title: 'Farmers Market',
             subtitle: 'The page of the magazine (2020)',
@@ -148,7 +148,7 @@ export const data: {
         },
         {
             id: 'book-4',
-            book: true,
+            isWork: true,
             image: 'books/lilly-and-the-black-cat/6',
             title: 'Lilly and The Black Cat',
             subtitle: "Children's Book (2019 - 20)",
