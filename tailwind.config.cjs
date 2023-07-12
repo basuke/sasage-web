@@ -2,6 +2,7 @@ module.exports = {
     content: [
         'src/**/*.svelte',
         'src/**/*.js',
+        'src/**/*.ts',
         'src/**/*.css',
         'src/**/*.html',
         'static/**/*.html',

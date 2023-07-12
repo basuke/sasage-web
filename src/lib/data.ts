@@ -22,12 +22,18 @@ interface gtagFunction {
 
 declare const gtag: gtagFunction;
 
+export type Lang = 'en' | 'ja';
+export type TranslatableString = string | {
+    [key in Lang]?: string;
+};
+      
 export type Image = {
     id: string;
     format: 'jpeg' | 'png';
     width: number;
     height: number;
-    title: string;
+    title: TranslatableString;
+    description?: TranslatableString;
 };
 
 export type ImageSet = Record<string, Image>;
@@ -36,8 +42,8 @@ export type Collection = {
     id: string;
     isWork?: boolean;
     image?: string;
-    title: string;
-    subtitle?: string;
+    title: TranslatableString;
+    subtitle?: TranslatableString;
     images: string[];
 };
 
@@ -66,10 +72,9 @@ export const lang: Writable<Lang> = writable('en');
 type Translatable = Record<string, any>;
 
 export function translated(obj: Translatable | undefined, key: string, lang: string): string {
-    if (!obj) return '';
+    if (!obj || !(key in obj)) return '';
     let value = obj[key];
-    key = key + '-' + lang;
-    if (key in obj) value = obj[key];
+    if (typeof value === 'object') value = value[lang] || value['en'];
     return value;
 }
 
@@ -97,10 +102,20 @@ export const data: {
             isWork: true,
             image: 'books/lost-in-the-rain/cover',
             title: 'LOST IN THE RAIN',
-            subtitle: `Children’s book (2020)<br>
-            <br>
-            This work was selected for<br>
-            <a class="underline text-red-700 hover:text-red-400" href="https://theaoi.com/wia/mayumi-sasage-lost-in-the-rain/">The AOI World Illustration Awards longlist</a>.`,
+            subtitle: {
+                en: `Personal work.<br>
+Children’s book<br>
+<br>
+This work was selected for<br>
+<a class="underline text-red-700 hover:text-red-400" href="https://theaoi.com/wia/mayumi-sasage-lost-in-the-rain/">The AOI World Illustration Awards longlist</a>.`,
+                ja: `Personal work.<br>
+絵本<br>
+<br>
+この作品は<br>
+<a class="underline text-red-700 hover:text-red-400" href="https://theaoi.com/wia/mayumi-sasage-lost-in-the-rain/">
+The AOI World Illustration Awards longlist
+</a><br> に選ばれました.`,
+            },
             images: [
                 'books/lost-in-the-rain/page1',
                 'books/lost-in-the-rain/page2',
@@ -114,7 +129,10 @@ export const data: {
             isWork: true,
             image: 'books/flowers/cover',
             title: 'Flowers',
-            subtitle: 'Oracle Cards (2019)',
+            subtitle: {
+                en: 'Personal work.<br>Oracle Cards (2019)',
+                ja: 'Personal work.<br>オラクルカード (2019)',
+            },
             images: [
                 'books/flowers/1',
                 'books/flowers/2',
