@@ -745,10 +745,10 @@
   dependencies:
     import-meta-resolve "^2.2.0"
 
-"@sveltejs/kit@^1.0.0-next.344":
-  version "1.8.8"
-  resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-1.8.8.tgz#417616fd0f962c6e481b023c53a330c6fbd58cc9"
-  integrity sha512-64bEcgIECQ8TPQ7sCMo1X1IMSkFjTP8MaKB4YpG4Tw3rvKDaVxBt6MuxdvMShDJu12CpXv692AY4jhfNUPwcmQ==
+"@sveltejs/kit@^1.15.2":
+  version "1.15.2"
+  resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-1.15.2.tgz#2d351b15aa39ab792c36c2c236c7e31a2010a6b0"
+  integrity sha512-rLNxZrjbrlPf8AWW8GAU4L/Vvu17e9v8EYl7pUip7x72lTft7RcxeP3z7tsrHpMSBBxC9o4XdKzFvz1vMZyXZw==
   dependencies:
     "@sveltejs/vite-plugin-svelte" "^2.0.0"
     "@types/cookie" "^0.5.1"
