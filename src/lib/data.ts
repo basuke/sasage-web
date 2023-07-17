@@ -156,7 +156,10 @@ The AOI World Illustration Awards longlist
             isWork: true,
             image: 'books/farmersmaket/cover',
             title: 'Farmers Market',
-            subtitle: 'The page of the magazine (2020)',
+            subtitle: {
+                en: 'Personal work.<br>magazine (2020)',
+                ja: 'Personal work.<br>雑誌の特集ページ (2020)',
+            },
             images: [
                 'books/farmersmaket/fm2',
                 'books/farmersmaket/fm3',
