@@ -168,21 +168,6 @@ The AOI World Illustration Awards longlist
             ],
         },
         {
-            id: 'book-4',
-            isWork: true,
-            image: 'books/lilly-and-the-black-cat/6',
-            title: 'Lilly and The Black Cat',
-            subtitle: "Children's Book (2019 - 20)",
-            images: [
-                'books/lilly-and-the-black-cat/1',
-                'books/lilly-and-the-black-cat/2',
-                'books/lilly-and-the-black-cat/3',
-                'books/lilly-and-the-black-cat/4',
-                'books/lilly-and-the-black-cat/5',
-                'books/lilly-and-the-black-cat/cover',
-            ],
-        },
-        {
             id: 'illustrations',
             title: 'Illustrations',
             images: [
