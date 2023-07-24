@@ -7,7 +7,7 @@
     import SlideShow from './slideshow.svelte';
 
     const sections = [
-        { title: 'Books', href: '/#Books' },
+        { title: 'Works', href: '/#Works' },
         { title: 'Illustrations', href: '/#Illustrations' },
         { title: 'About / Contact', href: '/about' },
     ];

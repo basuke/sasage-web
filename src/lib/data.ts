@@ -22,22 +22,28 @@ interface gtagFunction {
 
 declare const gtag: gtagFunction;
 
+export type Lang = 'en' | 'ja';
+export type TranslatableString = string | {
+    [key in Lang]?: string;
+};
+      
 export type Image = {
     id: string;
     format: 'jpeg' | 'png';
     width: number;
     height: number;
-    title: string;
+    title: TranslatableString;
+    description?: TranslatableString;
 };
 
 export type ImageSet = Record<string, Image>;
 
 export type Collection = {
     id: string;
-    book?: boolean;
+    isWork?: boolean;
     image?: string;
-    title: string;
-    subtitle?: string;
+    title: TranslatableString;
+    subtitle?: TranslatableString;
     images: string[];
 };
 
@@ -66,10 +72,9 @@ export const lang: Writable<Lang> = writable('en');
 type Translatable = Record<string, any>;
 
 export function translated(obj: Translatable | undefined, key: string, lang: string): string {
-    if (!obj) return '';
+    if (!obj || !(key in obj)) return '';
     let value = obj[key];
-    key = key + '-' + lang;
-    if (key in obj) value = obj[key];
+    if (typeof value === 'object') value = value[lang] || value['en'];
     return value;
 }
 
@@ -94,13 +99,23 @@ export const data: {
     collections: [
         {
             id: 'lost-in-the-rain',
-            book: true,
+            isWork: true,
             image: 'books/lost-in-the-rain/cover',
             title: 'LOST IN THE RAIN',
-            subtitle: `Children’s book (2020)<br>
-            <br>
-            This work was selected for<br>
-            <a class="underline text-red-700 hover:text-red-400" href="https://theaoi.com/wia/mayumi-sasage-lost-in-the-rain/">The AOI World Illustration Awards longlist</a>.`,
+            subtitle: {
+                en: `Personal work.<br>
+Children’s book<br>
+<br>
+This work was selected for<br>
+<a class="underline text-red-700 hover:text-red-400" href="https://theaoi.com/wia/mayumi-sasage-lost-in-the-rain/">The AOI World Illustration Awards longlist</a>.`,
+                ja: `Personal work.<br>
+絵本<br>
+<br>
+この作品は<br>
+<a class="underline text-red-700 hover:text-red-400" href="https://theaoi.com/wia/mayumi-sasage-lost-in-the-rain/">
+The AOI World Illustration Awards longlist
+</a><br> に選ばれました.`,
+            },
             images: [
                 'books/lost-in-the-rain/page1',
                 'books/lost-in-the-rain/page2',
@@ -111,10 +126,13 @@ export const data: {
         },
         {
             id: 'book-2',
-            book: true,
+            isWork: true,
             image: 'books/flowers/cover',
             title: 'Flowers',
-            subtitle: 'Oracle Cards (2019)',
+            subtitle: {
+                en: 'Personal work.<br>Oracle Cards (2019)',
+                ja: 'Personal work.<br>オラクルカード (2019)',
+            },
             images: [
                 'books/flowers/1',
                 'books/flowers/2',
@@ -135,30 +153,18 @@ export const data: {
         },
         {
             id: 'book-3',
-            book: true,
+            isWork: true,
             image: 'books/farmersmaket/cover',
             title: 'Farmers Market',
-            subtitle: 'The page of the magazine (2020)',
+            subtitle: {
+                en: 'Personal work.<br>magazine (2020)',
+                ja: 'Personal work.<br>雑誌の特集ページ (2020)',
+            },
             images: [
                 'books/farmersmaket/fm2',
                 'books/farmersmaket/fm3',
                 'books/farmersmaket/fm4',
                 'books/farmersmaket/fm1',
-            ],
-        },
-        {
-            id: 'book-4',
-            book: true,
-            image: 'books/lilly-and-the-black-cat/6',
-            title: 'Lilly and The Black Cat',
-            subtitle: "Children's Book (2019 - 20)",
-            images: [
-                'books/lilly-and-the-black-cat/1',
-                'books/lilly-and-the-black-cat/2',
-                'books/lilly-and-the-black-cat/3',
-                'books/lilly-and-the-black-cat/4',
-                'books/lilly-and-the-black-cat/5',
-                'books/lilly-and-the-black-cat/cover',
             ],
         },
         {

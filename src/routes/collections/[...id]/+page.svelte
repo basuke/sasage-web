@@ -10,8 +10,8 @@
     const collection: Collection = data.collection;
     const images: string[] = data.images;
 
-    const title = translated(collection, 'title', $lang) ?? '';
-    const subtitle = translated(collection, 'subtitle', $lang) ?? '';
+    $: title = translated(collection, 'title', $lang) ?? '';
+    $: subtitle = translated(collection, 'subtitle', $lang) ?? '';
 </script>
 
 <Container className="px-16">
