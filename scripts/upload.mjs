@@ -1,40 +1,44 @@
 import { globby } from 'globby';
-
-import path from 'path';
 import fs from 'fs';
 import sharp from 'sharp';
-import admin from 'firebase-admin';
-import tempy from 'tempy';
 import minimist from 'minimist';
+import fetch, { FormData, fileFromSync } from 'node-fetch';
+import { sha1File } from 'sha1-file';
+import 'dotenv/config'
 
-const destinationDirectory = 'images';
+// Cloudflare
+const ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;
+const API_TOKEN = process.env.CLOUDFLARE_IMAGES_API_TOKEN;
+const uploadURL = `https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/images/v1`;
+
+// images root directory
+const defaultdirectory = './images';
+
 const indexPath = './src/images.json';
-const storageBucket = 'sasage-website-71713.appspot.com';
 
-const widths = [320, 480, 640, 960, 1280];
-const heights = [240, 480, 720, 960];
+// const widths = [320, 480, 640, 960, 1280];
+// const heights = [240, 480, 720, 960];
 
-const resizeOptions = [
-    ...widths.map((width) => ({ width })),
-    ...heights.map((height) => ({ height })),
-    ...[480, 960].map((size) => ({ width: size, height: size })),
-    ...[960, 1280].map((size) => ({ width: size, height: size / 2 })),
-    ...heights.map((height) => ({ width: (height / 3) * 4, height })),
-];
+// const resizeOptions = [
+//     ...widths.map((width) => ({ width })),
+//     ...heights.map((height) => ({ height })),
+//     ...[480, 960].map((size) => ({ width: size, height: size })),
+//     ...[960, 1280].map((size) => ({ width: size, height: size / 2 })),
+//     ...heights.map((height) => ({ width: (height / 3) * 4, height })),
+// ];
 
-const args = minimist(process.argv.slice(2));
-const directory = args._.length ? args._[0] : './images';
-const dryRun = args['n'] || args['dry-run'];
-
-function suffix(option) {
-    let suffix = '';
-    if ('width' in option) suffix += `-w${option.width}`;
-    if ('height' in option) suffix += `-h${option.height}`;
-    return suffix;
-}
+const args = minimist(process.argv.slice(2), {
+    alias: { n: 'dry-run', },
+    boolean: ['dry-run'],
+});
+const dryRun = args['dry-run'];
+const directory = args._.length ? args._[0] : defaultdirectory;
 
 function pathToKey(source) {
-    return source.replace(directory + '/', '').replace(directory, '');
+    if (source[0] !== '.') {
+        source = './' + source
+    }
+    return source.replace(defaultdirectory + '/', '');
 }
 
 function pathToHash(source) {
@@ -43,87 +47,63 @@ function pathToHash(source) {
         .replace(/[^0-9A-Za-z._/-]/g, '-'); // escape chars
 }
 
-async function upload(dataFile, destinationPath) {
-    if (dryRun) {
-        console.log(`=> ${destinationPath}`);
-        return;
-    }
+async function upload(source, id) {
+    // curl -X POST \
+    // "https://api.cloudflare.com/client/v4/accounts/055b10d55440049a7e1b5964646f7d2c/images/v1" \
+    // -H "Authorization: Bearer ORAdI1AWxoqPSQvCudztoql-thhz-sSkZsyxpiFn" \
+    // -F file=@./images/profile.jpg
 
-    return bucket
-        .upload(dataFile, { destination: destinationPath, pubic: true })
-        .then((data) => data[0].makePublic());
-}
+    const form = new FormData();
+    form.append('id', id);
+    form.append('file', fileFromSync(source));
 
-async function saveResizedFile({ source, resize, extension, format, opt }) {
-    const hash = pathToHash(source);
-    const dataFile = tempy.file();
-    const filePath = path.join(destinationDirectory, `${hash}${suffix(resize)}.${extension}`);
-
-    return sharp(source)
-        .resize(resize)
-        .toFormat(format, opt)
-        .toFile(dataFile)
-        .then(() => upload(dataFile, filePath));
-}
-
-async function saveResizedJpeg(source, option) {
-    return saveResizedFile({
-        source,
-        resize: option,
-        extension: 'jpg',
-        format: 'jpeg',
-        option: { mozjpeg: true },
+    const response = await fetch(uploadURL, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${API_TOKEN}`,
+        },
+        body: form
     });
+    const data = await response.json();
+    console.log(data);
 }
 
-async function saveResizedWebp(source, option) {
-    return saveResizedFile({
-        source,
-        resize: option,
-        extension: 'webp',
-        format: 'webp',
-        option: { quality: 60 },
-    });
-}
-
-async function saveJpegImage(source) {
+async function saveJpegImage(hash, source) {
     const { format, width, height } = await sharp(source).metadata();
 
-    const tasks = [];
-    const options = [{}, ...resizeOptions];
-
-    for (const option of options) {
-        tasks.push(saveResizedJpeg(source, option));
-        tasks.push(saveResizedWebp(source, option));
+    if (!dryRun) {
+        await upload(source, hash);
     }
 
-    await Promise.all(tasks);
-
-    const hash = pathToHash(source);
-    return { id: hash, format, width, height, title: hash };
+    return { id: hash, format, width, height, title: hash, source };
 }
 
-const serviceAccountKey = JSON.parse(fs.readFileSync('./serviceAccountKey.json'));
-
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccountKey),
-    storageBucket,
-});
-
-const bucket = admin.storage().bucket();
+function readImages() {
+    try {
+        return JSON.parse(fs.readFileSync(indexPath));
+    } catch (e) {
+        return {};
+    }
+}
 
 (async () => {
+    const savedImages = readImages();
+
     const files = await globby([directory + '/**/*.{jpg,png}'], {});
     const map = {};
 
     for (const source of files) {
         const key = pathToHash(source);
 
-        const info = await saveJpegImage(source);
+        const info = await saveJpegImage(key, source);
+        info.sha1 = await sha1File(source);
         map[key] = info;
-        console.log(key);
     }
 
-    fs.writeFileSync(indexPath, JSON.stringify(map, null, '  '));
-    console.log('written images.json');
+    if (dryRun) {
+        console.log(JSON.stringify(map, null, '  '));
+    } else {
+        fs.writeFileSync(indexPath, JSON.stringify(map, null, '  '));
+        console.log('written images.json');
+    }
 })();
