@@ -34,25 +34,25 @@
         media: string;
         width: number;
         height: number;
-        variation: string;
+        variant: string;
     };
     let sources: Source[] = [];
-    let variation = '';
+    let variant = '';
 
     if (asis) {
         // just list that original.
-        variation = 'asis';
+        variant = 'asis';
     } else if (square) {
         // list only squares
         sources = [
-            {width: 480, height: 480, variation: 'square', media: genMedia(480)},
-            {width: 960, height: 960, variation: 'square2x', media: genMedia(960)},
+            {width: 480, height: 480, variant: 'square', media: genMedia(480)},
+            {width: 960, height: 960, variant: 'square2x', media: genMedia(960)},
         ];
         const source = sources.pop();
         if (source) {
             width = source.width;
             height = source.height;
-            variation = source.variation;
+            variant = source.variant;
         }
     } else if (r4x3) {
         // list only 4:3
@@ -62,14 +62,14 @@
                 media: genMedia(w),
                 width: w,
                 height: h,
-                variation: `portrait${w}`,
+                variant: `portrait${w}`,
             };
         });
         const source = sources.pop();
         if (source) {
             width = source.width;
             height = source.height;
-            variation = source.variation;
+            variant = source.variant;
         }
     } else if (wide) {
         // list only squares
@@ -79,7 +79,7 @@
                 media: genMedia(w),
                 width: w,
                 height: h,
-                variation: `wide${w}`,
+                variant: `wide${w}`,
             };
         });
     } else {
@@ -89,7 +89,7 @@
             media: genMedia(w),
             width: w,
             height: 0,
-            variation: `mx${w}`,
+            variant: `mx${w}`,
         }));
     }
 </script>
@@ -98,11 +98,11 @@
     <picture>
         {#each sources as source}
             {@const media = source.media}
-            <source {media} srcset={imagePath(image.id, source.variation)} />
+            <source {media} srcset={imagePath(image.id, source.variant)} />
         {/each}
         <img
             class={className}
-            src={imagePath(image.id, variation)}
+            src={imagePath(image.id, variant)}
             {width}
             {height}
             alt={translated(image, 'title', $lang)}

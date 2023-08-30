@@ -55,10 +55,10 @@ export function tagPage(page_path: string) {
     }
 }
 
-export function imagePath(id: string, variation = 'public') {
+export function imagePath(id: string, variant = 'public') {
     const account_hash = '3Z234PNqO8eVcjKwgURmyQ';
 
-    return `https://imagedelivery.net/${account_hash}/${id}/${variation}`;
+    return `https://imagedelivery.net/${account_hash}/${id}/${variant}`;
 }
 
 // https://imagedelivery.net/books/lost-in-the-rain/cover/-w960-h960
