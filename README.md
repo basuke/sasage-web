@@ -21,7 +21,7 @@ Pushing to origin/main invokes deployment to the Firebase. (via GitHub Action)
 
 Replace images in /images/ directory and run
 
-> node `scripts/upload.js`
+> node `scripts/upload.mjs`
 
 The images are cached in Firebase Storage. It takes a few minutes to be reflected with new image.
 
@@ -31,15 +31,12 @@ Google Analytics is used to track the access to this website. During the transit
 
 Here is the url: https://tagmanager.google.com/#/container/accounts/6056486588/containers/93230276/workspaces/3
 
-# serviceAccountKey.json
+# Cloudflare Images account id and api token
 
-@TODO Check if this section is still required.
 
-This file is required to upload images to Google Cloud Storage. It can be created and downloaded from the Cloud Console.
+Put the following in .env file.
 
-1. Go to https://console.cloud.google.com/iam-admin/serviceaccounts/
-2. Choose `Sasage-website`
-3. Choose `firebase-adminsdk`
-4. Select "Keys" tab
-5. Create a new key and download JSON file.
-6. Name it as `serviceAccountKey.json` and place it in the root of this project.
+```
+CLOUDFLARE_ACCOUNT_ID = <account id>;
+CLOUDFLARE_IMAGES_API_TOKEN = <api token>;
+```

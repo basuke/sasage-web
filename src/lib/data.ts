@@ -55,9 +55,12 @@ export function tagPage(page_path: string) {
     }
 }
 
-export function imagePath(id: string, variation = '', ext = 'jpg') {
-    return baseUrl + id + variation + '.' + ext;
+export function imagePath(id: string, variation = 'public') {
+    const account_id = '3Z234PNqO8eVcjKwgURmyQ';
+    return `https://imagedelivery.net/${account_id}/${id}/public`;
 }
+
+// https://imagedelivery.net/books/lost-in-the-rain/cover/-w960-h960
 
 export function findCollection(collections: Collections, id: string): Collection | undefined {
     return collections.find((collection) => collection.id === id);
