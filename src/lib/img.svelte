@@ -23,13 +23,6 @@
         }
     }
 
-    function genVariation(w: number, h: number | undefined = undefined) {
-        let variation = '';
-        if (w) variation += '-w' + w;
-        if (h) variation += '-h' + h;
-        return variation;
-    }
-
     function genMedia(w: number) {
         if (columns && columns > 1 && span >= 1) {
             w = (w * columns) / span;
@@ -47,17 +40,14 @@
     let variation = '';
 
     if (asis) {
-        // just list that original for webp and jpg.
+        // just list that original.
+        variation = 'asis';
     } else if (square) {
         // list only squares
-        sources = widths
-            .filter((w) => heights.indexOf(w) >= 0)
-            .map((w) => ({
-                media: genMedia(w),
-                width: w,
-                height: w,
-                variation: genVariation(w, w),
-            }));
+        sources = [
+            {width: 480, height: 480, variation: 'square', media: genMedia(480)},
+            {width: 960, height: 960, variation: 'square2x', media: genMedia(960)},
+        ];
         const source = sources.pop();
         if (source) {
             width = source.width;
@@ -66,13 +56,13 @@
         }
     } else if (r4x3) {
         // list only 4:3
-        sources = heights.map((h) => {
-            const w = (h / 3) * 4;
+        sources = [480, 960, 1440, 1920].map((w) => {
+            const h = (w / 4) * 3;
             return {
                 media: genMedia(w),
                 width: w,
                 height: h,
-                variation: genVariation(w, h),
+                variation: `portrait${w}`,
             };
         });
         const source = sources.pop();
@@ -83,22 +73,23 @@
         }
     } else if (wide) {
         // list only squares
-        sources = [960, 1280].map((w) => ({
-            media: genMedia(w),
-            width: w,
-            height: w / 2,
-            variation: genVariation(w, w / 2),
-        }));
-        width = 1280;
-        height = 640;
-        variation = genVariation(width, width / 2);
+        sources = [480, 960, 1440, 1920].map((w) => {
+            const h = w / 2;
+            return {
+                media: genMedia(w),
+                width: w,
+                height: h,
+                variation: `wide${w}`,
+            };
+        });
     } else {
         // list width constraint and original at the end
-        sources = widths.map((w) => ({
+
+        sources = [480, 960, 1440, 1920].map((w) => ({
             media: genMedia(w),
             width: w,
             height: 0,
-            variation: genVariation(w),
+            variation: `mx${w}`,
         }));
     }
 </script>
@@ -107,14 +98,8 @@
     <picture>
         {#each sources as source}
             {@const media = source.media}
-            <source
-                type="image/webp"
-                {media}
-                srcset={imagePath(image.id, source.variation, 'webp')}
-            />
             <source {media} srcset={imagePath(image.id, source.variation)} />
         {/each}
-        <source type="image/webp" srcset={imagePath(image.id, variation, 'webp')} />
         <img
             class={className}
             src={imagePath(image.id, variation)}
