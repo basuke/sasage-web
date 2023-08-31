@@ -104,6 +104,68 @@ export const data: {
     ],
     works: [
         {
+            id: 'gift-cards',
+            image: 'gift-cards/card-12',
+            title: {
+                en: 'Gift Cards',
+                ja: 'ギフトカード',
+            },
+            subtitle: {
+                en: `
+                    Client work.
+                    Gift cards (2023)
+                    Client: Pamxy APP: giff letter, Inc.
+                `,
+                ja: `
+                    ギフトカード (2023)
+                    クライアント: 株式会社 apmdy
+                    ???y
+                    gitd leter イラストレーション ササゲマスミ.
+                `,
+            },
+            images: [
+                'gift-cards/card-1',
+                'gift-cards/card-2',
+                'gift-cards/card-3',
+                'gift-cards/card-4',
+                'gift-cards/card-5',
+                'gift-cards/card-6',
+                'gift-cards/card-7',
+                'gift-cards/card-8',
+                'gift-cards/card-9',
+                'gift-cards/card-10',
+                'gift-cards/card-11',
+                'gift-cards/card-12',
+                'gift-cards/card-13',
+                'gift-cards/card-14',
+                'gift-cards/card-15',
+            ],
+        },
+        {
+            id: 'halloween',
+            image: 'works/halloween',
+            title: {
+                en: 'Halloween Card',
+                ja: 'ハにウインカーヒ',
+            },
+            subtitle: {
+                en: `
+                client work
+                中
+                Halloween c a r d
+                w i t h e-mail (2022) client:
+                Storm Literary Agend
+                `,
+                ja: `
+                Client work
+                e- m a i l 用の ハロウインカード クライアント:stormLiteraby Ageney
+
+                `,
+            },
+            images: [
+            ],
+        },
+        {
             id: 'lost-in-the-rain',
             image: 'books/lost-in-the-rain/cover',
             title: 'LOST IN THE RAIN',
