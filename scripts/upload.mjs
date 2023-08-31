@@ -57,6 +57,7 @@ async function upload(source, id) {
     form.append('id', id);
     form.append('file', fileFromSync(source));
 
+    console.log(uploadURL, API_TOKEN, form);
     const response = await fetch(uploadURL, {
         method: 'POST',
         headers: {

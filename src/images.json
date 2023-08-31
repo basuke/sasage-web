@@ -80,6 +80,87 @@
     "source": "./images/Summer/c.jpg",
     "sha1": "2f497b214ce20815dd71424366f4f726bdda601b"
   },
+  "food/food-1": {
+    "id": "food/food-1",
+    "format": "jpeg",
+    "width": 1200,
+    "height": 1200,
+    "title": "food/food-1",
+    "source": "./images/food/food-1.jpg",
+    "sha1": "ea51dc16a3d1e67e776f165e19e58ad2878239ca"
+  },
+  "food/food-2": {
+    "id": "food/food-2",
+    "format": "jpeg",
+    "width": 1200,
+    "height": 1200,
+    "title": "food/food-2",
+    "source": "./images/food/food-2.jpg",
+    "sha1": "f215f162e7d9dccfe1f98dd4ad92862c87a2ffb6"
+  },
+  "food/food-3": {
+    "id": "food/food-3",
+    "format": "jpeg",
+    "width": 1200,
+    "height": 1200,
+    "title": "food/food-3",
+    "source": "./images/food/food-3.jpg",
+    "sha1": "f7c75630aa65b9845baa4770fa4ad5b51dcfcedf"
+  },
+  "food/food-4": {
+    "id": "food/food-4",
+    "format": "jpeg",
+    "width": 1200,
+    "height": 1200,
+    "title": "food/food-4",
+    "source": "./images/food/food-4.jpg",
+    "sha1": "6b7c0b2f2ea1dc8d58428be7e32381635fdd0e3a"
+  },
+  "food/food-5": {
+    "id": "food/food-5",
+    "format": "jpeg",
+    "width": 1200,
+    "height": 1200,
+    "title": "food/food-5",
+    "source": "./images/food/food-5.jpg",
+    "sha1": "9dc5038f9a6f573771569bc827573e3bc6e72519"
+  },
+  "food/food-6": {
+    "id": "food/food-6",
+    "format": "jpeg",
+    "width": 1200,
+    "height": 1200,
+    "title": "food/food-6",
+    "source": "./images/food/food-6.jpg",
+    "sha1": "041efcc5f96de627fa2535aeecf14b643491d626"
+  },
+  "food/food-7": {
+    "id": "food/food-7",
+    "format": "jpeg",
+    "width": 1200,
+    "height": 1200,
+    "title": "food/food-7",
+    "source": "./images/food/food-7.jpg",
+    "sha1": "e65c752a5d86d753a50484b0f3182d303a2f5866"
+  },
+  "food/food-8": {
+    "id": "food/food-8",
+    "format": "jpeg",
+    "width": 1200,
+    "height": 1200,
+    "title": "food/food-8",
+    "source": "./images/food/food-8.jpg",
+    "sha1": "c8fc0a9d4a8a030405f7edf51dab63c6fc3e6133"
+  },
+  "food/food-9": {
+    "id": "food/food-9",
+    "format": "jpeg",
+    "width": 1200,
+    "height": 1200,
+    "title": "food/food-9",
+    "source": "./images/food/food-9.jpg",
+    "sha1": "3269bed8788c533f8db843bb40ef10c7b6b37175"
+  },
   "illustration/1": {
     "id": "illustration/1",
     "format": "jpeg",
@@ -260,86 +341,140 @@
     "source": "./images/morning-routine/b.jpg",
     "sha1": "ca7fd2ea92a3d8e30eb1b43389a97aa8a35a9207"
   },
-  "food/food-1": {
-    "id": "food/food-1",
+  "gift-cards/card-1": {
+    "id": "gift-cards/card-1",
     "format": "jpeg",
-    "width": 1200,
-    "height": 1200,
-    "title": "food/food-1",
-    "source": "./images/food/food-1.jpg",
-    "sha1": "ea51dc16a3d1e67e776f165e19e58ad2878239ca"
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-1",
+    "source": "./images/gift-cards/card-1.jpg",
+    "sha1": "29cf94f88cfcc6946396f5863528642f256b0456"
   },
-  "food/food-2": {
-    "id": "food/food-2",
+  "gift-cards/card-10": {
+    "id": "gift-cards/card-10",
     "format": "jpeg",
-    "width": 1200,
-    "height": 1200,
-    "title": "food/food-2",
-    "source": "./images/food/food-2.jpg",
-    "sha1": "f215f162e7d9dccfe1f98dd4ad92862c87a2ffb6"
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-10",
+    "source": "./images/gift-cards/card-10.jpg",
+    "sha1": "be3ef3bdb25001b8726810c7e085339bdcc92f1a"
   },
-  "food/food-3": {
-    "id": "food/food-3",
+  "gift-cards/card-11": {
+    "id": "gift-cards/card-11",
     "format": "jpeg",
-    "width": 1200,
-    "height": 1200,
-    "title": "food/food-3",
-    "source": "./images/food/food-3.jpg",
-    "sha1": "f7c75630aa65b9845baa4770fa4ad5b51dcfcedf"
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-11",
+    "source": "./images/gift-cards/card-11.jpg",
+    "sha1": "6c77b33eadd3b724f8e1e47053bc0bef9f14d920"
   },
-  "food/food-4": {
-    "id": "food/food-4",
+  "gift-cards/card-12": {
+    "id": "gift-cards/card-12",
     "format": "jpeg",
-    "width": 1200,
-    "height": 1200,
-    "title": "food/food-4",
-    "source": "./images/food/food-4.jpg",
-    "sha1": "6b7c0b2f2ea1dc8d58428be7e32381635fdd0e3a"
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-12",
+    "source": "./images/gift-cards/card-12.jpg",
+    "sha1": "60733e454088b98f101f8c0a278bbdda96a4fbd7"
   },
-  "food/food-5": {
-    "id": "food/food-5",
+  "gift-cards/card-13": {
+    "id": "gift-cards/card-13",
     "format": "jpeg",
-    "width": 1200,
-    "height": 1200,
-    "title": "food/food-5",
-    "source": "./images/food/food-5.jpg",
-    "sha1": "9dc5038f9a6f573771569bc827573e3bc6e72519"
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-13",
+    "source": "./images/gift-cards/card-13.jpg",
+    "sha1": "704a0bf8cc670cf1d1c7f339f856db61747ed320"
   },
-  "food/food-6": {
-    "id": "food/food-6",
+  "gift-cards/card-14": {
+    "id": "gift-cards/card-14",
     "format": "jpeg",
-    "width": 1200,
-    "height": 1200,
-    "title": "food/food-6",
-    "source": "./images/food/food-6.jpg",
-    "sha1": "041efcc5f96de627fa2535aeecf14b643491d626"
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-14",
+    "source": "./images/gift-cards/card-14.jpg",
+    "sha1": "90a6c4f9b619ce05b0641720fe051c43ff2f0025"
   },
-  "food/food-7": {
-    "id": "food/food-7",
+  "gift-cards/card-15": {
+    "id": "gift-cards/card-15",
     "format": "jpeg",
-    "width": 1200,
-    "height": 1200,
-    "title": "food/food-7",
-    "source": "./images/food/food-7.jpg",
-    "sha1": "e65c752a5d86d753a50484b0f3182d303a2f5866"
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-15",
+    "source": "./images/gift-cards/card-15.jpg",
+    "sha1": "3bcf4c86cce9981d0147390b11f31d743592ab64"
   },
-  "food/food-8": {
-    "id": "food/food-8",
+  "gift-cards/card-2": {
+    "id": "gift-cards/card-2",
     "format": "jpeg",
-    "width": 1200,
-    "height": 1200,
-    "title": "food/food-8",
-    "source": "./images/food/food-8.jpg",
-    "sha1": "c8fc0a9d4a8a030405f7edf51dab63c6fc3e6133"
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-2",
+    "source": "./images/gift-cards/card-2.jpg",
+    "sha1": "404817d2d5057f0fe53b3e5703e88414106b0464"
   },
-  "food/food-9": {
-    "id": "food/food-9",
+  "gift-cards/card-3": {
+    "id": "gift-cards/card-3",
     "format": "jpeg",
-    "width": 1200,
-    "height": 1200,
-    "title": "food/food-9",
-    "source": "./images/food/food-9.jpg",
-    "sha1": "3269bed8788c533f8db843bb40ef10c7b6b37175"
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-3",
+    "source": "./images/gift-cards/card-3.jpg",
+    "sha1": "0a61ede814d82352c3452b26056ef1a88e01e73c"
+  },
+  "gift-cards/card-4": {
+    "id": "gift-cards/card-4",
+    "format": "jpeg",
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-4",
+    "source": "./images/gift-cards/card-4.jpg",
+    "sha1": "61225df61caf98e62a8f7f6d922b3822743fc59e"
+  },
+  "gift-cards/card-5": {
+    "id": "gift-cards/card-5",
+    "format": "jpeg",
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-5",
+    "source": "./images/gift-cards/card-5.jpg",
+    "sha1": "d4597a492a880e07351428a049fbf05c2f09bcc2"
+  },
+  "gift-cards/card-6": {
+    "id": "gift-cards/card-6",
+    "format": "jpeg",
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-6",
+    "source": "./images/gift-cards/card-6.jpg",
+    "sha1": "19689e51217f3b2cda71d717bca829a1c9f64b2f"
+  },
+  "gift-cards/card-7": {
+    "id": "gift-cards/card-7",
+    "format": "jpeg",
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-7",
+    "source": "./images/gift-cards/card-7.jpg",
+    "sha1": "4db91041f6844c25a2af952df14e7f379d25add1"
+  },
+  "gift-cards/card-8": {
+    "id": "gift-cards/card-8",
+    "format": "jpeg",
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-8",
+    "source": "./images/gift-cards/card-8.jpg",
+    "sha1": "c66b3fee906532d2bbf1ea07512d050066f46d1e"
+  },
+  "gift-cards/card-9": {
+    "id": "gift-cards/card-9",
+    "format": "jpeg",
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-9",
+    "source": "./images/gift-cards/card-9.jpg",
+    "sha1": "0fcbb42eed097a18815be370ccf1a371789e894b"
   },
   "spiced-tea/1": {
     "id": "spiced-tea/1",
@@ -494,6 +629,24 @@
     "source": "./images/top/wide-7.jpg",
     "sha1": "1abd4045c9391ef932d4073859f462bd579b58b3"
   },
+  "works/halloween": {
+    "id": "works/halloween",
+    "format": "jpeg",
+    "width": 2500,
+    "height": 1600,
+    "title": "works/halloween",
+    "source": "./images/works/halloween.jpg",
+    "sha1": "8d117f0fe70b0e78a7e8d788f8e232ae5a5af6d0"
+  },
+  "works/love-is-love": {
+    "id": "works/love-is-love",
+    "format": "jpeg",
+    "width": 2100,
+    "height": 2100,
+    "title": "works/love-is-love",
+    "source": "./images/works/love-is-love.jpg",
+    "sha1": "276fd30cf8b92e14a722fcc60273bec3ce900548"
+  },
   "books/farmersmaket/cover": {
     "id": "books/farmersmaket/cover",
     "format": "jpeg",
@@ -538,60 +691,6 @@
     "title": "books/farmersmaket/fm4",
     "source": "./images/books/farmersmaket/fm4.jpg",
     "sha1": "73865ef7540411ad5403c46a49a069ffab7463eb"
-  },
-  "books/lost-in-the-rain/cover": {
-    "id": "books/lost-in-the-rain/cover",
-    "format": "jpeg",
-    "width": 1080,
-    "height": 1080,
-    "title": "books/lost-in-the-rain/cover",
-    "source": "./images/books/lost-in-the-rain/cover.jpg",
-    "sha1": "215e662879b7f640edb4ffb620e0752fbba5a5c7"
-  },
-  "books/lost-in-the-rain/page1": {
-    "id": "books/lost-in-the-rain/page1",
-    "format": "jpeg",
-    "width": 2362,
-    "height": 1240,
-    "title": "books/lost-in-the-rain/page1",
-    "source": "./images/books/lost-in-the-rain/page1.jpg",
-    "sha1": "fe4d23342d059ee3ddce93fe02be7549a9133d80"
-  },
-  "books/lost-in-the-rain/page2": {
-    "id": "books/lost-in-the-rain/page2",
-    "format": "jpeg",
-    "width": 4724,
-    "height": 2480,
-    "title": "books/lost-in-the-rain/page2",
-    "source": "./images/books/lost-in-the-rain/page2.jpg",
-    "sha1": "32e63bedbf6ab6a4e9aa403436a013aaa46ca829"
-  },
-  "books/lost-in-the-rain/page3": {
-    "id": "books/lost-in-the-rain/page3",
-    "format": "jpeg",
-    "width": 2362,
-    "height": 1240,
-    "title": "books/lost-in-the-rain/page3",
-    "source": "./images/books/lost-in-the-rain/page3.jpg",
-    "sha1": "82e95d0dd15adc51e75d6323f309b5d65b6e82f4"
-  },
-  "books/lost-in-the-rain/page4": {
-    "id": "books/lost-in-the-rain/page4",
-    "format": "jpeg",
-    "width": 2362,
-    "height": 1240,
-    "title": "books/lost-in-the-rain/page4",
-    "source": "./images/books/lost-in-the-rain/page4.jpg",
-    "sha1": "b500494811d295388e20c21907c0cb9fe8c9668d"
-  },
-  "books/lost-in-the-rain/page5": {
-    "id": "books/lost-in-the-rain/page5",
-    "format": "jpeg",
-    "width": 2362,
-    "height": 1240,
-    "title": "books/lost-in-the-rain/page5",
-    "source": "./images/books/lost-in-the-rain/page5.jpg",
-    "sha1": "577ddd503a0d2e2c2257cb0eb17153702167d5ce"
   },
   "books/flowers/1": {
     "id": "books/flowers/1",
@@ -736,5 +835,59 @@
     "title": "books/flowers/cover",
     "source": "./images/books/flowers/cover.jpg",
     "sha1": "bc36c469c62b8581fefd2e8ac5f084063627b5cc"
+  },
+  "books/lost-in-the-rain/cover": {
+    "id": "books/lost-in-the-rain/cover",
+    "format": "jpeg",
+    "width": 1080,
+    "height": 1080,
+    "title": "books/lost-in-the-rain/cover",
+    "source": "./images/books/lost-in-the-rain/cover.jpg",
+    "sha1": "215e662879b7f640edb4ffb620e0752fbba5a5c7"
+  },
+  "books/lost-in-the-rain/page1": {
+    "id": "books/lost-in-the-rain/page1",
+    "format": "jpeg",
+    "width": 2362,
+    "height": 1240,
+    "title": "books/lost-in-the-rain/page1",
+    "source": "./images/books/lost-in-the-rain/page1.jpg",
+    "sha1": "fe4d23342d059ee3ddce93fe02be7549a9133d80"
+  },
+  "books/lost-in-the-rain/page2": {
+    "id": "books/lost-in-the-rain/page2",
+    "format": "jpeg",
+    "width": 4724,
+    "height": 2480,
+    "title": "books/lost-in-the-rain/page2",
+    "source": "./images/books/lost-in-the-rain/page2.jpg",
+    "sha1": "32e63bedbf6ab6a4e9aa403436a013aaa46ca829"
+  },
+  "books/lost-in-the-rain/page3": {
+    "id": "books/lost-in-the-rain/page3",
+    "format": "jpeg",
+    "width": 2362,
+    "height": 1240,
+    "title": "books/lost-in-the-rain/page3",
+    "source": "./images/books/lost-in-the-rain/page3.jpg",
+    "sha1": "82e95d0dd15adc51e75d6323f309b5d65b6e82f4"
+  },
+  "books/lost-in-the-rain/page4": {
+    "id": "books/lost-in-the-rain/page4",
+    "format": "jpeg",
+    "width": 2362,
+    "height": 1240,
+    "title": "books/lost-in-the-rain/page4",
+    "source": "./images/books/lost-in-the-rain/page4.jpg",
+    "sha1": "b500494811d295388e20c21907c0cb9fe8c9668d"
+  },
+  "books/lost-in-the-rain/page5": {
+    "id": "books/lost-in-the-rain/page5",
+    "format": "jpeg",
+    "width": 2362,
+    "height": 1240,
+    "title": "books/lost-in-the-rain/page5",
+    "source": "./images/books/lost-in-the-rain/page5.jpg",
+    "sha1": "577ddd503a0d2e2c2257cb0eb17153702167d5ce"
   }
 }
