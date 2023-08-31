@@ -38,16 +38,13 @@ export type Image = {
 
 export type ImageSet = Record<string, Image>;
 
-export type Collection = {
+export type Work = {
     id: string;
-    isWork?: boolean;
     image?: string;
     title: TranslatableString;
     subtitle?: TranslatableString;
     images: string[];
 };
-
-export type Collections = Collection[];
 
 export function tagPage(page_path: string) {
     if (browser) {
@@ -63,8 +60,8 @@ export function imagePath(id: string, variant = 'public') {
 
 // https://imagedelivery.net/books/lost-in-the-rain/cover/-w960-h960
 
-export function findCollection(collections: Collections, id: string): Collection | undefined {
-    return collections.find((collection) => collection.id === id);
+export function findWork(works: Work[], id: string): Work | undefined {
+    return works.find((work) => work.id === id);
 }
 
 export function findImage(images: ImageSet, id: string): Image | null {
@@ -90,7 +87,8 @@ export const data: {
     debug: boolean;
     topImages: string[];
     topImagesWide: string[];
-    collections: Collections;
+    works: Work[];
+    illustrations: string[];
     images: ImageSet;
 } = {
     debug,
@@ -104,10 +102,9 @@ export const data: {
         'top/wide-6',
         'top/wide-7',
     ],
-    collections: [
+    works: [
         {
             id: 'lost-in-the-rain',
-            isWork: true,
             image: 'books/lost-in-the-rain/cover',
             title: 'LOST IN THE RAIN',
             subtitle: {
@@ -135,7 +132,6 @@ export const data: {
         },
         {
             id: 'book-2',
-            isWork: true,
             image: 'books/flowers/cover',
             title: 'Flowers',
             subtitle: {
@@ -168,7 +164,6 @@ export const data: {
         },
         {
             id: 'book-3',
-            isWork: true,
             image: 'books/farmersmaket/cover',
             title: 'Farmers Market',
             subtitle: {
@@ -190,7 +185,6 @@ export const data: {
         },
         {
             id: 'love-is-love',
-            isWork: true,
             image: 'works/love-is-love',
             title: 'Love is Love',
             subtitle: {
@@ -215,48 +209,46 @@ export const data: {
                 'illustration/ws4',
             ],
         },
-        {
-            id: 'illustrations',
-            title: 'Illustrations',
-            images: [
-                'illustration/1',
-                'illustration/ws1',
-                'illustration/ws5',
-                'illustration/ws6',
-                'illustration/ws7',
-                'illustration/ws8',
-                'illustration/ws9',
-                'illustration/ws10',
-                'illustration/ws11',
-                'illustration/ws12',
-                'illustration/ws13',
-                'illustration/ws14',
-                'illustration/ws15',
-                'illustration/ws16',
-                'illustration/ws17',
-
-                'spiced-tea/1',
-                'spiced-tea/2',
-                'spiced-tea/3',
-
-                'summer/a',
-                'summer/b',
-                'summer/c',
-
-                'morning-routine/a',
-                'morning-routine/b',
-
-                'food/food-1',
-                'food/food-2',
-                'food/food-3',
-                'food/food-5',
-                'food/food-6',
-
-                'drawings/1',
-                'drawings/3',
-                'drawings/4',
-            ],
-        },
     ],
+
+    illustrations: [
+        'illustration/1',
+        'illustration/ws1',
+        'illustration/ws5',
+        'illustration/ws6',
+        'illustration/ws7',
+        'illustration/ws8',
+        'illustration/ws9',
+        'illustration/ws10',
+        'illustration/ws11',
+        'illustration/ws12',
+        'illustration/ws13',
+        'illustration/ws14',
+        'illustration/ws15',
+        'illustration/ws16',
+        'illustration/ws17',
+
+        'spiced-tea/1',
+        'spiced-tea/2',
+        'spiced-tea/3',
+
+        'summer/a',
+        'summer/b',
+        'summer/c',
+
+        'morning-routine/a',
+        'morning-routine/b',
+
+        'food/food-1',
+        'food/food-2',
+        'food/food-3',
+        'food/food-5',
+        'food/food-6',
+
+        'drawings/1',
+        'drawings/3',
+        'drawings/4',
+    ],
+
     images: images as ImageSet,
 };
