@@ -32,7 +32,7 @@
         <ImageCell
             columns={2}
             id={c.image}
-            r4x3
+            square
             link="/collections/{c.id}"
             title={translated(c, 'title', $lang)}
         />

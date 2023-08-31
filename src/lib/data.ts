@@ -79,7 +79,11 @@ export function translated(obj: Translatable | undefined, key: string, lang: str
     if (!obj || !(key in obj)) return '';
     let value = obj[key];
     if (typeof value === 'object') value = value[lang] || value['en'];
-    return value;
+
+    if (typeof value !== 'string') return '';
+
+    const lines = value.split("\n").map(line => line.trim());
+    return lines.join('<br>');
 }
 
 export const data: {
@@ -107,18 +111,19 @@ export const data: {
             image: 'books/lost-in-the-rain/cover',
             title: 'LOST IN THE RAIN',
             subtitle: {
-                en: `Personal work.<br>
-Children’s book<br>
-<br>
-This work was selected for<br>
-<a class="underline text-red-700 hover:text-red-400" href="https://theaoi.com/wia/mayumi-sasage-lost-in-the-rain/">The AOI World Illustration Awards longlist</a>.`,
-                ja: `Personal work.<br>
-絵本<br>
-<br>
-この作品は<br>
-<a class="underline text-red-700 hover:text-red-400" href="https://theaoi.com/wia/mayumi-sasage-lost-in-the-rain/">
-The AOI World Illustration Awards longlist
-</a><br> に選ばれました.`,
+                en: `
+                    Personal work.
+                    Children’s book
+
+                    This work was selected for
+                    <a class="underline text-red-700 hover:text-red-400" href="https://theaoi.com/wia/mayumi-sasage-lost-in-the-rain/">The AOI World Illustration Awards longlist</a>.`,
+                ja: `
+                    Personal work.
+                    絵本
+
+                    この作品は
+                    <a class="underline text-red-700 hover:text-red-400" href="https://theaoi.com/wia/mayumi-sasage-lost-in-the-rain/">The AOI World Illustration Awards longlist</a>
+                    に選ばれました.`,
             },
             images: [
                 'books/lost-in-the-rain/page1',
@@ -134,8 +139,14 @@ The AOI World Illustration Awards longlist
             image: 'books/flowers/cover',
             title: 'Flowers',
             subtitle: {
-                en: 'Personal work.<br>Oracle Cards (2019)',
-                ja: 'Personal work.<br>オラクルカード (2019)',
+                en: `
+                    Personal work.
+                    Oracle Cards (2019)
+                `,
+                ja: `
+                    Personal work.
+                    オラクルカード (2019)
+                `,
             },
             images: [
                 'books/flowers/1',
@@ -161,8 +172,14 @@ The AOI World Illustration Awards longlist
             image: 'books/farmersmaket/cover',
             title: 'Farmers Market',
             subtitle: {
-                en: 'Personal work.<br>magazine (2020)',
-                ja: 'Personal work.<br>雑誌の特集ページ (2020)',
+                en: `
+                    Personal work.
+                    magazine (2020)
+                `,
+                ja: `
+                    Personal work.
+                    雑誌の特集ページ (2020)
+                `,
             },
             images: [
                 'books/farmersmaket/fm2',
@@ -172,14 +189,38 @@ The AOI World Illustration Awards longlist
             ],
         },
         {
+            id: 'love-is-love',
+            isWork: true,
+            image: 'works/love-is-love',
+            title: 'Love is Love',
+            subtitle: {
+                en: `
+                    Love is Love (2022)
+                    Personal work
+
+                    This work was selected for
+                    3x3 Internationa Illustration Show No. 19, 2022: Honotable Mention`,
+                ja: `
+                    Love is Love (2022)
+                    Personal work
+
+                    この作品は
+                    3x3 Internationa Illustration Show No. 19, 2022: Honotable Mention
+                    に選ばれました
+                `,
+            },
+            images: [
+                'illustration/ws2',
+                'illustration/ws3',
+                'illustration/ws4',
+            ],
+        },
+        {
             id: 'illustrations',
             title: 'Illustrations',
             images: [
                 'illustration/1',
                 'illustration/ws1',
-                'illustration/ws2',
-                'illustration/ws3',
-                'illustration/ws4',
                 'illustration/ws5',
                 'illustration/ws6',
                 'illustration/ws7',
