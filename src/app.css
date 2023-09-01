@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.text a {
+    @apply underline text-red-700 hover:text-red-400;
+}

@@ -20,7 +20,7 @@
 
         <div class="flex flex-col justify-center">
             <h2 class="my-3 text-center text-3xl font-bold">{title}</h2>
-            <p class="text-center text-lg font-light">{@html subtitle}</p>
+            <p class="text-center text-lg font-light text">{@html subtitle}</p>
         </div>
     </div>
 

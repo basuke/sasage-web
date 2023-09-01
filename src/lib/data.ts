@@ -4,7 +4,7 @@ import { writable } from 'svelte/store';
 import type { Writable } from 'svelte/store';
 import images from '../images.json';
 import { browser } from '$app/environment';
-
+import { default as MarkdownIt }  from 'markdown-it';
 export const email = 'sasage.mayumi@gmail.com';
 export const agencyEmail = 'stormliteraryagency@gmail.com';
 
@@ -79,8 +79,11 @@ export function translated(obj: Translatable | undefined, key: string, lang: str
 
     if (typeof value !== 'string') return '';
 
+    const md = MarkdownIt()
+
     const lines = value.split("\n").map(line => line.trim());
-    return lines.join('<br>');
+    const htmls = lines.map(line => md.renderInline(line))
+    return htmls.join('<br>');
 }
 
 export const data: {
@@ -105,22 +108,22 @@ export const data: {
     works: [
         {
             id: 'gift-cards',
-            image: 'gift-cards/card-12',
-            title: {
-                en: 'Gift Cards',
-                ja: 'ギフトカード',
-            },
+            image: 'gift-cards/cover',
+            title: 'Gift Cards',
             subtitle: {
                 en: `
-                    Client work.
-                    Gift cards (2023)
-                    Client: Pamxy APP: giff letter, Inc.
+                    Client work (2023)
+                    [pamxy, Inc.](https://pamxy.co.jp/)
+
+                    Illustrations for gift card of
+                    Japanese e-commerce site called [giff letter](https://www.giff-letter.com/)
                 `,
                 ja: `
-                    ギフトカード (2023)
-                    クライアント: 株式会社 apmdy
-                    ???y
-                    gitd leter イラストレーション ササゲマスミ.
+                    クライアントワーク (2023)
+                    [株式会社 pamxy](https://pamxy.co.jp/) 様
+
+                    e-コマース ([giff leter](https://www.giff-letter.com/)) 
+                    ギフトカードのイラストレーション
                 `,
             },
             images: [
@@ -144,25 +147,24 @@ export const data: {
         {
             id: 'halloween',
             image: 'works/halloween',
-            title: {
-                en: 'Halloween Card',
-                ja: 'ハにウインカーヒ',
-            },
+            title: 'Halloween Card',
             subtitle: {
                 en: `
-                client work
-                中
-                Halloween c a r d
-                w i t h e-mail (2022) client:
-                Storm Literary Agend
+                    Client work (2022)
+                    [Storm Literary Agency](https://www.stormliteraryagency.com/)
+
+                    Halloween card for e-mail signature (2022)
                 `,
                 ja: `
-                Client work
-                e- m a i l 用の ハロウインカード クライアント:stormLiteraby Ageney
+                    クライアントワーク (2022)
+                    [Storm Literary Agency](https://www.stormliteraryagency.com/) 様
+
+                    e-mailで使われるハロウインカードのイラスト
 
                 `,
             },
             images: [
+                'works/halloween',
             ],
         },
         {
@@ -175,13 +177,13 @@ export const data: {
                     Children’s book
 
                     This work was selected for
-                    <a class="underline text-red-700 hover:text-red-400" href="https://theaoi.com/wia/mayumi-sasage-lost-in-the-rain/">The AOI World Illustration Awards longlist</a>.`,
+                    [The AOI World Illustration Awards longlist](https://theaoi.com/wia/mayumi-sasage-lost-in-the-rain/).`,
                 ja: `
-                    Personal work.
+                    パーソナルワーク
                     絵本
 
                     この作品は
-                    <a class="underline text-red-700 hover:text-red-400" href="https://theaoi.com/wia/mayumi-sasage-lost-in-the-rain/">The AOI World Illustration Awards longlist</a>
+                    [The AOI World Illustration Awards longlist](https://theaoi.com/wia/mayumi-sasage-lost-in-the-rain/
                     に選ばれました.`,
             },
             images: [
@@ -202,7 +204,7 @@ export const data: {
                     Oracle Cards (2019)
                 `,
                 ja: `
-                    Personal work.
+                    パーソナルワーク
                     オラクルカード (2019)
                 `,
             },
@@ -234,7 +236,7 @@ export const data: {
                     magazine (2020)
                 `,
                 ja: `
-                    Personal work.
+                    パーソナルワーク
                     雑誌の特集ページ (2020)
                 `,
             },
@@ -251,18 +253,17 @@ export const data: {
             title: 'Love is Love',
             subtitle: {
                 en: `
-                    Love is Love (2022)
                     Personal work
 
                     This work was selected for
-                    3x3 Internationa Illustration Show No. 19, 2022: Honotable Mention`,
+                    [3x3 Internationa Illustration Show No. 19, 2022](https://3x3mag.com/annuals/annual19/s/sasage-mayumi-91175)
+                    Honotable Mention`,
                 ja: `
-                    Love is Love (2022)
-                    Personal work
+                    パーソナルワーク
 
                     この作品は
-                    3x3 Internationa Illustration Show No. 19, 2022: Honotable Mention
-                    に選ばれました
+                    [3x3 Internationa Illustration Show No. 19, 2022](https://3x3mag.com/annuals/annual19/s/sasage-mayumi-91175)
+                    Honotable Mentionに選ばれました
                 `,
             },
             images: [
