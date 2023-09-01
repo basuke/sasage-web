@@ -5,17 +5,16 @@ This is the source code of Mayumi Sasage's Website. https://mayumi-sasage.info
 # Technologies used in this project
 
 yarn
-node (15 or later for M1 Mac)
-firebase
-firebase storage
+node (18)
 
 # How to run development environment?
 
+> yarn
 > yarn dev
 
 # How to deploy?
 
-Pushing to origin/main invokes deployment to the Firebase. (via GitHub Action)
+Pushing to origin/main invokes deployment to Cloudflare Pages. (via GitHub Action)
 
 # How to update images?
 
@@ -23,7 +22,7 @@ Replace images in /images/ directory and run
 
 > node `scripts/upload.mjs`
 
-The images are cached in Firebase Storage. It takes a few minutes to be reflected with new image.
+The images are stored in Cloudflare Images.
 
 # About Google Analytics
 

@@ -183,7 +183,7 @@ export const data: {
                     絵本
 
                     この作品は
-                    [The AOI World Illustration Awards longlist](https://theaoi.com/wia/mayumi-sasage-lost-in-the-rain/
+                    [The AOI World Illustration Awards longlist](https://theaoi.com/wia/mayumi-sasage-lost-in-the-rain/)
                     に選ばれました.`,
             },
             images: [
@@ -277,6 +277,16 @@ export const data: {
     illustrations: [
         'illustration/1',
         'illustration/ws1',
+
+        'illustration/2023-5',
+        'illustration/2023-6',
+        'illustration/2023-8',
+        'illustration/2023-7',
+        'illustration/2023-3',
+        'illustration/2023-1',
+        'illustration/2023-2',
+        'illustration/2023-4',
+
         'illustration/ws5',
         'illustration/ws6',
         'illustration/ws7',
@@ -286,7 +296,6 @@ export const data: {
         'illustration/ws11',
         'illustration/ws12',
         'illustration/ws13',
-        'illustration/ws14',
         'illustration/ws15',
         'illustration/ws16',
         'illustration/ws17',
@@ -308,9 +317,9 @@ export const data: {
         'food/food-5',
         'food/food-6',
 
-        'drawings/1',
-        'drawings/3',
-        'drawings/4',
+        'illustration/ws14',
+
+        'illustration/2023-9',
     ],
 
     images: images as ImageSet,

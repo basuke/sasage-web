@@ -8,49 +8,49 @@
     "source": "./images/profile.jpg",
     "sha1": "bd676f4ae288530b29b25979e6c7f219f507a4a7"
   },
-  "Drawings/1": {
-    "id": "Drawings/1",
+  "drawings/1": {
+    "id": "drawings/1",
     "format": "jpeg",
     "width": 1024,
     "height": 1366,
-    "title": "Drawings/1",
-    "source": "./images/Drawings/1.jpg",
+    "title": "drawings/1",
+    "source": "./images/drawings/1.jpg",
     "sha1": "036eae055461b6ccfb35421d3da235fdca3240f9"
   },
-  "Drawings/2": {
-    "id": "Drawings/2",
+  "drawings/2": {
+    "id": "drawings/2",
     "format": "jpeg",
     "width": 1366,
     "height": 1024,
-    "title": "Drawings/2",
-    "source": "./images/Drawings/2.jpg",
+    "title": "drawings/2",
+    "source": "./images/drawings/2.jpg",
     "sha1": "45065d7b0b2a58d211d34388296a1557e3c12c96"
   },
-  "Drawings/3": {
-    "id": "Drawings/3",
+  "drawings/3": {
+    "id": "drawings/3",
     "format": "jpeg",
     "width": 2048,
     "height": 2732,
-    "title": "Drawings/3",
-    "source": "./images/Drawings/3.jpg",
+    "title": "drawings/3",
+    "source": "./images/drawings/3.jpg",
     "sha1": "c04087bfeb8f21ada1cb161793375b16ba0ccdf3"
   },
-  "Drawings/4": {
-    "id": "Drawings/4",
+  "drawings/4": {
+    "id": "drawings/4",
     "format": "jpeg",
     "width": 2048,
     "height": 2732,
-    "title": "Drawings/4",
-    "source": "./images/Drawings/4.jpg",
+    "title": "drawings/4",
+    "source": "./images/drawings/4.jpg",
     "sha1": "f620dc51909d28d73af87a17ff4b72ec43cb358e"
   },
-  "Drawings/5": {
-    "id": "Drawings/5",
+  "drawings/5": {
+    "id": "drawings/5",
     "format": "jpeg",
     "width": 2048,
     "height": 2732,
-    "title": "Drawings/5",
-    "source": "./images/Drawings/5.jpg",
+    "title": "drawings/5",
+    "source": "./images/drawings/5.jpg",
     "sha1": "ea9f08f96956a79ee2dec7cb7b16dfafc8a62f10"
   },
   "food/food-1": {
@@ -133,33 +133,6 @@
     "title": "food/food-9",
     "source": "./images/food/food-9.jpg",
     "sha1": "3269bed8788c533f8db843bb40ef10c7b6b37175"
-  },
-  "Summer/a": {
-    "id": "Summer/a",
-    "format": "jpeg",
-    "width": 2048,
-    "height": 2732,
-    "title": "Summer/a",
-    "source": "./images/Summer/a.jpg",
-    "sha1": "21e2ab6bcf6aaf2f2d83efa6f51428cd057d9e4e"
-  },
-  "Summer/b": {
-    "id": "Summer/b",
-    "format": "jpeg",
-    "width": 2048,
-    "height": 2048,
-    "title": "Summer/b",
-    "source": "./images/Summer/b.jpg",
-    "sha1": "e5c536da11760bd6b144205ac53e392085617e30"
-  },
-  "Summer/c": {
-    "id": "Summer/c",
-    "format": "jpeg",
-    "width": 2800,
-    "height": 2800,
-    "title": "Summer/c",
-    "source": "./images/Summer/c.jpg",
-    "sha1": "2f497b214ce20815dd71424366f4f726bdda601b"
   },
   "gift-cards/card-1": {
     "id": "gift-cards/card-1",
@@ -305,24 +278,6 @@
     "source": "./images/gift-cards/cover.jpg",
     "sha1": "efcbadceb64a3c65f3f0cf8181ed4ef5d61032f2"
   },
-  "morning-routine/a": {
-    "id": "morning-routine/a",
-    "format": "jpeg",
-    "width": 2048,
-    "height": 2048,
-    "title": "morning-routine/a",
-    "source": "./images/morning-routine/a.jpg",
-    "sha1": "0e5b5a6afe5c3f16fc943eeb47becfaf052b982a"
-  },
-  "morning-routine/b": {
-    "id": "morning-routine/b",
-    "format": "jpeg",
-    "width": 2048,
-    "height": 2048,
-    "title": "morning-routine/b",
-    "source": "./images/morning-routine/b.jpg",
-    "sha1": "ca7fd2ea92a3d8e30eb1b43389a97aa8a35a9207"
-  },
   "illustration/1": {
     "id": "illustration/1",
     "format": "jpeg",
@@ -331,6 +286,87 @@
     "title": "illustration/1",
     "source": "./images/illustration/1.jpg",
     "sha1": "beca8038b16b207962b9e2f9694f065a4a43e1ab"
+  },
+  "illustration/2023-1": {
+    "id": "illustration/2023-1",
+    "format": "jpeg",
+    "width": 2048,
+    "height": 2048,
+    "title": "illustration/2023-1",
+    "source": "./images/illustration/2023-1.jpg",
+    "sha1": "0cfe1763d6625e832d7859fd0bd1cb46190fe75b"
+  },
+  "illustration/2023-2": {
+    "id": "illustration/2023-2",
+    "format": "jpeg",
+    "width": 2048,
+    "height": 2048,
+    "title": "illustration/2023-2",
+    "source": "./images/illustration/2023-2.jpg",
+    "sha1": "38cb7ac66a91dddd5fce162ef55d19dd08b19081"
+  },
+  "illustration/2023-3": {
+    "id": "illustration/2023-3",
+    "format": "jpeg",
+    "width": 2048,
+    "height": 2048,
+    "title": "illustration/2023-3",
+    "source": "./images/illustration/2023-3.jpg",
+    "sha1": "fd8fea97ff71a77cf5fb0d2b4d38116dd2109842"
+  },
+  "illustration/2023-4": {
+    "id": "illustration/2023-4",
+    "format": "jpeg",
+    "width": 2048,
+    "height": 2048,
+    "title": "illustration/2023-4",
+    "source": "./images/illustration/2023-4.jpg",
+    "sha1": "037b1bb8c2cfee33e7149a51bbab94953a61b79e"
+  },
+  "illustration/2023-5": {
+    "id": "illustration/2023-5",
+    "format": "jpeg",
+    "width": 2500,
+    "height": 1313,
+    "title": "illustration/2023-5",
+    "source": "./images/illustration/2023-5.jpg",
+    "sha1": "f710faa0f3098454a9a6a70b54c1a5a2a4dade8c"
+  },
+  "illustration/2023-6": {
+    "id": "illustration/2023-6",
+    "format": "jpeg",
+    "width": 2894,
+    "height": 2894,
+    "title": "illustration/2023-6",
+    "source": "./images/illustration/2023-6.jpg",
+    "sha1": "257c8c7b6f0c4edaec3d476b0946e2d0ef21d320"
+  },
+  "illustration/2023-7": {
+    "id": "illustration/2023-7",
+    "format": "jpeg",
+    "width": 1440,
+    "height": 1795,
+    "title": "illustration/2023-7",
+    "source": "./images/illustration/2023-7.jpg",
+    "sha1": "da39d8bcbf5022ab2ae6464e99cd5a8411fd82fa"
+  },
+  "illustration/2023-8": {
+    "id": "illustration/2023-8",
+    "format": "jpeg",
+    "width": 1932,
+    "height": 2500,
+    "title": "illustration/2023-8",
+    "source": "./images/illustration/2023-8.jpg",
+    "sha1": "c1a9f4695fd4219b58ac8ba6fff2497850b81b35"
+  },
+  "illustration/2023-9": {
+    "id": "illustration/2023-9",
+    "format": "jpeg",
+    "width": 2394,
+    "height": 1279,
+    "title": "illustration/2023-9",
+    "source": "./images/illustration/2023-9.jpg",
+    "sha1": "e4607cefe96d5da58c35d523c36a6369674fd470"
   },
   "illustration/ws1": {
     "id": "illustration/ws1",
@@ -485,6 +521,24 @@
     "source": "./images/illustration/ws9.jpg",
     "sha1": "5db0f5666e948c72feb5161d8176aa922a806234"
   },
+  "morning-routine/a": {
+    "id": "morning-routine/a",
+    "format": "jpeg",
+    "width": 2048,
+    "height": 2048,
+    "title": "morning-routine/a",
+    "source": "./images/morning-routine/a.jpg",
+    "sha1": "0e5b5a6afe5c3f16fc943eeb47becfaf052b982a"
+  },
+  "morning-routine/b": {
+    "id": "morning-routine/b",
+    "format": "jpeg",
+    "width": 2048,
+    "height": 2048,
+    "title": "morning-routine/b",
+    "source": "./images/morning-routine/b.jpg",
+    "sha1": "ca7fd2ea92a3d8e30eb1b43389a97aa8a35a9207"
+  },
   "spiced-tea/1": {
     "id": "spiced-tea/1",
     "format": "jpeg",
@@ -511,6 +565,33 @@
     "title": "spiced-tea/3",
     "source": "./images/spiced-tea/3.jpg",
     "sha1": "3e3dd68de6c2432540a7b227d6d3aa6bfc29383e"
+  },
+  "summer/a": {
+    "id": "summer/a",
+    "format": "jpeg",
+    "width": 2048,
+    "height": 2732,
+    "title": "summer/a",
+    "source": "./images/summer/a.jpg",
+    "sha1": "21e2ab6bcf6aaf2f2d83efa6f51428cd057d9e4e"
+  },
+  "summer/b": {
+    "id": "summer/b",
+    "format": "jpeg",
+    "width": 2048,
+    "height": 2048,
+    "title": "summer/b",
+    "source": "./images/summer/b.jpg",
+    "sha1": "e5c536da11760bd6b144205ac53e392085617e30"
+  },
+  "summer/c": {
+    "id": "summer/c",
+    "format": "jpeg",
+    "width": 2800,
+    "height": 2800,
+    "title": "summer/c",
+    "source": "./images/summer/c.jpg",
+    "sha1": "2f497b214ce20815dd71424366f4f726bdda601b"
   },
   "top/1": {
     "id": "top/1",
