@@ -4,622 +4,980 @@
     "format": "jpeg",
     "width": 3807,
     "height": 2538,
-    "title": "profile"
-  },
-  "food/food-1": {
-    "id": "food/food-1",
-    "format": "jpeg",
-    "width": 1200,
-    "height": 1200,
-    "title": "food/food-1"
-  },
-  "food/food-2": {
-    "id": "food/food-2",
-    "format": "jpeg",
-    "width": 1200,
-    "height": 1200,
-    "title": "food/food-2"
-  },
-  "food/food-3": {
-    "id": "food/food-3",
-    "format": "jpeg",
-    "width": 1200,
-    "height": 1200,
-    "title": "food/food-3"
-  },
-  "food/food-4": {
-    "id": "food/food-4",
-    "format": "jpeg",
-    "width": 1200,
-    "height": 1200,
-    "title": "food/food-4"
-  },
-  "food/food-5": {
-    "id": "food/food-5",
-    "format": "jpeg",
-    "width": 1200,
-    "height": 1200,
-    "title": "food/food-5"
-  },
-  "food/food-6": {
-    "id": "food/food-6",
-    "format": "jpeg",
-    "width": 1200,
-    "height": 1200,
-    "title": "food/food-6"
-  },
-  "food/food-7": {
-    "id": "food/food-7",
-    "format": "jpeg",
-    "width": 1200,
-    "height": 1200,
-    "title": "food/food-7"
-  },
-  "food/food-8": {
-    "id": "food/food-8",
-    "format": "jpeg",
-    "width": 1200,
-    "height": 1200,
-    "title": "food/food-8"
-  },
-  "food/food-9": {
-    "id": "food/food-9",
-    "format": "jpeg",
-    "width": 1200,
-    "height": 1200,
-    "title": "food/food-9"
+    "title": "profile",
+    "source": "./images/profile.jpg",
+    "sha1": "bd676f4ae288530b29b25979e6c7f219f507a4a7"
   },
   "drawings/1": {
     "id": "drawings/1",
     "format": "jpeg",
     "width": 1024,
     "height": 1366,
-    "title": "drawings/1"
+    "title": "drawings/1",
+    "source": "./images/drawings/1.jpg",
+    "sha1": "036eae055461b6ccfb35421d3da235fdca3240f9"
   },
   "drawings/2": {
     "id": "drawings/2",
     "format": "jpeg",
     "width": 1366,
     "height": 1024,
-    "title": "drawings/2"
+    "title": "drawings/2",
+    "source": "./images/drawings/2.jpg",
+    "sha1": "45065d7b0b2a58d211d34388296a1557e3c12c96"
   },
   "drawings/3": {
     "id": "drawings/3",
     "format": "jpeg",
     "width": 2048,
     "height": 2732,
-    "title": "drawings/3"
+    "title": "drawings/3",
+    "source": "./images/drawings/3.jpg",
+    "sha1": "c04087bfeb8f21ada1cb161793375b16ba0ccdf3"
   },
   "drawings/4": {
     "id": "drawings/4",
     "format": "jpeg",
     "width": 2048,
     "height": 2732,
-    "title": "drawings/4"
+    "title": "drawings/4",
+    "source": "./images/drawings/4.jpg",
+    "sha1": "f620dc51909d28d73af87a17ff4b72ec43cb358e"
   },
   "drawings/5": {
     "id": "drawings/5",
     "format": "jpeg",
     "width": 2048,
     "height": 2732,
-    "title": "drawings/5"
+    "title": "drawings/5",
+    "source": "./images/drawings/5.jpg",
+    "sha1": "ea9f08f96956a79ee2dec7cb7b16dfafc8a62f10"
+  },
+  "food/food-1": {
+    "id": "food/food-1",
+    "format": "jpeg",
+    "width": 1200,
+    "height": 1200,
+    "title": "food/food-1",
+    "source": "./images/food/food-1.jpg",
+    "sha1": "ea51dc16a3d1e67e776f165e19e58ad2878239ca"
+  },
+  "food/food-2": {
+    "id": "food/food-2",
+    "format": "jpeg",
+    "width": 1200,
+    "height": 1200,
+    "title": "food/food-2",
+    "source": "./images/food/food-2.jpg",
+    "sha1": "f215f162e7d9dccfe1f98dd4ad92862c87a2ffb6"
+  },
+  "food/food-3": {
+    "id": "food/food-3",
+    "format": "jpeg",
+    "width": 1200,
+    "height": 1200,
+    "title": "food/food-3",
+    "source": "./images/food/food-3.jpg",
+    "sha1": "f7c75630aa65b9845baa4770fa4ad5b51dcfcedf"
+  },
+  "food/food-4": {
+    "id": "food/food-4",
+    "format": "jpeg",
+    "width": 1200,
+    "height": 1200,
+    "title": "food/food-4",
+    "source": "./images/food/food-4.jpg",
+    "sha1": "6b7c0b2f2ea1dc8d58428be7e32381635fdd0e3a"
+  },
+  "food/food-5": {
+    "id": "food/food-5",
+    "format": "jpeg",
+    "width": 1200,
+    "height": 1200,
+    "title": "food/food-5",
+    "source": "./images/food/food-5.jpg",
+    "sha1": "9dc5038f9a6f573771569bc827573e3bc6e72519"
+  },
+  "food/food-6": {
+    "id": "food/food-6",
+    "format": "jpeg",
+    "width": 1200,
+    "height": 1200,
+    "title": "food/food-6",
+    "source": "./images/food/food-6.jpg",
+    "sha1": "041efcc5f96de627fa2535aeecf14b643491d626"
+  },
+  "food/food-7": {
+    "id": "food/food-7",
+    "format": "jpeg",
+    "width": 1200,
+    "height": 1200,
+    "title": "food/food-7",
+    "source": "./images/food/food-7.jpg",
+    "sha1": "e65c752a5d86d753a50484b0f3182d303a2f5866"
+  },
+  "food/food-8": {
+    "id": "food/food-8",
+    "format": "jpeg",
+    "width": 1200,
+    "height": 1200,
+    "title": "food/food-8",
+    "source": "./images/food/food-8.jpg",
+    "sha1": "c8fc0a9d4a8a030405f7edf51dab63c6fc3e6133"
+  },
+  "food/food-9": {
+    "id": "food/food-9",
+    "format": "jpeg",
+    "width": 1200,
+    "height": 1200,
+    "title": "food/food-9",
+    "source": "./images/food/food-9.jpg",
+    "sha1": "3269bed8788c533f8db843bb40ef10c7b6b37175"
+  },
+  "gift-cards/card-1": {
+    "id": "gift-cards/card-1",
+    "format": "jpeg",
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-1",
+    "source": "./images/gift-cards/card-1.jpg",
+    "sha1": "29cf94f88cfcc6946396f5863528642f256b0456"
+  },
+  "gift-cards/card-10": {
+    "id": "gift-cards/card-10",
+    "format": "jpeg",
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-10",
+    "source": "./images/gift-cards/card-10.jpg",
+    "sha1": "be3ef3bdb25001b8726810c7e085339bdcc92f1a"
+  },
+  "gift-cards/card-11": {
+    "id": "gift-cards/card-11",
+    "format": "jpeg",
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-11",
+    "source": "./images/gift-cards/card-11.jpg",
+    "sha1": "6c77b33eadd3b724f8e1e47053bc0bef9f14d920"
+  },
+  "gift-cards/card-12": {
+    "id": "gift-cards/card-12",
+    "format": "jpeg",
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-12",
+    "source": "./images/gift-cards/card-12.jpg",
+    "sha1": "60733e454088b98f101f8c0a278bbdda96a4fbd7"
+  },
+  "gift-cards/card-13": {
+    "id": "gift-cards/card-13",
+    "format": "jpeg",
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-13",
+    "source": "./images/gift-cards/card-13.jpg",
+    "sha1": "704a0bf8cc670cf1d1c7f339f856db61747ed320"
+  },
+  "gift-cards/card-14": {
+    "id": "gift-cards/card-14",
+    "format": "jpeg",
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-14",
+    "source": "./images/gift-cards/card-14.jpg",
+    "sha1": "90a6c4f9b619ce05b0641720fe051c43ff2f0025"
+  },
+  "gift-cards/card-15": {
+    "id": "gift-cards/card-15",
+    "format": "jpeg",
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-15",
+    "source": "./images/gift-cards/card-15.jpg",
+    "sha1": "3bcf4c86cce9981d0147390b11f31d743592ab64"
+  },
+  "gift-cards/card-2": {
+    "id": "gift-cards/card-2",
+    "format": "jpeg",
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-2",
+    "source": "./images/gift-cards/card-2.jpg",
+    "sha1": "404817d2d5057f0fe53b3e5703e88414106b0464"
+  },
+  "gift-cards/card-3": {
+    "id": "gift-cards/card-3",
+    "format": "jpeg",
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-3",
+    "source": "./images/gift-cards/card-3.jpg",
+    "sha1": "0a61ede814d82352c3452b26056ef1a88e01e73c"
+  },
+  "gift-cards/card-4": {
+    "id": "gift-cards/card-4",
+    "format": "jpeg",
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-4",
+    "source": "./images/gift-cards/card-4.jpg",
+    "sha1": "61225df61caf98e62a8f7f6d922b3822743fc59e"
+  },
+  "gift-cards/card-5": {
+    "id": "gift-cards/card-5",
+    "format": "jpeg",
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-5",
+    "source": "./images/gift-cards/card-5.jpg",
+    "sha1": "d4597a492a880e07351428a049fbf05c2f09bcc2"
+  },
+  "gift-cards/card-6": {
+    "id": "gift-cards/card-6",
+    "format": "jpeg",
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-6",
+    "source": "./images/gift-cards/card-6.jpg",
+    "sha1": "19689e51217f3b2cda71d717bca829a1c9f64b2f"
+  },
+  "gift-cards/card-7": {
+    "id": "gift-cards/card-7",
+    "format": "jpeg",
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-7",
+    "source": "./images/gift-cards/card-7.jpg",
+    "sha1": "4db91041f6844c25a2af952df14e7f379d25add1"
+  },
+  "gift-cards/card-8": {
+    "id": "gift-cards/card-8",
+    "format": "jpeg",
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-8",
+    "source": "./images/gift-cards/card-8.jpg",
+    "sha1": "c66b3fee906532d2bbf1ea07512d050066f46d1e"
+  },
+  "gift-cards/card-9": {
+    "id": "gift-cards/card-9",
+    "format": "jpeg",
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/card-9",
+    "source": "./images/gift-cards/card-9.jpg",
+    "sha1": "0fcbb42eed097a18815be370ccf1a371789e894b"
+  },
+  "gift-cards/cover": {
+    "id": "gift-cards/cover",
+    "format": "jpeg",
+    "width": 1440,
+    "height": 1920,
+    "title": "gift-cards/cover",
+    "source": "./images/gift-cards/cover.jpg",
+    "sha1": "efcbadceb64a3c65f3f0cf8181ed4ef5d61032f2"
   },
   "illustration/1": {
     "id": "illustration/1",
     "format": "jpeg",
     "width": 5000,
     "height": 1875,
-    "title": "illustration/1"
+    "title": "illustration/1",
+    "source": "./images/illustration/1.jpg",
+    "sha1": "beca8038b16b207962b9e2f9694f065a4a43e1ab"
+  },
+  "illustration/2023-1": {
+    "id": "illustration/2023-1",
+    "format": "jpeg",
+    "width": 2048,
+    "height": 2048,
+    "title": "illustration/2023-1",
+    "source": "./images/illustration/2023-1.jpg",
+    "sha1": "0cfe1763d6625e832d7859fd0bd1cb46190fe75b"
+  },
+  "illustration/2023-2": {
+    "id": "illustration/2023-2",
+    "format": "jpeg",
+    "width": 2048,
+    "height": 2048,
+    "title": "illustration/2023-2",
+    "source": "./images/illustration/2023-2.jpg",
+    "sha1": "38cb7ac66a91dddd5fce162ef55d19dd08b19081"
+  },
+  "illustration/2023-3": {
+    "id": "illustration/2023-3",
+    "format": "jpeg",
+    "width": 2048,
+    "height": 2048,
+    "title": "illustration/2023-3",
+    "source": "./images/illustration/2023-3.jpg",
+    "sha1": "fd8fea97ff71a77cf5fb0d2b4d38116dd2109842"
+  },
+  "illustration/2023-4": {
+    "id": "illustration/2023-4",
+    "format": "jpeg",
+    "width": 2048,
+    "height": 2048,
+    "title": "illustration/2023-4",
+    "source": "./images/illustration/2023-4.jpg",
+    "sha1": "037b1bb8c2cfee33e7149a51bbab94953a61b79e"
+  },
+  "illustration/2023-5": {
+    "id": "illustration/2023-5",
+    "format": "jpeg",
+    "width": 2500,
+    "height": 1313,
+    "title": "illustration/2023-5",
+    "source": "./images/illustration/2023-5.jpg",
+    "sha1": "f710faa0f3098454a9a6a70b54c1a5a2a4dade8c"
+  },
+  "illustration/2023-6": {
+    "id": "illustration/2023-6",
+    "format": "jpeg",
+    "width": 2894,
+    "height": 2894,
+    "title": "illustration/2023-6",
+    "source": "./images/illustration/2023-6.jpg",
+    "sha1": "257c8c7b6f0c4edaec3d476b0946e2d0ef21d320"
+  },
+  "illustration/2023-7": {
+    "id": "illustration/2023-7",
+    "format": "jpeg",
+    "width": 1440,
+    "height": 1795,
+    "title": "illustration/2023-7",
+    "source": "./images/illustration/2023-7.jpg",
+    "sha1": "da39d8bcbf5022ab2ae6464e99cd5a8411fd82fa"
+  },
+  "illustration/2023-8": {
+    "id": "illustration/2023-8",
+    "format": "jpeg",
+    "width": 1932,
+    "height": 2500,
+    "title": "illustration/2023-8",
+    "source": "./images/illustration/2023-8.jpg",
+    "sha1": "c1a9f4695fd4219b58ac8ba6fff2497850b81b35"
+  },
+  "illustration/2023-9": {
+    "id": "illustration/2023-9",
+    "format": "jpeg",
+    "width": 2394,
+    "height": 1279,
+    "title": "illustration/2023-9",
+    "source": "./images/illustration/2023-9.jpg",
+    "sha1": "e4607cefe96d5da58c35d523c36a6369674fd470"
   },
   "illustration/ws1": {
     "id": "illustration/ws1",
     "format": "jpeg",
     "width": 1874,
     "height": 2500,
-    "title": "illustration/ws1"
+    "title": "illustration/ws1",
+    "source": "./images/illustration/ws1.jpg",
+    "sha1": "0c87d66a73668618fcb2b86a379dfce25d0f6d77"
   },
   "illustration/ws10": {
     "id": "illustration/ws10",
     "format": "jpeg",
     "width": 1874,
     "height": 2500,
-    "title": "illustration/ws10"
+    "title": "illustration/ws10",
+    "source": "./images/illustration/ws10.jpg",
+    "sha1": "95568f9342fcc5fa44ae3eafaa22c16ec7acc973"
   },
   "illustration/ws11": {
     "id": "illustration/ws11",
     "format": "jpeg",
     "width": 1932,
     "height": 2500,
-    "title": "illustration/ws11"
+    "title": "illustration/ws11",
+    "source": "./images/illustration/ws11.jpg",
+    "sha1": "9c93b6a3a93e05cc028d9874e7b7d8038eef5072"
   },
   "illustration/ws12": {
     "id": "illustration/ws12",
     "format": "jpeg",
     "width": 1874,
     "height": 2500,
-    "title": "illustration/ws12"
+    "title": "illustration/ws12",
+    "source": "./images/illustration/ws12.jpg",
+    "sha1": "3a7ea6854f9ff8fd025f256f2bbcee7d3264fe87"
   },
   "illustration/ws13": {
     "id": "illustration/ws13",
     "format": "jpeg",
     "width": 2000,
     "height": 2000,
-    "title": "illustration/ws13"
+    "title": "illustration/ws13",
+    "source": "./images/illustration/ws13.jpg",
+    "sha1": "feba7ae16cb63e4bc1f82889c5f1a66597227862"
   },
   "illustration/ws14": {
     "id": "illustration/ws14",
     "format": "jpeg",
     "width": 2500,
     "height": 1874,
-    "title": "illustration/ws14"
+    "title": "illustration/ws14",
+    "source": "./images/illustration/ws14.jpg",
+    "sha1": "9854ab7705a4568ab4dc410239e669fdfcd4cedb"
   },
   "illustration/ws15": {
     "id": "illustration/ws15",
     "format": "jpeg",
     "width": 1932,
     "height": 2500,
-    "title": "illustration/ws15"
+    "title": "illustration/ws15",
+    "source": "./images/illustration/ws15.jpg",
+    "sha1": "fe8ee5f077315f96cf19e5eb62d7ce14311f117a"
   },
   "illustration/ws16": {
     "id": "illustration/ws16",
     "format": "jpeg",
     "width": 1767,
     "height": 2500,
-    "title": "illustration/ws16"
+    "title": "illustration/ws16",
+    "source": "./images/illustration/ws16.jpg",
+    "sha1": "cc77d1c43ad2b63965e340948db800490c970cca"
   },
   "illustration/ws17": {
     "id": "illustration/ws17",
     "format": "jpeg",
     "width": 2048,
     "height": 2048,
-    "title": "illustration/ws17"
+    "title": "illustration/ws17",
+    "source": "./images/illustration/ws17.jpg",
+    "sha1": "fedad5af84eeea7d5856bfae010241d17e334355"
   },
   "illustration/ws2": {
     "id": "illustration/ws2",
     "format": "jpeg",
     "width": 2500,
     "height": 1874,
-    "title": "illustration/ws2"
+    "title": "illustration/ws2",
+    "source": "./images/illustration/ws2.jpg",
+    "sha1": "9ebab70283863c84a9da6745ba78a88eb77bb85e"
   },
   "illustration/ws3": {
     "id": "illustration/ws3",
     "format": "jpeg",
     "width": 1874,
     "height": 2500,
-    "title": "illustration/ws3"
+    "title": "illustration/ws3",
+    "source": "./images/illustration/ws3.jpg",
+    "sha1": "7f76742f5347ad277f973b40e487dce5bc5ff7a5"
   },
   "illustration/ws4": {
     "id": "illustration/ws4",
     "format": "jpeg",
     "width": 2048,
     "height": 2500,
-    "title": "illustration/ws4"
+    "title": "illustration/ws4",
+    "source": "./images/illustration/ws4.jpg",
+    "sha1": "f906cd17a06bccec34c1d61c29214c92327e0d10"
   },
   "illustration/ws5": {
     "id": "illustration/ws5",
     "format": "jpeg",
     "width": 1932,
     "height": 2500,
-    "title": "illustration/ws5"
+    "title": "illustration/ws5",
+    "source": "./images/illustration/ws5.jpg",
+    "sha1": "f494c05363203d805fb0f507992063cfbf51bc6f"
   },
   "illustration/ws6": {
     "id": "illustration/ws6",
     "format": "jpeg",
     "width": 1932,
     "height": 2500,
-    "title": "illustration/ws6"
+    "title": "illustration/ws6",
+    "source": "./images/illustration/ws6.jpg",
+    "sha1": "35bbb9cce4fe729b80aef35bd42b026d47c6466c"
   },
   "illustration/ws7": {
     "id": "illustration/ws7",
     "format": "jpeg",
     "width": 2500,
     "height": 1930,
-    "title": "illustration/ws7"
+    "title": "illustration/ws7",
+    "source": "./images/illustration/ws7.jpg",
+    "sha1": "7699cfb7896d6eb1dd44df382c9aeff8e68d406c"
   },
   "illustration/ws8": {
     "id": "illustration/ws8",
     "format": "jpeg",
     "width": 1932,
     "height": 2500,
-    "title": "illustration/ws8"
+    "title": "illustration/ws8",
+    "source": "./images/illustration/ws8.jpg",
+    "sha1": "c86d266ec2ebb44c583fc53f747ccdb6d7c9f9c2"
   },
   "illustration/ws9": {
     "id": "illustration/ws9",
     "format": "jpeg",
     "width": 1200,
     "height": 1200,
-    "title": "illustration/ws9"
+    "title": "illustration/ws9",
+    "source": "./images/illustration/ws9.jpg",
+    "sha1": "5db0f5666e948c72feb5161d8176aa922a806234"
   },
   "morning-routine/a": {
     "id": "morning-routine/a",
     "format": "jpeg",
     "width": 2048,
     "height": 2048,
-    "title": "morning-routine/a"
+    "title": "morning-routine/a",
+    "source": "./images/morning-routine/a.jpg",
+    "sha1": "0e5b5a6afe5c3f16fc943eeb47becfaf052b982a"
   },
   "morning-routine/b": {
     "id": "morning-routine/b",
     "format": "jpeg",
     "width": 2048,
     "height": 2048,
-    "title": "morning-routine/b"
+    "title": "morning-routine/b",
+    "source": "./images/morning-routine/b.jpg",
+    "sha1": "ca7fd2ea92a3d8e30eb1b43389a97aa8a35a9207"
   },
   "spiced-tea/1": {
     "id": "spiced-tea/1",
     "format": "jpeg",
     "width": 5000,
     "height": 1875,
-    "title": "spiced-tea/1"
+    "title": "spiced-tea/1",
+    "source": "./images/spiced-tea/1.jpg",
+    "sha1": "b278bde11c705bc8e8ef3739890e42c920a2ec95"
   },
   "spiced-tea/2": {
     "id": "spiced-tea/2",
     "format": "jpeg",
     "width": 2048,
     "height": 2732,
-    "title": "spiced-tea/2"
+    "title": "spiced-tea/2",
+    "source": "./images/spiced-tea/2.jpg",
+    "sha1": "5f3b861584076602713376938780a6ebe96a6f1f"
   },
   "spiced-tea/3": {
     "id": "spiced-tea/3",
     "format": "jpeg",
     "width": 2048,
     "height": 2732,
-    "title": "spiced-tea/3"
+    "title": "spiced-tea/3",
+    "source": "./images/spiced-tea/3.jpg",
+    "sha1": "3e3dd68de6c2432540a7b227d6d3aa6bfc29383e"
   },
   "summer/a": {
     "id": "summer/a",
     "format": "jpeg",
     "width": 2048,
     "height": 2732,
-    "title": "summer/a"
+    "title": "summer/a",
+    "source": "./images/summer/a.jpg",
+    "sha1": "21e2ab6bcf6aaf2f2d83efa6f51428cd057d9e4e"
   },
   "summer/b": {
     "id": "summer/b",
     "format": "jpeg",
     "width": 2048,
     "height": 2048,
-    "title": "summer/b"
+    "title": "summer/b",
+    "source": "./images/summer/b.jpg",
+    "sha1": "e5c536da11760bd6b144205ac53e392085617e30"
   },
   "summer/c": {
     "id": "summer/c",
     "format": "jpeg",
     "width": 2800,
     "height": 2800,
-    "title": "summer/c"
+    "title": "summer/c",
+    "source": "./images/summer/c.jpg",
+    "sha1": "2f497b214ce20815dd71424366f4f726bdda601b"
   },
   "top/1": {
     "id": "top/1",
     "format": "png",
     "width": 1280,
     "height": 1280,
-    "title": "top/1"
+    "title": "top/1",
+    "source": "./images/top/1.png",
+    "sha1": "9b87491aff659de1ed35d0fdea0747d232732ca2"
   },
   "top/2": {
     "id": "top/2",
     "format": "png",
     "width": 1280,
     "height": 1280,
-    "title": "top/2"
+    "title": "top/2",
+    "source": "./images/top/2.png",
+    "sha1": "69979e85257eb9371a6c57d09f64a20791076e35"
   },
   "top/3": {
     "id": "top/3",
     "format": "png",
     "width": 1280,
     "height": 1280,
-    "title": "top/3"
+    "title": "top/3",
+    "source": "./images/top/3.png",
+    "sha1": "b2cb323f1949d298079e68d1e266d5430d003617"
   },
   "top/4": {
     "id": "top/4",
     "format": "png",
     "width": 1280,
     "height": 1280,
-    "title": "top/4"
+    "title": "top/4",
+    "source": "./images/top/4.png",
+    "sha1": "ef2f76642f6e0b9beea1b2fe1d49f87059a73c70"
   },
   "top/5": {
     "id": "top/5",
     "format": "png",
     "width": 1280,
     "height": 1280,
-    "title": "top/5"
+    "title": "top/5",
+    "source": "./images/top/5.png",
+    "sha1": "eb26b8469fcd28d01ba44bda891e84e159c22fdc"
   },
   "top/6": {
     "id": "top/6",
     "format": "png",
     "width": 1280,
     "height": 1280,
-    "title": "top/6"
+    "title": "top/6",
+    "source": "./images/top/6.png",
+    "sha1": "8f193d579a7048544b7d8691f37cd380da01174d"
   },
   "top/7": {
     "id": "top/7",
     "format": "png",
     "width": 1280,
     "height": 1280,
-    "title": "top/7"
+    "title": "top/7",
+    "source": "./images/top/7.png",
+    "sha1": "14e95cf44027e589cf9b5013fa7b513b1b7f3236"
   },
   "top/wide-1": {
     "id": "top/wide-1",
     "format": "jpeg",
     "width": 2362,
     "height": 1240,
-    "title": "top/wide-1"
+    "title": "top/wide-1",
+    "source": "./images/top/wide-1.jpg",
+    "sha1": "82e95d0dd15adc51e75d6323f309b5d65b6e82f4"
   },
   "top/wide-2": {
     "id": "top/wide-2",
     "format": "jpeg",
     "width": 4724,
     "height": 2480,
-    "title": "top/wide-2"
+    "title": "top/wide-2",
+    "source": "./images/top/wide-2.jpg",
+    "sha1": "32e63bedbf6ab6a4e9aa403436a013aaa46ca829"
   },
   "top/wide-3": {
     "id": "top/wide-3",
     "format": "jpeg",
     "width": 5000,
     "height": 1875,
-    "title": "top/wide-3"
+    "title": "top/wide-3",
+    "source": "./images/top/wide-3.jpg",
+    "sha1": "b278bde11c705bc8e8ef3739890e42c920a2ec95"
   },
   "top/wide-4": {
     "id": "top/wide-4",
     "format": "jpeg",
     "width": 5000,
     "height": 1875,
-    "title": "top/wide-4"
+    "title": "top/wide-4",
+    "source": "./images/top/wide-4.jpg",
+    "sha1": "1a0c5f837032a3231197bcf572a10def18dd7cc7"
   },
   "top/wide-5": {
     "id": "top/wide-5",
     "format": "jpeg",
     "width": 5000,
     "height": 1875,
-    "title": "top/wide-5"
+    "title": "top/wide-5",
+    "source": "./images/top/wide-5.jpg",
+    "sha1": "beca8038b16b207962b9e2f9694f065a4a43e1ab"
   },
   "top/wide-6": {
     "id": "top/wide-6",
     "format": "jpeg",
     "width": 5000,
     "height": 1875,
-    "title": "top/wide-6"
+    "title": "top/wide-6",
+    "source": "./images/top/wide-6.jpg",
+    "sha1": "fd7ab3ed9c8df0976466a2ad60c6b5d9f25dabcc"
   },
   "top/wide-7": {
     "id": "top/wide-7",
     "format": "jpeg",
     "width": 5197,
     "height": 3366,
-    "title": "top/wide-7"
+    "title": "top/wide-7",
+    "source": "./images/top/wide-7.jpg",
+    "sha1": "1abd4045c9391ef932d4073859f462bd579b58b3"
+  },
+  "works/halloween": {
+    "id": "works/halloween",
+    "format": "jpeg",
+    "width": 2500,
+    "height": 1600,
+    "title": "works/halloween",
+    "source": "./images/works/halloween.jpg",
+    "sha1": "8d117f0fe70b0e78a7e8d788f8e232ae5a5af6d0"
+  },
+  "works/love-is-love": {
+    "id": "works/love-is-love",
+    "format": "jpeg",
+    "width": 2100,
+    "height": 2100,
+    "title": "works/love-is-love",
+    "source": "./images/works/love-is-love.jpg",
+    "sha1": "276fd30cf8b92e14a722fcc60273bec3ce900548"
   },
   "books/farmersmaket/cover": {
     "id": "books/farmersmaket/cover",
     "format": "jpeg",
     "width": 4000,
     "height": 2700,
-    "title": "books/farmersmaket/cover"
+    "title": "books/farmersmaket/cover",
+    "source": "./images/books/farmersmaket/cover.jpg",
+    "sha1": "1de9b24086801570fcc78842431654879c7b7faa"
   },
   "books/farmersmaket/fm1": {
     "id": "books/farmersmaket/fm1",
     "format": "jpeg",
     "width": 5197,
     "height": 3366,
-    "title": "books/farmersmaket/fm1"
+    "title": "books/farmersmaket/fm1",
+    "source": "./images/books/farmersmaket/fm1.jpg",
+    "sha1": "1abd4045c9391ef932d4073859f462bd579b58b3"
   },
   "books/farmersmaket/fm2": {
     "id": "books/farmersmaket/fm2",
     "format": "jpeg",
     "width": 5000,
     "height": 1875,
-    "title": "books/farmersmaket/fm2"
+    "title": "books/farmersmaket/fm2",
+    "source": "./images/books/farmersmaket/fm2.jpg",
+    "sha1": "1a0c5f837032a3231197bcf572a10def18dd7cc7"
   },
   "books/farmersmaket/fm3": {
     "id": "books/farmersmaket/fm3",
     "format": "jpeg",
     "width": 2048,
     "height": 2048,
-    "title": "books/farmersmaket/fm3"
+    "title": "books/farmersmaket/fm3",
+    "source": "./images/books/farmersmaket/fm3.jpg",
+    "sha1": "048a49ea5abff22692b681b006413d1b3db13fdd"
   },
   "books/farmersmaket/fm4": {
     "id": "books/farmersmaket/fm4",
     "format": "jpeg",
     "width": 2048,
     "height": 2048,
-    "title": "books/farmersmaket/fm4"
+    "title": "books/farmersmaket/fm4",
+    "source": "./images/books/farmersmaket/fm4.jpg",
+    "sha1": "73865ef7540411ad5403c46a49a069ffab7463eb"
   },
   "books/flowers/1": {
     "id": "books/flowers/1",
     "format": "jpeg",
     "width": 3400,
     "height": 4400,
-    "title": "books/flowers/1"
+    "title": "books/flowers/1",
+    "source": "./images/books/flowers/1.jpg",
+    "sha1": "d692084a853ab325d0675b7f20d77cb721acab67"
   },
   "books/flowers/10": {
     "id": "books/flowers/10",
     "format": "jpeg",
     "width": 3400,
     "height": 4400,
-    "title": "books/flowers/10"
+    "title": "books/flowers/10",
+    "source": "./images/books/flowers/10.jpg",
+    "sha1": "13ec465f658763f7fff3cf5c37080cc4a814e50c"
   },
   "books/flowers/11": {
     "id": "books/flowers/11",
     "format": "jpeg",
     "width": 3400,
     "height": 4400,
-    "title": "books/flowers/11"
+    "title": "books/flowers/11",
+    "source": "./images/books/flowers/11.jpg",
+    "sha1": "660853b8cc62a252a3626026148b8913fbeb95e5"
   },
   "books/flowers/12": {
     "id": "books/flowers/12",
     "format": "jpeg",
     "width": 3400,
     "height": 4400,
-    "title": "books/flowers/12"
+    "title": "books/flowers/12",
+    "source": "./images/books/flowers/12.jpg",
+    "sha1": "f4e378d8aaca6ebb9360ebf1171b6b321188f67f"
   },
   "books/flowers/13": {
     "id": "books/flowers/13",
     "format": "jpeg",
     "width": 3400,
     "height": 4400,
-    "title": "books/flowers/13"
+    "title": "books/flowers/13",
+    "source": "./images/books/flowers/13.jpg",
+    "sha1": "04e4a299c690c5d84e449aaecde3e4e3c77bfb4f"
   },
   "books/flowers/14": {
     "id": "books/flowers/14",
     "format": "jpeg",
     "width": 3400,
     "height": 4400,
-    "title": "books/flowers/14"
+    "title": "books/flowers/14",
+    "source": "./images/books/flowers/14.jpg",
+    "sha1": "fcb03094341804d4ad41aa7327a8ddb99eae220c"
   },
   "books/flowers/15": {
     "id": "books/flowers/15",
     "format": "jpeg",
     "width": 3400,
     "height": 4400,
-    "title": "books/flowers/15"
+    "title": "books/flowers/15",
+    "source": "./images/books/flowers/15.jpg",
+    "sha1": "97aba02ada310b11f63674a859c8daeb1b298165"
   },
   "books/flowers/2": {
     "id": "books/flowers/2",
     "format": "jpeg",
     "width": 3400,
     "height": 4400,
-    "title": "books/flowers/2"
+    "title": "books/flowers/2",
+    "source": "./images/books/flowers/2.jpg",
+    "sha1": "6da403a9abcd8d0267f9b83165918e7ee2c4d61e"
   },
   "books/flowers/3": {
     "id": "books/flowers/3",
     "format": "jpeg",
     "width": 3400,
     "height": 4400,
-    "title": "books/flowers/3"
+    "title": "books/flowers/3",
+    "source": "./images/books/flowers/3.jpg",
+    "sha1": "476712ac6ff8b0fc23ef8d062f013c213e0120eb"
   },
   "books/flowers/4": {
     "id": "books/flowers/4",
     "format": "jpeg",
     "width": 3400,
     "height": 4400,
-    "title": "books/flowers/4"
+    "title": "books/flowers/4",
+    "source": "./images/books/flowers/4.jpg",
+    "sha1": "48d85de370dfd24fbaec96f0dc8d9e8e05b61dc0"
   },
   "books/flowers/5": {
     "id": "books/flowers/5",
     "format": "jpeg",
     "width": 3400,
     "height": 4400,
-    "title": "books/flowers/5"
+    "title": "books/flowers/5",
+    "source": "./images/books/flowers/5.jpg",
+    "sha1": "e11284904a5e8cf53b4f6adb0618a24c8c52bf3f"
   },
   "books/flowers/6": {
     "id": "books/flowers/6",
     "format": "jpeg",
     "width": 3400,
     "height": 4400,
-    "title": "books/flowers/6"
+    "title": "books/flowers/6",
+    "source": "./images/books/flowers/6.jpg",
+    "sha1": "5f7fc64bb2e0c626223c3288ac01c560b07914e5"
   },
   "books/flowers/7": {
     "id": "books/flowers/7",
     "format": "jpeg",
     "width": 3400,
     "height": 4400,
-    "title": "books/flowers/7"
+    "title": "books/flowers/7",
+    "source": "./images/books/flowers/7.jpg",
+    "sha1": "9e2e0428bd21aa50d0ed2ffc7c14c376b8038078"
   },
   "books/flowers/8": {
     "id": "books/flowers/8",
     "format": "jpeg",
     "width": 3400,
     "height": 4400,
-    "title": "books/flowers/8"
+    "title": "books/flowers/8",
+    "source": "./images/books/flowers/8.jpg",
+    "sha1": "989df3f0edccb6313bb578f3cf8e93e895406045"
   },
   "books/flowers/9": {
     "id": "books/flowers/9",
     "format": "jpeg",
     "width": 3400,
     "height": 4400,
-    "title": "books/flowers/9"
+    "title": "books/flowers/9",
+    "source": "./images/books/flowers/9.jpg",
+    "sha1": "f96a8c22d71cb184c8901ab81fcd10d1cec41356"
   },
   "books/flowers/cover": {
     "id": "books/flowers/cover",
     "format": "jpeg",
     "width": 5000,
     "height": 5000,
-    "title": "books/flowers/cover"
-  },
-  "books/lilly-and-the-black-cat/1": {
-    "id": "books/lilly-and-the-black-cat/1",
-    "format": "jpeg",
-    "width": 5000,
-    "height": 1875,
-    "title": "books/lilly-and-the-black-cat/1"
-  },
-  "books/lilly-and-the-black-cat/2": {
-    "id": "books/lilly-and-the-black-cat/2",
-    "format": "jpeg",
-    "width": 2000,
-    "height": 2000,
-    "title": "books/lilly-and-the-black-cat/2"
-  },
-  "books/lilly-and-the-black-cat/3": {
-    "id": "books/lilly-and-the-black-cat/3",
-    "format": "jpeg",
-    "width": 2000,
-    "height": 2000,
-    "title": "books/lilly-and-the-black-cat/3"
-  },
-  "books/lilly-and-the-black-cat/4": {
-    "id": "books/lilly-and-the-black-cat/4",
-    "format": "jpeg",
-    "width": 2000,
-    "height": 2000,
-    "title": "books/lilly-and-the-black-cat/4"
-  },
-  "books/lilly-and-the-black-cat/5": {
-    "id": "books/lilly-and-the-black-cat/5",
-    "format": "jpeg",
-    "width": 2000,
-    "height": 2000,
-    "title": "books/lilly-and-the-black-cat/5"
-  },
-  "books/lilly-and-the-black-cat/6": {
-    "id": "books/lilly-and-the-black-cat/6",
-    "format": "jpeg",
-    "width": 2048,
-    "height": 2048,
-    "title": "books/lilly-and-the-black-cat/6"
-  },
-  "books/lilly-and-the-black-cat/cover": {
-    "id": "books/lilly-and-the-black-cat/cover",
-    "format": "jpeg",
-    "width": 4000,
-    "height": 2667,
-    "title": "books/lilly-and-the-black-cat/cover"
+    "title": "books/flowers/cover",
+    "source": "./images/books/flowers/cover.jpg",
+    "sha1": "bc36c469c62b8581fefd2e8ac5f084063627b5cc"
   },
   "books/lost-in-the-rain/cover": {
     "id": "books/lost-in-the-rain/cover",
     "format": "jpeg",
     "width": 1080,
     "height": 1080,
-    "title": "books/lost-in-the-rain/cover"
+    "title": "books/lost-in-the-rain/cover",
+    "source": "./images/books/lost-in-the-rain/cover.jpg",
+    "sha1": "215e662879b7f640edb4ffb620e0752fbba5a5c7"
   },
   "books/lost-in-the-rain/page1": {
     "id": "books/lost-in-the-rain/page1",
     "format": "jpeg",
     "width": 2362,
     "height": 1240,
-    "title": "books/lost-in-the-rain/page1"
+    "title": "books/lost-in-the-rain/page1",
+    "source": "./images/books/lost-in-the-rain/page1.jpg",
+    "sha1": "fe4d23342d059ee3ddce93fe02be7549a9133d80"
   },
   "books/lost-in-the-rain/page2": {
     "id": "books/lost-in-the-rain/page2",
     "format": "jpeg",
     "width": 4724,
     "height": 2480,
-    "title": "books/lost-in-the-rain/page2"
+    "title": "books/lost-in-the-rain/page2",
+    "source": "./images/books/lost-in-the-rain/page2.jpg",
+    "sha1": "32e63bedbf6ab6a4e9aa403436a013aaa46ca829"
   },
   "books/lost-in-the-rain/page3": {
     "id": "books/lost-in-the-rain/page3",
     "format": "jpeg",
     "width": 2362,
     "height": 1240,
-    "title": "books/lost-in-the-rain/page3"
+    "title": "books/lost-in-the-rain/page3",
+    "source": "./images/books/lost-in-the-rain/page3.jpg",
+    "sha1": "82e95d0dd15adc51e75d6323f309b5d65b6e82f4"
   },
   "books/lost-in-the-rain/page4": {
     "id": "books/lost-in-the-rain/page4",
     "format": "jpeg",
     "width": 2362,
     "height": 1240,
-    "title": "books/lost-in-the-rain/page4"
+    "title": "books/lost-in-the-rain/page4",
+    "source": "./images/books/lost-in-the-rain/page4.jpg",
+    "sha1": "b500494811d295388e20c21907c0cb9fe8c9668d"
   },
   "books/lost-in-the-rain/page5": {
     "id": "books/lost-in-the-rain/page5",
     "format": "jpeg",
     "width": 2362,
     "height": 1240,
-    "title": "books/lost-in-the-rain/page5"
+    "title": "books/lost-in-the-rain/page5",
+    "source": "./images/books/lost-in-the-rain/page5.jpg",
+    "sha1": "577ddd503a0d2e2c2257cb0eb17153702167d5ce"
   }
 }

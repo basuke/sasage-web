@@ -4,7 +4,7 @@ import { writable } from 'svelte/store';
 import type { Writable } from 'svelte/store';
 import images from '../images.json';
 import { browser } from '$app/environment';
-
+import { default as MarkdownIt }  from 'markdown-it';
 export const email = 'sasage.mayumi@gmail.com';
 export const agencyEmail = 'stormliteraryagency@gmail.com';
 
@@ -38,16 +38,13 @@ export type Image = {
 
 export type ImageSet = Record<string, Image>;
 
-export type Collection = {
+export type Work = {
     id: string;
-    isWork?: boolean;
     image?: string;
     title: TranslatableString;
     subtitle?: TranslatableString;
     images: string[];
 };
-
-export type Collections = Collection[];
 
 export function tagPage(page_path: string) {
     if (browser) {
@@ -55,12 +52,16 @@ export function tagPage(page_path: string) {
     }
 }
 
-export function imagePath(id: string, variation = '', ext = 'jpg') {
-    return baseUrl + id + variation + '.' + ext;
+export function imagePath(id: string, variant = 'public') {
+    const account_hash = '3Z234PNqO8eVcjKwgURmyQ';
+
+    return `https://imagedelivery.net/${account_hash}/${id}/${variant}`;
 }
 
-export function findCollection(collections: Collections, id: string): Collection | undefined {
-    return collections.find((collection) => collection.id === id);
+// https://imagedelivery.net/books/lost-in-the-rain/cover/-w960-h960
+
+export function findWork(works: Work[], id: string): Work | undefined {
+    return works.find((work) => work.id === id);
 }
 
 export function findImage(images: ImageSet, id: string): Image | null {
@@ -75,14 +76,22 @@ export function translated(obj: Translatable | undefined, key: string, lang: str
     if (!obj || !(key in obj)) return '';
     let value = obj[key];
     if (typeof value === 'object') value = value[lang] || value['en'];
-    return value;
+
+    if (typeof value !== 'string') return '';
+
+    const md = MarkdownIt()
+
+    const lines = value.split("\n").map(line => line.trim());
+    const htmls = lines.map(line => md.renderInline(line))
+    return htmls.join('<br>');
 }
 
 export const data: {
     debug: boolean;
     topImages: string[];
     topImagesWide: string[];
-    collections: Collections;
+    works: Work[];
+    illustrations: string[];
     images: ImageSet;
 } = {
     debug,
@@ -96,25 +105,86 @@ export const data: {
         'top/wide-6',
         'top/wide-7',
     ],
-    collections: [
+    works: [
+        {
+            id: 'gift-cards',
+            image: 'gift-cards/cover',
+            title: 'Gift Cards',
+            subtitle: {
+                en: `
+                    Client work (2023)
+                    [pamxy, Inc.](https://pamxy.co.jp/)
+
+                    Illustrations for gift card of
+                    Japanese e-commerce site called [giff letter](https://www.giff-letter.com/)
+                `,
+                ja: `
+                    クライアントワーク (2023)
+                    [株式会社 pamxy](https://pamxy.co.jp/) 様
+
+                    e-コマース ([giff leter](https://www.giff-letter.com/)) 
+                    ギフトカードのイラストレーション
+                `,
+            },
+            images: [
+                'gift-cards/card-1',
+                'gift-cards/card-2',
+                'gift-cards/card-3',
+                'gift-cards/card-4',
+                'gift-cards/card-5',
+                'gift-cards/card-6',
+                'gift-cards/card-7',
+                'gift-cards/card-8',
+                'gift-cards/card-9',
+                'gift-cards/card-10',
+                'gift-cards/card-11',
+                'gift-cards/card-12',
+                'gift-cards/card-13',
+                'gift-cards/card-14',
+                'gift-cards/card-15',
+            ],
+        },
+        {
+            id: 'halloween',
+            image: 'works/halloween',
+            title: 'Halloween Card',
+            subtitle: {
+                en: `
+                    Client work (2022)
+                    [Storm Literary Agency](https://www.stormliteraryagency.com/)
+
+                    Halloween card for e-mail signature (2022)
+                `,
+                ja: `
+                    クライアントワーク (2022)
+                    [Storm Literary Agency](https://www.stormliteraryagency.com/) 様
+
+                    e-mailで使われるハロウインカードのイラスト
+
+                `,
+            },
+            images: [
+                'works/halloween',
+            ],
+        },
         {
             id: 'lost-in-the-rain',
-            isWork: true,
             image: 'books/lost-in-the-rain/cover',
             title: 'LOST IN THE RAIN',
             subtitle: {
-                en: `Personal work.<br>
-Children’s book<br>
-<br>
-This work was selected for<br>
-<a class="underline text-red-700 hover:text-red-400" href="https://theaoi.com/wia/mayumi-sasage-lost-in-the-rain/">The AOI World Illustration Awards longlist</a>.`,
-                ja: `Personal work.<br>
-絵本<br>
-<br>
-この作品は<br>
-<a class="underline text-red-700 hover:text-red-400" href="https://theaoi.com/wia/mayumi-sasage-lost-in-the-rain/">
-The AOI World Illustration Awards longlist
-</a><br> に選ばれました.`,
+                en: `
+                    Personal work.
+                    Children’s book
+
+                    This work was selected for
+                    [The AOI World Illustration Awards longlist](https://theaoi.com/wia/mayumi-sasage-lost-in-the-rain/).`,
+                ja: `
+                    パーソナルワーク
+                    絵本
+
+                    この作品は
+                    [The AOI World Illustration Awards longlist](https://theaoi.com/wia/mayumi-sasage-lost-in-the-rain/)
+                    に選ばれました.`,
             },
             images: [
                 'books/lost-in-the-rain/page1',
@@ -126,12 +196,17 @@ The AOI World Illustration Awards longlist
         },
         {
             id: 'book-2',
-            isWork: true,
             image: 'books/flowers/cover',
             title: 'Flowers',
             subtitle: {
-                en: 'Personal work.<br>Oracle Cards (2019)',
-                ja: 'Personal work.<br>オラクルカード (2019)',
+                en: `
+                    Personal work.
+                    Oracle Cards (2019)
+                `,
+                ja: `
+                    パーソナルワーク
+                    オラクルカード (2019)
+                `,
             },
             images: [
                 'books/flowers/1',
@@ -153,12 +228,17 @@ The AOI World Illustration Awards longlist
         },
         {
             id: 'book-3',
-            isWork: true,
             image: 'books/farmersmaket/cover',
             title: 'Farmers Market',
             subtitle: {
-                en: 'Personal work.<br>magazine (2020)',
-                ja: 'Personal work.<br>雑誌の特集ページ (2020)',
+                en: `
+                    Personal work.
+                    magazine (2020)
+                `,
+                ja: `
+                    パーソナルワーク
+                    雑誌の特集ページ (2020)
+                `,
             },
             images: [
                 'books/farmersmaket/fm2',
@@ -168,50 +248,79 @@ The AOI World Illustration Awards longlist
             ],
         },
         {
-            id: 'illustrations',
-            title: 'Illustrations',
+            id: 'love-is-love',
+            image: 'works/love-is-love',
+            title: 'Love is Love',
+            subtitle: {
+                en: `
+                    Personal work
+
+                    This work was selected for
+                    [3x3 Internationa Illustration Show No. 19, 2022](https://3x3mag.com/annuals/annual19/s/sasage-mayumi-91175)
+                    Honotable Mention`,
+                ja: `
+                    パーソナルワーク
+
+                    この作品は
+                    [3x3 Internationa Illustration Show No. 19, 2022](https://3x3mag.com/annuals/annual19/s/sasage-mayumi-91175)
+                    Honotable Mentionに選ばれました
+                `,
+            },
             images: [
-                'illustration/1',
-                'illustration/ws1',
                 'illustration/ws2',
                 'illustration/ws3',
                 'illustration/ws4',
-                'illustration/ws5',
-                'illustration/ws6',
-                'illustration/ws7',
-                'illustration/ws8',
-                'illustration/ws9',
-                'illustration/ws10',
-                'illustration/ws11',
-                'illustration/ws12',
-                'illustration/ws13',
-                'illustration/ws14',
-                'illustration/ws15',
-                'illustration/ws16',
-                'illustration/ws17',
-
-                'spiced-tea/1',
-                'spiced-tea/2',
-                'spiced-tea/3',
-
-                'summer/a',
-                'summer/b',
-                'summer/c',
-
-                'morning-routine/a',
-                'morning-routine/b',
-
-                'food/food-1',
-                'food/food-2',
-                'food/food-3',
-                'food/food-5',
-                'food/food-6',
-
-                'drawings/1',
-                'drawings/3',
-                'drawings/4',
             ],
         },
     ],
+
+    illustrations: [
+        'illustration/1',
+        'illustration/ws1',
+
+        'illustration/2023-5',
+        'illustration/2023-6',
+        'illustration/2023-8',
+        'illustration/2023-7',
+        'illustration/2023-3',
+        'illustration/2023-1',
+        'illustration/2023-2',
+        'illustration/2023-4',
+
+        'illustration/ws5',
+        'illustration/ws6',
+        'illustration/ws7',
+        'illustration/ws8',
+        'illustration/ws9',
+        'illustration/ws10',
+        'illustration/ws11',
+        'illustration/ws12',
+        'illustration/ws13',
+        'illustration/ws15',
+        'illustration/ws16',
+        'illustration/ws17',
+
+        'spiced-tea/1',
+        'spiced-tea/2',
+        'spiced-tea/3',
+
+        'summer/a',
+        'summer/b',
+        'summer/c',
+
+        'morning-routine/a',
+        'morning-routine/b',
+
+        'food/food-1',
+        'food/food-2',
+        'food/food-3',
+        'food/food-5',
+        'food/food-6',
+
+        'illustration/ws14',
+
+        'illustration/2023-9',
+    ],
+
     images: images as ImageSet,
 };
