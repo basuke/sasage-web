@@ -39,7 +39,7 @@
         "prettier": "^3.0.0",
         "prettier-plugin-svelte": "^3.0.3",
         "sha1-file": "^3.0.0",
-        "sharp": "^0.32.2",
+        "sharp": "^0.32.6",
         "svelte": "^4.0.5",
         "svelte-check": "^3.0.1",
         "svelte-preprocess": "^5.0.0",
