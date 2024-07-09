@@ -14,10 +14,9 @@
 </svelte:head>
 
 <Container>
-    <div id="Books"><!-- rename id: Books -> Works --></div>
     <div id="Works" class="pt-20">
         <h2 class="my-4 text-center text-2xl md:text-3xl">WORKS</h2>
-        <WorkGrid works={works} />
+        <WorkGrid {works} />
     </div>
 
     <div id="Illustrations" class="pt-20">

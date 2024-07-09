@@ -107,6 +107,41 @@ export const data: {
     ],
     works: [
         {
+            id: 'zine-2023',
+            image: 'zine-2023/Seven-Classic-Cat-Antics',
+            title: 'Seven Classic Cat Antics',
+            subtitle: {
+                en: `
+                    Personal work (2023)
+                    Zine for the SF Zine Fest
+
+                    For the SF Zine Fest 2023, I made a zine about cats,
+                    using some Japanese onomatopoeia
+                    to show the behaviors I was interested in.
+                `,
+                ja: `
+                    パーソナルワーク
+                    SF Zine FestのためのZine（2023）
+
+                    SF Zine Fest 2023に参加するにあたり、
+                    猫によくある7つの行動についてのZineを
+                    日本語のオノマトペを交えながら制作、販売しました。
+                `,
+            },
+            images: [
+                'zine-2023/Cover',
+                'zine-2023/1',
+                'zine-2023/2-3',
+                'zine-2023/4-5',
+                'zine-2023/6-7',
+                'zine-2023/8-9',
+                'zine-2023/10-11',
+                'zine-2023/12-13',
+                'zine-2023/14-15',
+                'zine-2023/16p',
+            ],
+        },
+        {
             id: 'gift-cards',
             image: 'gift-cards/cover',
             title: 'Gift Cards',

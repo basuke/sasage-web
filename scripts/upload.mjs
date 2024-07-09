@@ -9,42 +9,36 @@ import 'dotenv/config'
 // Cloudflare
 const ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;
 const API_TOKEN = process.env.CLOUDFLARE_IMAGES_API_TOKEN;
-const uploadURL = `https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/images/v1`;
+const apiEndpoint = `https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/images/v1`;
 
 // images root directory
-const defaultdirectory = './images';
-
+const directory = './images';
 const indexPath = './src/images.json';
 
-// const widths = [320, 480, 640, 960, 1280];
-// const heights = [240, 480, 720, 960];
-
-// const resizeOptions = [
-//     ...widths.map((width) => ({ width })),
-//     ...heights.map((height) => ({ height })),
-//     ...[480, 960].map((size) => ({ width: size, height: size })),
-//     ...[960, 1280].map((size) => ({ width: size, height: size / 2 })),
-//     ...heights.map((height) => ({ width: (height / 3) * 4, height })),
-// ];
-
 const args = minimist(process.argv.slice(2), {
-    alias: { n: 'dry-run', },
+    alias: { n: 'dry-run', v: 'verbose' },
     boolean: ['dry-run'],
+    boolean: ['verbose'],
 });
 const dryRun = args['dry-run'];
-const directory = args._.length ? args._[0] : defaultdirectory;
+const verbose = args['verbose'];
 
-function pathToKey(source) {
+function normalizeSource(source) {
     if (source[0] !== '.') {
         source = './' + source
     }
-    return source.replace(defaultdirectory + '/', '');
+    return source.replace(directory + '/', '');
 }
 
 function pathToHash(source) {
-    return pathToKey(source)
+    return normalizeSource(source)
         .replace(/\.[a-zA-Z0-9]+$/, '') // remove extension
         .replace(/[^0-9A-Za-z._/-]/g, '-'); // escape chars
+}
+
+async function imageInfo(source) {
+    const { format, width, height } = await sharp(source).metadata();
+    return { format, width, height };
 }
 
 async function upload(source, id) {
@@ -57,46 +51,101 @@ async function upload(source, id) {
     form.append('id', id);
     form.append('file', fileFromSync(source));
 
-    const response = await fetch(uploadURL, {
+    if (verbose) {
+        console.log(`uploading ${source}`);
+    }
+
+    const response = await fetch(apiEndpoint, {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${API_TOKEN}`,
         },
         body: form
     });
-    const data = await response.json();
-    console.log(data);
+    const { success, errors } = await response.json();
+    if (success) {
+        console.log(`uploaded ${source}`);
+    } else {
+        console.error(`failed to upload ${source}`, errors);
+    }
 }
 
-async function saveJpegImage(hash, source) {
-    const { format, width, height } = await sharp(source).metadata();
+async function deleteImage(id) {
+    // curl -X DELETE \
+    // https://api.cloudflare.com/client/v4/accounts/{account_id}/images/v1/{image_id} \
+    // -H "Authorization: Bearer <API_TOKEN>"
 
-    if (!dryRun) {
-        await upload(source, hash);
+    if (verbose) {
+        console.log(`deleting ${id}`);
     }
 
-    return { id: hash, format, width, height, title: hash, source };
+    const response = await fetch(`${apiEndpoint}/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${API_TOKEN}`,
+        }
+    });
+    const { success, errors } = await response.json();
+    if (success) {
+        console.log(`deleted ${id}`);
+    } else {
+        console.error(`failed to delete ${source}`, errors);
+    }
 }
 
 function readImages() {
     try {
         return JSON.parse(fs.readFileSync(indexPath));
     } catch (e) {
+        if (verbose) {
+            console.log(`No ${indexPath} found, creating new one.`);
+        }
         return {};
     }
 }
 
 (async () => {
-    const savedImages = readImages();
-
     const files = await globby([directory + '/**/*.{jpg,png}'], {});
-    const map = {};
+    const map = readImages();
+
+    const added = [];
+    const updated = [];
+    const removed = [];
+    const skipped = [];
 
     for (const source of files) {
         const key = pathToHash(source);
 
-        const info = await saveJpegImage(key, source);
-        info.sha1 = await sha1File(source);
+        const info = {
+            source,
+            id: key,
+            title: key,
+            sha1: await sha1File(source),
+            ...await imageInfo(source),
+        };
+
+        let update = false;
+
+        if (!map[key]) {
+            added.push(source);
+        } else if (map[key].sha1 !== info.sha1) {
+            updated.push(source);
+            update = true;
+        } else {
+            if (verbose) {
+                console.log(`skipping ${source}`);
+            }
+            skipped.push(source);
+            continue;
+        }
+
+        if (!dryRun) {
+            if (update) {
+                await deleteImage(key);
+            }
+            await upload(source, key);
+        }
+
         map[key] = info;
     }
 
