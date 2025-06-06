@@ -22,5 +22,5 @@ function preferredLanguage(request: Request): Lang {
     const languages = parseAcceptLanguage(acceptLanguage) as Lang[];
     return languages
         .filter((lang) => acceptableLanguages.includes(lang))
-        .concat(acceptableLanguages)[0];
+        .concat(acceptableLanguages)[0]!;
 }

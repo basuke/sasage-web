@@ -2,7 +2,7 @@
     import { findImage, data } from './data';
     import Img from './img.svelte';
 
-    export let id = '';
+    export let id: string | undefined = undefined;
     export let columns: number = 0;
     export let link = '';
     export let title = '';

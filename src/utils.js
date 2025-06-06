@@ -5,7 +5,7 @@ export const scrollToTop = () => {
     });
 }
 
-export const scrollTo = selector => {
+export const scrollTo = (selector: string) => {
     const elem = document.querySelector(selector);
     if (elem) {
         elem.scrollIntoView({
