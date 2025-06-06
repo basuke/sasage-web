@@ -9,7 +9,7 @@
     export let square = false;
     export let r4x3 = false;
 
-    const image = findImage(data.images, id);
+    const image = id ? findImage(data.images, id) : null;
     let cellClass = 'px-16 sm:px-8';
     let span = 1;
 
