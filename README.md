@@ -20,15 +20,15 @@ Pushing to origin/main invokes deployment to Cloudflare Pages. (via GitHub Actio
 
 This project includes comprehensive testing infrastructure:
 
-> pnpm test          # Run unit tests (Vitest) in interactive mode
-> pnpm test:run      # Run unit tests (Vitest) in CI mode  
-> pnpm test:e2e      # Run end-to-end tests (Playwright) - local only
+> pnpm test # Run unit tests (Vitest) in interactive mode
+> pnpm test:run # Run unit tests (Vitest) in CI mode  
+> pnpm test:e2e # Run end-to-end tests (Playwright) - local only
 
 Additional quality checks:
 
-> pnpm check         # TypeScript type checking
-> pnpm lint          # Code linting and formatting validation
-> pnpm format        # Apply code formatting
+> pnpm check # TypeScript type checking
+> pnpm lint # Code linting and formatting validation
+> pnpm format # Apply code formatting
 
 # How to update images?
 
