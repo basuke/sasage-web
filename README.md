@@ -4,13 +4,13 @@ This is the source code of Mayumi Sasage's Website. https://mayumi-sasage.info
 
 # Technologies used in this project
 
-yarn
+pnpm
 node (18)
 
 # How to run development environment?
 
-> yarn
-> yarn dev
+> pnpm install
+> pnpm dev
 
 # How to deploy?
 
@@ -20,7 +20,7 @@ Pushing to origin/main invokes deployment to Cloudflare Pages. (via GitHub Actio
 
 Replace images in /images/ directory and run
 
-> node `scripts/upload.mjs`
+> pnpm upload-images
 
 The images are stored in Cloudflare Images.
 
