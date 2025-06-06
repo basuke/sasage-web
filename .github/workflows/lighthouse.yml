@@ -1,0 +1,157 @@
+name: Lighthouse CI
+
+on:
+    pull_request:
+        branches: [main]
+    push:
+        branches: [main]
+    schedule:
+        # Run weekly performance checks on main branch
+        - cron: '0 2 * * 1' # Every Monday at 2 AM UTC
+
+concurrency:
+    group: lighthouse-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    lighthouse:
+        name: Performance Audit
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v2
+              with:
+                  version: latest
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: 'pnpm'
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Build project
+              run: pnpm build
+              env:
+                  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+                  CLOUDFLARE_IMAGES_API_TOKEN: ${{ secrets.CLOUDFLARE_IMAGES_API_TOKEN }}
+
+            - name: Start preview server
+              run: |
+                  pnpm preview &
+                  sleep 10
+                  curl --retry 5 --retry-delay 2 --retry-max-time 30 http://localhost:4173/ || exit 1
+
+            - name: Install Lighthouse CI
+              run: npm install -g @lhci/cli@0.12.x
+
+            - name: Run Lighthouse CI
+              run: |
+                  lhci autorun --upload.target=filesystem --upload.outputDir=./lighthouse-results || echo "Lighthouse CI completed with warnings"
+              env:
+                  LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Parse Lighthouse results
+              run: |
+                  echo "## 🚦 Lighthouse Performance Report" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+
+                  # Find the latest lighthouse report
+                  LATEST_REPORT=$(find lighthouse-results -name "*.json" | head -1)
+
+                  if [ -f "$LATEST_REPORT" ]; then
+                    # Extract scores using node
+                    node -e "
+                      const fs = require('fs');
+                      const report = JSON.parse(fs.readFileSync('$LATEST_REPORT', 'utf8'));
+                      const categories = report.categories;
+                      
+                      const formatScore = (score) => {
+                        if (score === null) return 'N/A';
+                        const percentage = Math.round(score * 100);
+                        const emoji = percentage >= 90 ? '🟢' : percentage >= 50 ? '🟡' : '🔴';
+                        return \`\${emoji} \${percentage}%\`;
+                      };
+                      
+                      console.log('| Metric | Score |');
+                      console.log('|--------|--------|');
+                      console.log(\`| Performance | \${formatScore(categories.performance?.score)} |\`);
+                      console.log(\`| Accessibility | \${formatScore(categories.accessibility?.score)} |\`);
+                      console.log(\`| Best Practices | \${formatScore(categories['best-practices']?.score)} |\`);
+                      console.log(\`| SEO | \${formatScore(categories.seo?.score)} |\`);
+                      console.log(\`| PWA | \${formatScore(categories.pwa?.score)} |\`);
+                    " >> $GITHUB_STEP_SUMMARY
+                    
+                    echo "" >> $GITHUB_STEP_SUMMARY
+                    echo "_Report generated at $(date -u '+%Y-%m-%d %H:%M:%S UTC')_" >> $GITHUB_STEP_SUMMARY
+                  else
+                    echo "❌ Could not find Lighthouse report" >> $GITHUB_STEP_SUMMARY
+                  fi
+
+            - name: Upload Lighthouse results
+              uses: actions/upload-artifact@v4
+              if: always()
+              with:
+                  name: lighthouse-results
+                  path: lighthouse-results/
+                  retention-days: 30
+
+            - name: Comment PR with results
+              if: github.event_name == 'pull_request'
+              uses: actions/github-script@v7
+              with:
+                  script: |
+                      const fs = require('fs');
+                      const path = require('path');
+
+                      // Find lighthouse results
+                      const resultsDir = 'lighthouse-results';
+                      if (!fs.existsSync(resultsDir)) {
+                        console.log('No lighthouse results found');
+                        return;
+                      }
+
+                      const reportFiles = fs.readdirSync(resultsDir).filter(f => f.endsWith('.json'));
+                      if (reportFiles.length === 0) {
+                        console.log('No lighthouse report files found');
+                        return;
+                      }
+
+                      const reportPath = path.join(resultsDir, reportFiles[0]);
+                      const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
+                      const categories = report.categories;
+
+                      const formatScore = (score) => {
+                        if (score === null) return 'N/A';
+                        const percentage = Math.round(score * 100);
+                        const emoji = percentage >= 90 ? '🟢' : percentage >= 50 ? '🟡' : '🔴';
+                        return `${emoji} ${percentage}%`;
+                      };
+
+                      const comment = `## 🚦 Lighthouse Performance Report
+
+                      | Metric | Score |
+                      |--------|--------|
+                      | Performance | ${formatScore(categories.performance?.score)} |
+                      | Accessibility | ${formatScore(categories.accessibility?.score)} |
+                      | Best Practices | ${formatScore(categories['best-practices']?.score)} |
+                      | SEO | ${formatScore(categories.seo?.score)} |
+                      | PWA | ${formatScore(categories.pwa?.score)} |
+
+                      > 🟢 = 90-100% | 🟡 = 50-89% | 🔴 = 0-49%
+
+                      _Performance audit completed for commit ${context.sha.substring(0, 7)}_`;
+
+                      // Post comment on PR
+                      github.rest.issues.createComment({
+                        issue_number: context.issue.number,
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        body: comment
+                      });

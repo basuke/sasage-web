@@ -2,14 +2,14 @@
     import { findImage, data } from './data';
     import Img from './img.svelte';
 
-    export let id = '';
+    export let id: string | undefined = undefined;
     export let columns: number = 0;
     export let link = '';
     export let title = '';
     export let square = false;
     export let r4x3 = false;
 
-    const image = findImage(data.images, id);
+    const image = id ? findImage(data.images, id) : null;
     let cellClass = 'px-16 sm:px-8';
     let span = 1;
 

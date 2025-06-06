@@ -12,11 +12,13 @@
     const imageSource = source(images, interval);
     let image = $imageSource;
     let previousImage = image;
+    let isFirstImage = true;
 
     imageSource.subscribe(async ($image) => {
         previousImage = image;
         setTimeout(() => {
             image = $image;
+            isFirstImage = false;
         }, 100);
     });
 </script>
@@ -28,7 +30,7 @@
     <div class="absolute top-0 left-0">
         {#key image}
             <div in:fade={{ duration }}>
-                <Img {image} square={!wide} {wide} />
+                <Img {image} square={!wide} {wide} priority={isFirstImage} />
             </div>
         {/key}
     </div>

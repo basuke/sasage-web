@@ -4,7 +4,7 @@ import sharp from 'sharp';
 import minimist from 'minimist';
 import fetch, { FormData, fileFromSync } from 'node-fetch';
 import { sha1File } from 'sha1-file';
-import 'dotenv/config'
+import 'dotenv/config';
 
 // Cloudflare
 const ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;
@@ -17,15 +17,14 @@ const indexPath = './src/images.json';
 
 const args = minimist(process.argv.slice(2), {
     alias: { n: 'dry-run', v: 'verbose' },
-    boolean: ['dry-run'],
-    boolean: ['verbose'],
+    boolean: ['dry-run', 'verbose'],
 });
 const dryRun = args['dry-run'];
 const verbose = args['verbose'];
 
 function normalizeSource(source) {
     if (source[0] !== '.') {
-        source = './' + source
+        source = './' + source;
     }
     return source.replace(directory + '/', '');
 }
@@ -58,9 +57,9 @@ async function upload(source, id) {
     const response = await fetch(apiEndpoint, {
         method: 'POST',
         headers: {
-            'Authorization': `Bearer ${API_TOKEN}`,
+            Authorization: `Bearer ${API_TOKEN}`,
         },
-        body: form
+        body: form,
     });
     const { success, errors } = await response.json();
     if (success) {
@@ -82,8 +81,8 @@ async function deleteImage(id) {
     const response = await fetch(`${apiEndpoint}/${id}`, {
         method: 'DELETE',
         headers: {
-            'Authorization': `Bearer ${API_TOKEN}`,
-        }
+            Authorization: `Bearer ${API_TOKEN}`,
+        },
     });
     const { success, errors } = await response.json();
     if (success) {
@@ -121,7 +120,7 @@ function readImages() {
             id: key,
             title: key,
             sha1: await sha1File(source),
-            ...await imageInfo(source),
+            ...(await imageInfo(source)),
         };
 
         let update = false;

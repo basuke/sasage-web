@@ -1,0 +1,69 @@
+version: 2
+updates:
+    # Enable version updates for npm dependencies
+    - package-ecosystem: 'npm'
+      directory: '/'
+      schedule:
+          interval: 'weekly'
+          day: 'monday'
+          time: '02:00'
+      open-pull-requests-limit: 5
+      reviewers:
+          - 'basuke'
+      assignees:
+          - 'basuke'
+      commit-message:
+          prefix: 'chore'
+          prefix-development: 'chore'
+          include: 'scope'
+      # Group related updates together
+      groups:
+          testing:
+              patterns:
+                  - '@testing-library/*'
+                  - 'vitest*'
+                  - '@playwright/*'
+                  - 'playwright*'
+          typescript:
+              patterns:
+                  - 'typescript'
+                  - '@types/*'
+                  - '@typescript-eslint/*'
+          svelte:
+              patterns:
+                  - 'svelte*'
+                  - '@sveltejs/*'
+          build-tools:
+              patterns:
+                  - 'vite*'
+                  - 'postcss*'
+                  - 'tailwindcss*'
+                  - 'autoprefixer*'
+                  - 'cssnano*'
+          linting:
+              patterns:
+                  - 'eslint*'
+                  - 'prettier*'
+      # Ignore certain packages that need manual review
+      ignore:
+          - dependency-name: 'node'
+            # Ignore Node.js updates (handled separately)
+          - dependency-name: 'sharp'
+            # Sharp often has platform-specific issues
+            update-types: ['version-update:semver-major']
+
+    # Enable version updates for GitHub Actions
+    - package-ecosystem: 'github-actions'
+      directory: '/'
+      schedule:
+          interval: 'weekly'
+          day: 'monday'
+          time: '02:00'
+      open-pull-requests-limit: 3
+      reviewers:
+          - 'basuke'
+      assignees:
+          - 'basuke'
+      commit-message:
+          prefix: 'ci'
+          include: 'scope'
