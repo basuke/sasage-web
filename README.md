@@ -32,7 +32,6 @@ Here is the url: https://tagmanager.google.com/#/container/accounts/6056486588/c
 
 # Cloudflare Images account id and api token
 
-
 Put the following in .env file.
 
 ```

@@ -34,7 +34,7 @@ export function source(imageIds: string[], interval: number = 5000): Readable<Im
             const currentImage = images[index];
             if (currentImage) {
                 set(currentImage);
-                
+
                 // Preload the next image after this one
                 if (typeof document !== 'undefined') {
                     const nextIndex = (index + 1) % images.length;

@@ -4,7 +4,7 @@ import { writable } from 'svelte/store';
 import type { Writable } from 'svelte/store';
 import images from '../images.json';
 import { browser } from '$app/environment';
-import { default as MarkdownIt }  from 'markdown-it';
+import { default as MarkdownIt } from 'markdown-it';
 export const email = 'sasage.mayumi@gmail.com';
 export const agencyEmail = 'stormliteraryagency@gmail.com';
 
@@ -23,10 +23,12 @@ interface gtagFunction {
 declare const gtag: gtagFunction;
 
 export type Lang = 'en' | 'ja';
-export type TranslatableString = string | {
-    [key in Lang]?: string;
-};
-      
+export type TranslatableString =
+    | string
+    | {
+          [key in Lang]?: string;
+      };
+
 export type Image = {
     id: string;
     format: 'jpeg' | 'png';
@@ -79,10 +81,10 @@ export function translated(obj: Translatable | undefined, key: string, lang: str
 
     if (typeof value !== 'string') return '';
 
-    const md = MarkdownIt()
+    const md = MarkdownIt();
 
-    const lines = value.split("\n").map(line => line.trim());
-    const htmls = lines.map(line => md.renderInline(line))
+    const lines = value.split('\n').map((line) => line.trim());
+    const htmls = lines.map((line) => md.renderInline(line));
     return htmls.join('<br>');
 }
 
@@ -198,9 +200,7 @@ export const data: {
 
                 `,
             },
-            images: [
-                'works/halloween',
-            ],
+            images: ['works/halloween'],
         },
         {
             id: 'lost-in-the-rain',
@@ -301,11 +301,7 @@ export const data: {
                     Honotable Mentionに選ばれました
                 `,
             },
-            images: [
-                'illustration/ws2',
-                'illustration/ws3',
-                'illustration/ws4',
-            ],
+            images: ['illustration/ws2', 'illustration/ws3', 'illustration/ws4'],
         },
     ],
 
