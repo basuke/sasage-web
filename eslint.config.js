@@ -1,10 +1,8 @@
-import js from '@eslint/js';
 import tsParser from '@typescript-eslint/parser';
 import svelte from 'eslint-plugin-svelte3';
 import prettier from 'eslint-config-prettier';
 
 export default [
-    js.configs.recommended,
     {
         files: ['**/*.js', '**/*.mjs', '**/*.ts'],
         languageOptions: {
@@ -15,10 +13,13 @@ export default [
             },
         },
         rules: {
-            // Basic rules
+            // Basic ESLint rules
             'no-unused-vars': 'off', // Let TypeScript handle this
             'no-undef': 'off', // Let TypeScript handle this
+            'no-dupe-keys': 'error',
+            'no-unreachable': 'error',
             'prefer-const': 'error',
+            'no-var': 'error',
         },
     },
     // Skip Svelte files for now - TypeScript checking handles them
