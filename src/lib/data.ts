@@ -65,7 +65,7 @@ export function findWork(works: Work[], id: string): Work | undefined {
 }
 
 export function findImage(images: ImageSet, id: string): Image | null {
-    return images[id];
+    return images[id] ?? null;
 }
 
 export const lang: Writable<Lang> = writable('en');

@@ -1,8 +1,8 @@
 <script lang="ts">
-    import { data, lang, findImage, imagePath, translated, widths, heights } from './data';
+    import { data, lang, findImage, imagePath, translated } from './data';
     import type { Image } from './data';
 
-    export let id: string | null = null;
+    export let id: string | null | undefined = null;
     export let image: Image | null = null;
     export let className = '';
 
@@ -13,6 +13,7 @@
     export let r4x3 = false; // display 4:3
     export let wide = false; // display 2:1
     export let asis = false; // display original
+    export let priority = false; // high priority loading for above-the-fold images
 
     let width: number, height: number;
     if (id) {
@@ -106,7 +107,8 @@
             {width}
             {height}
             alt={translated(image, 'title', $lang)}
-            loading="lazy"
+            loading={priority ? "eager" : "lazy"}
+            fetchpriority={priority ? "high" : "auto"}
         />
     </picture>
 {/if}
