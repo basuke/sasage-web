@@ -37,6 +37,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       
+      - name: Sync SvelteKit
+        run: pnpm sync
+      
       - name: Run TypeScript type check
         run: pnpm check
       
