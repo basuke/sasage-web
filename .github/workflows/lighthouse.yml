@@ -46,7 +46,7 @@ jobs:
         run: |
           pnpm preview &
           sleep 10
-          curl --retry 5 --retry-delay 2 --retry-max-time 30 http://localhost:3000/ || exit 1
+          curl --retry 5 --retry-delay 2 --retry-max-time 30 http://localhost:4173/ || exit 1
       
       - name: Install Lighthouse CI
         run: npm install -g @lhci/cli@0.12.x
