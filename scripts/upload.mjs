@@ -17,8 +17,7 @@ const indexPath = './src/images.json';
 
 const args = minimist(process.argv.slice(2), {
     alias: { n: 'dry-run', v: 'verbose' },
-    boolean: ['dry-run'],
-    boolean: ['verbose'],
+    boolean: ['dry-run', 'verbose'],
 });
 const dryRun = args['dry-run'];
 const verbose = args['verbose'];
