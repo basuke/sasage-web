@@ -8,7 +8,7 @@ on:
     check_suite:
         types: [completed]
     workflow_run:
-        workflows: ["CI", "Lighthouse CI"]
+        workflows: ['CI', 'Lighthouse CI']
         types: [completed]
 
 permissions:
@@ -38,19 +38,19 @@ jobs:
               run: |
                   # Default to not merging
                   echo "should_merge=false" >> $GITHUB_OUTPUT
-                  
+
                   # Get update type and dependency type
                   UPDATE_TYPE="${{ steps.metadata.outputs.update-type }}"
                   DEPENDENCY_TYPE="${{ steps.metadata.outputs.dependency-type }}"
-                  
+
                   echo "Update type: $UPDATE_TYPE"
                   echo "Dependency type: $DEPENDENCY_TYPE"
-                  
+
                   # Auto-merge conditions:
                   # 1. Patch updates for all dependencies
                   # 2. Minor updates for dev dependencies
                   # 3. Minor updates for certain safe production dependencies
-                  
+
                   if [[ "$UPDATE_TYPE" == "version-update:semver-patch" ]]; then
                     echo "✅ Patch update - will auto-merge"
                     echo "should_merge=true" >> $GITHUB_OUTPUT
@@ -82,16 +82,16 @@ jobs:
                   script: |
                       const { owner, repo } = context.repo;
                       const pr_number = context.payload.pull_request?.number || context.payload.workflow_run?.pull_requests[0]?.number;
-                      
+
                       if (!pr_number) {
                         console.log('Could not determine PR number');
                         return;
                       }
-                      
+
                       // Wait up to 10 minutes for checks to complete
                       const maxAttempts = 20;
                       const delaySeconds = 30;
-                      
+
                       for (let attempt = 1; attempt <= maxAttempts; attempt++) {
                         console.log(`Attempt ${attempt}/${maxAttempts}: Checking PR status...`);
                         
@@ -131,7 +131,7 @@ jobs:
                           await new Promise(resolve => setTimeout(resolve, delaySeconds * 1000));
                         }
                       }
-                      
+
                       throw new Error('Timeout waiting for checks to complete');
 
             - name: Auto-merge PR
@@ -141,12 +141,12 @@ jobs:
                   script: |
                       const { owner, repo } = context.repo;
                       const pr_number = context.payload.pull_request?.number || context.payload.workflow_run?.pull_requests[0]?.number;
-                      
+
                       if (!pr_number) {
                         console.log('Could not determine PR number');
                         return;
                       }
-                      
+
                       try {
                         // Enable auto-merge
                         await github.rest.pulls.merge({
@@ -194,22 +194,22 @@ jobs:
                   script: |
                       const { owner, repo } = context.repo;
                       const pr_number = context.payload.pull_request?.number;
-                      
+
                       if (!pr_number) return;
-                      
+
                       const updateType = '${{ steps.metadata.outputs.update-type }}';
                       const dependencyType = '${{ steps.metadata.outputs.dependency-type }}';
-                      
+
                       let message = '👋 This Dependabot PR requires manual review:\n\n';
-                      
+
                       if (updateType.includes('major')) {
                         message += '- **Major version update** detected\n';
                       } else if (updateType.includes('minor') && dependencyType === 'production') {
                         message += '- **Minor update for production dependency** detected\n';
                       }
-                      
+
                       message += '\nPlease review the changes and merge manually if appropriate.';
-                      
+
                       await github.rest.issues.createComment({
                         owner,
                         repo,

@@ -25,10 +25,10 @@ jobs:
               run: |
                   # Default to not approving
                   echo "should_approve=false" >> $GITHUB_OUTPUT
-                  
+
                   UPDATE_TYPE="${{ steps.metadata.outputs.update-type }}"
                   DEPENDENCY_TYPE="${{ steps.metadata.outputs.dependency-type }}"
-                  
+
                   # Auto-approve same conditions as auto-merge
                   if [[ "$UPDATE_TYPE" == "version-update:semver-patch" ]]; then
                     echo "should_approve=true" >> $GITHUB_OUTPUT
@@ -43,7 +43,7 @@ jobs:
                   script: |
                       const { owner, repo } = context.repo;
                       const pr_number = context.payload.pull_request.number;
-                      
+
                       await github.rest.pulls.createReview({
                         owner,
                         repo,
@@ -51,5 +51,5 @@ jobs:
                         event: 'APPROVE',
                         body: 'Auto-approved by Dependabot workflow for patch/minor dev dependency update'
                       });
-                      
+
                       console.log(`Approved PR #${pr_number}`);
