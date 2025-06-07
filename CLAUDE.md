@@ -196,6 +196,10 @@ pnpm upload-images
 -   `vitest.config.ts` - Test configuration and setup
 -   `.github/workflows/` - CI/CD pipeline definitions
 
+## Development Guidelines
+
+-   Before pushing commit to PR, please run test, check the format and fix the lint errors.
+
 ## Implementation Summary
 
 This repository has been significantly enhanced with:
