@@ -13,24 +13,24 @@ This repository uses automated workflows to handle Dependabot pull requests effi
 
 The following Dependabot PRs will be automatically merged:
 
--   ✅ **All patch updates** (e.g., 1.2.3 → 1.2.4)
--   ✅ **Minor updates for development dependencies** (e.g., 1.2.0 → 1.3.0 for devDependencies)
--   ✅ **Minor updates for safe production dependencies**:
-    -   @sveltejs/adapter-static
-    -   @sveltejs/kit
-    -   svelte
-    -   vite
-    -   postcss
-    -   tailwindcss
-    -   autoprefixer
+- ✅ **All patch updates** (e.g., 1.2.3 → 1.2.4)
+- ✅ **Minor updates for development dependencies** (e.g., 1.2.0 → 1.3.0 for devDependencies)
+- ✅ **Minor updates for safe production dependencies**:
+    - @sveltejs/adapter-static
+    - @sveltejs/kit
+    - svelte
+    - vite
+    - postcss
+    - tailwindcss
+    - autoprefixer
 
 ### Manual Review Required
 
 The following updates require manual review:
 
--   ❌ **Major version updates** (e.g., 1.0.0 → 2.0.0)
--   ❌ **Minor updates for most production dependencies**
--   ❌ **Updates explicitly ignored in dependabot.yml** (e.g., sharp major updates)
+- ❌ **Major version updates** (e.g., 1.0.0 → 2.0.0)
+- ❌ **Minor updates for most production dependencies**
+- ❌ **Updates explicitly ignored in dependabot.yml** (e.g., sharp major updates)
 
 ### How It Works
 
@@ -60,9 +60,9 @@ To enable auto-merge, ensure the following repository settings:
 
 ### Monitoring
 
--   Check the Actions tab for workflow runs
--   Failed auto-merges will be logged in the workflow output
--   PRs requiring manual review will have a comment explaining why
+- Check the Actions tab for workflow runs
+- Failed auto-merges will be logged in the workflow output
+- PRs requiring manual review will have a comment explaining why
 
 ### Customization
 

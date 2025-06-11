@@ -198,7 +198,7 @@ pnpm upload-images
 
 ## Development Guidelines
 
--   Before pushing commit to PR, please run test, check the format and fix the lint errors.
+- Before pushing commit to PR, please run test, check the format and fix the lint errors.
 
 ## Implementation Summary
 
