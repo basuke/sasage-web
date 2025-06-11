@@ -35,7 +35,7 @@
 <Container>
     <article class="px-3 max-w-xl mx-auto text-justify sm:px-0 lg:flex lg:max-w-full lg:text-lg lg:justify-center lg:px-4">
         <div class="hidden max-w-sm pr-8 lg:block">
-            <h2 class="my-5 text-3xl">&nbsp;</h2>
+            <div class="my-5 text-3xl">&nbsp;</div>
             <div><Img id="profile" square /></div>
         </div>
     

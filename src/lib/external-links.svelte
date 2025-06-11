@@ -36,8 +36,9 @@
                 href={link.url}
                 target={link.target}
                 rel="noreferrer"
+                aria-label={link.category}
             >
-                <i class="{link.type} fa-2x" />
+                <i class="{link.type} fa-2x"></i>
             </a>
         </li>
     {/each}
