@@ -43,7 +43,7 @@
         "md5": "^2.3.0",
         "minimist": "^1.2.8",
         "node-fetch": "^3.3.2",
-        "postcss": "^8.5.4",
+        "postcss": "^8.5.5",
         "prettier": "^3.5.3",
         "prettier-plugin-svelte": "^3.4.0",
         "sha1-file": "^3.0.0",
@@ -51,11 +51,11 @@
         "svelte": "^5.33.19",
         "svelte-check": "^4.2.1",
         "svelte-preprocess": "^6.0.3",
-        "tailwindcss": "^3.4.3",
+        "tailwindcss": "^4.1.10",
         "tempy": "^3.1.0",
         "tslib": "^2.8.1",
         "typescript": "^5.8.3",
-        "vite": "^5.4.19",
+        "vite": "^6.3.5",
         "vitest": "^3.2.3"
     },
     "type": "module"
