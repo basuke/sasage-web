@@ -18,7 +18,7 @@
         "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
     },
     "devDependencies": {
-        "@playwright/test": "^1.53.0",
+        "@playwright/test": "^1.53.1",
         "@sveltejs/adapter-auto": "^3.3.1",
         "@sveltejs/kit": "^2.21.4",
         "@sveltejs/vite-plugin-svelte": "^4.0.4",
