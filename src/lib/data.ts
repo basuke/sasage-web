@@ -6,11 +6,10 @@ import images from '../images.json';
 import { browser } from '$app/environment';
 import { default as MarkdownIt } from 'markdown-it';
 export const email = 'sasage.mayumi@gmail.com';
-export const agencyEmail = 'stormliteraryagency@gmail.com';
+export const agencyName = 'Essie White Literary';
+export const agencyEmail = 'essie@essiewhiteliterary.com';
+export const agencyURL = 'https://www.essiewhiteliterary.com';
 
-export const imageDirectory = 'images';
-export const storageBucket = 'sasage-website-71713.appspot.com';
-export const baseUrl = `https://storage.googleapis.com/${storageBucket}/${imageDirectory}/`;
 export const gtagId = 'UA-164370440-1';
 
 export const widths = [320, 480, 640, 960, 1280];

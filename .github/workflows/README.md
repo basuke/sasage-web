@@ -45,7 +45,6 @@ The following updates require manual review:
 To enable auto-merge, ensure the following repository settings:
 
 1. **Branch Protection Rules** for `main`:
-
     - Require pull request reviews before merging (1 approval)
     - Require status checks to pass before merging:
         - Test & Lint (Node 18)
