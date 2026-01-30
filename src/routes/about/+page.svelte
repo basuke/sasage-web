@@ -1,6 +1,6 @@
 <script lang="ts">
     import Container from '$lib/container.svelte';
-    import { email, lang, agencyEmail } from '$lib/data';
+    import { email, lang, agencyName, agencyEmail, agencyURL } from '$lib/data';
     import Img from '$lib/img.svelte';
 
     const awards = [
@@ -64,9 +64,9 @@
                     </p>
                     <p>
                         She's represented by Essie White at <a
-                            href="https://www.stormliteraryagency.com/"
+                            href={agencyURL}
                             class="underline"
-                            target="_blank">Storm Literary Agency</a
+                            target="_blank">{agencyName}</a
                         >.
                     </p>
                 </section>
@@ -111,7 +111,7 @@
                 <section class="text-left space-y-6">
                     <p>Always looking for new opportunities and exciting projects!</p>
                     <p>
-                        For publishing/book enquiries, please contact <a
+                        For publishing / book enquiries, please contact <a
                             href="mailto:{agencyEmail}"
                             class="underline">{agencyEmail}</a
                         >
