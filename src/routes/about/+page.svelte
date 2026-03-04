@@ -14,6 +14,13 @@
         },
     ];
 
+    const booksEn = [
+        {
+            text: "The Little Book of the Moon (2024)",
+            url: "https://www.amazon.com/Little-Book-Moon-Mayumi-Sasage/dp/1646860965",
+        },
+    ];
+
     const awardsEn = [
         ...awards,
     ];
@@ -38,12 +45,12 @@
             <div class="my-5 text-3xl">&nbsp;</div>
             <div><Img id="profile" square /></div>
         </div>
-    
+
         <div class="max-w-xl mb-12">
             <h2 class="my-4 text-center text-2xl md:text-3xl">ABOUT</h2>
-    
+
             <div class="my-12 px-20 lg:hidden"><Img id="profile" square /></div>
-    
+
             {#if $lang === 'en'}
                 <section class="space-y-6">
                     <p>
@@ -90,7 +97,16 @@
                     </p>
                 </section>
             {/if}
-    
+
+            {#if $lang === 'en'}
+                <h2 class="mt-12 mb-4 text-center text-2xl md:text-3xl">BOOKS</h2>
+                <section class="space-y-6">
+                    <p>
+                        She is currently illustrating Blooming Behind Barbed Wire, forthcoming from Putnam in 2028.
+                    </p>
+                </section>
+            {/if}
+
             <h2 class="mt-12 mb-4 text-center text-2xl md:text-3xl">AWARDS</h2>
             <section class="text-left space-y-2 pl-2">
                 {#each ($lang === 'ja' ? awardsJa : awardsEn) as award}
@@ -105,7 +121,7 @@
                     </li>
                 {/each}
             </section>
-    
+
             {#if $lang === 'en'}
                 <h2 class="mt-12 mb-4 text-center text-2xl md:text-3xl">CONTACT</h2>
                 <section class="text-left space-y-6">
