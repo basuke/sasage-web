@@ -102,7 +102,7 @@
                 <h2 class="mt-12 mb-4 text-center text-2xl md:text-3xl">BOOKS</h2>
                 <section class="space-y-6">
                     <p>
-                        She is currently illustrating Blooming Behind Barbed Wire, forthcoming from Putnam in 2028.
+                        She is currently illustrating the children’s book <i>Blooming Behind Barbed Wire</i> forthcoming from Putnam in 2028.
                     </p>
                 </section>
             {/if}
