@@ -1,5 +1,5 @@
 import { parseAcceptLanguage } from 'intl-parse-accept-language';
-import type { Handle, RequestEvent } from '@sveltejs/kit';
+import type { Handle } from '@sveltejs/kit';
 
 /** @type {import('@sveltejs/kit').Handle} */
 export const handle: Handle = async ({ event, resolve }) => {
@@ -9,11 +9,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 
     return response;
 };
-
-/** @type {import('@sveltejs/kit').GetSession} */
-export function getSession(event: RequestEvent) {
-    return { lang: event.locals.lang };
-}
 
 const acceptableLanguages: Lang[] = ['en', 'ja'];
 
