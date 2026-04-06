@@ -77,7 +77,7 @@ jobs:
 
             - name: Wait for CI checks
               if: steps.check-merge.outputs.should_merge == 'true'
-              uses: actions/github-script@v7
+              uses: actions/github-script@v8
               with:
                   script: |
                       const { owner, repo } = context.repo;
@@ -136,7 +136,7 @@ jobs:
 
             - name: Auto-merge PR
               if: steps.check-merge.outputs.should_merge == 'true'
-              uses: actions/github-script@v7
+              uses: actions/github-script@v8
               with:
                   script: |
                       const { owner, repo } = context.repo;
@@ -189,7 +189,7 @@ jobs:
 
             - name: Add comment about manual review
               if: steps.check-merge.outputs.should_merge == 'false'
-              uses: actions/github-script@v7
+              uses: actions/github-script@v8
               with:
                   script: |
                       const { owner, repo } = context.repo;
