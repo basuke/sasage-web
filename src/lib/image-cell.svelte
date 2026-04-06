@@ -31,7 +31,7 @@
 </script>
 
 {#if image}
-    <div class="{cellClass} my-8 sm:my-6" data-sveltekit-prefetch>
+    <div class="{cellClass} my-8 sm:my-6" data-sveltekit-preload-data="hover">
         <a href={link}>
             <Img className="shadow-xl" {columns} {span} {square} {r4x3} {image} />
             {#if title}
