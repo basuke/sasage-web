@@ -2,19 +2,31 @@
     import { data, lang, findImage, imagePath, translated } from './data';
     import type { Image } from './data';
 
-    export let id: string | null | undefined = null;
-    export let image: Image | null = null;
-    export let className = '';
+    let {
+        id = null,
+        image: imageProp = null,
+        className = '',
+        columns = 0,
+        span = 1,
+        square = false,
+        r4x3 = false,
+        wide = false,
+        asis = false,
+        priority = false,
+    }: {
+        id?: string | null | undefined;
+        image?: Image | null;
+        className?: string;
+        columns?: number;
+        span?: number;
+        square?: boolean;
+        r4x3?: boolean;
+        wide?: boolean;
+        asis?: boolean;
+        priority?: boolean;
+    } = $props();
 
-    export let columns = 0;
-    export let span = 1;
-
-    export let square = false; // display square
-    export let r4x3 = false; // display 4:3
-    export let wide = false; // display 2:1
-    export let asis = false; // display original
-    export let priority = false; // high priority loading for above-the-fold images
-
+    let image = imageProp;
     let width: number, height: number;
     if (id) {
         image = findImage(data.images, id);

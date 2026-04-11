@@ -1,7 +1,7 @@
 <script>
-    export let className = '';
+    let { className = '', children } = $props();
 </script>
 
 <div class="{className} xl:container xl:mx-auto">
-    <slot />
+    {@render children()}
 </div>

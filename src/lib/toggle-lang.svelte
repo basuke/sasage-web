@@ -17,8 +17,8 @@ Modified and ported to Svelte by Basuke Suzuki
     }
 </script>
 
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<!-- svelte-ignore a11y-no-static-element-interactions -->
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
 <svg
     class="inline-block"
     width="63px"
@@ -26,7 +26,7 @@ Modified and ported to Svelte by Basuke Suzuki
     viewBox="0 0 42 24"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
-    on:click={toggle}
+    onclick={toggle}
 >
     <g class={$lang}>
         <rect x="0" y="0" width="42" height="24" rx="12" />

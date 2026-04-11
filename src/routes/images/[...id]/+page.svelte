@@ -2,8 +2,7 @@
     import { lang, translated, type Image } from '$lib/data';
     import Img from '$lib/img.svelte';
 
-    /** @type {import('./$types').PageData} */
-    export let data;
+    let { data }: { data: { image: Image } } = $props();
     const image: Image = data.image;
     const title = translated(image, 'title', $lang) ?? '';
     const description = translated(image, 'description', $lang) ?? '';

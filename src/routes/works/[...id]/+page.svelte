@@ -4,14 +4,13 @@
     import ImageGrid from '$lib/image-grid.svelte';
     import Container from '$lib/container.svelte';
 
-    /** @type {import('./$types').PageData} */
-    export let data;
+    let { data }: { data: { work: Work; images: string[] } } = $props();
 
     const work: Work = data.work;
     const images: string[] = data.images;
 
-    $: title = translated(work, 'title', $lang) ?? '';
-    $: subtitle = translated(work, 'subtitle', $lang) ?? '';
+    let title = $derived(translated(work, 'title', $lang) ?? '');
+    let subtitle = $derived(translated(work, 'subtitle', $lang) ?? '');
 </script>
 
 <Container className="px-16">

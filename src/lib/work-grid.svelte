@@ -3,7 +3,7 @@
     import type { Work } from './data';
     import ImageCell from '$lib/image-cell.svelte';
 
-    export let works: Work[] = [];
+    let { works = [] }: { works?: Work[] } = $props();
 </script>
 
 <div class="grid sm:hidden grid-flow-row-dense gap-4 items-center bg-blue">

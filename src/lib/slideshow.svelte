@@ -1,25 +1,31 @@
 <script lang="ts">
+    import { untrack } from 'svelte';
+    import { get } from 'svelte/store';
     import { fade } from 'svelte/transition';
     import Img from './img.svelte';
     import { source } from './slideshow-source';
+    import type { Image } from './data';
 
-    export let images: string[] = [];
-    export let wide = false;
+    let { images = [], wide = false }: { images?: string[]; wide?: boolean } = $props();
 
     const interval = 8000;
     let duration = 1000;
 
     const imageSource = source(images, interval);
-    let image = $imageSource;
-    let previousImage = image;
-    let isFirstImage = true;
+    const initialImage = get(imageSource);
+    let image = $state<Image>(initialImage);
+    let previousImage = $state<Image>(initialImage);
+    let isFirstImage = $state(true);
 
-    imageSource.subscribe(async ($image) => {
-        previousImage = image;
-        setTimeout(() => {
-            image = $image;
-            isFirstImage = false;
-        }, 100);
+    $effect(() => {
+        const newImage = $imageSource;
+        untrack(() => {
+            previousImage = image;
+            setTimeout(() => {
+                image = newImage;
+                isFirstImage = false;
+            }, 100);
+        });
     });
 </script>
 
@@ -35,6 +41,3 @@
         {/key}
     </div>
 </div>
-
-<style>
-</style>
