@@ -1,6 +1,5 @@
 <script lang="ts">
     import { untrack } from 'svelte';
-    import { get } from 'svelte/store';
     import { fade } from 'svelte/transition';
     import Img from './img.svelte';
     import { source } from './slideshow-source';
@@ -12,20 +11,18 @@
     let duration = 1000;
 
     const imageSource = source(images, interval);
-    const initialImage = get(imageSource);
-    let image = $state<Image>(initialImage);
-    let previousImage = $state<Image>(initialImage);
+    let image = $state<Image>($imageSource);
+    let previousImage = $state<Image>($imageSource);
     let isFirstImage = $state(true);
 
     $effect(() => {
         const newImage = $imageSource;
-        untrack(() => {
-            previousImage = image;
-            setTimeout(() => {
-                image = newImage;
-                isFirstImage = false;
-            }, 100);
-        });
+        previousImage = untrack(() => image);
+        const timeoutId = setTimeout(() => {
+            image = newImage;
+            isFirstImage = false;
+        }, 100);
+        return () => clearTimeout(timeoutId);
     });
 </script>
 

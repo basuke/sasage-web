@@ -3,9 +3,9 @@
     import Img from '$lib/img.svelte';
 
     let { data }: { data: { image: Image } } = $props();
-    const image: Image = data.image;
-    const title = translated(image, 'title', $lang) ?? '';
-    const description = translated(image, 'description', $lang) ?? '';
+    let image = $derived(data.image);
+    let title = $derived(translated(image, 'title', $lang) ?? '');
+    let description = $derived(translated(image, 'description', $lang) ?? '');
 </script>
 
 <div class="h-full flex flex-col justify-between items-center">

@@ -6,8 +6,8 @@
 
     let { data }: { data: { work: Work; images: string[] } } = $props();
 
-    const work: Work = data.work;
-    const images: string[] = data.images;
+    let work = $derived(data.work);
+    let images = $derived(data.images);
 
     let title = $derived(translated(work, 'title', $lang) ?? '');
     let subtitle = $derived(translated(work, 'subtitle', $lang) ?? '');
