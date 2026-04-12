@@ -21,8 +21,13 @@
             image = $img;
             previousImage = $img;
         } else {
-            previousImage = image;
+            // Capture current image before the timeout
+            const prev = image;
             timeoutId = setTimeout(() => {
+                // Update both in the same synchronous block so Svelte
+                // renders them in a single batch — no frame where the
+                // bottom layer shows a stale image.
+                previousImage = prev;
                 image = $img;
                 isFirstImage = false;
             }, 100);
