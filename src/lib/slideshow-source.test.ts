@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { get } from 'svelte/store';
-import { source } from './slideshow-source';
+import { get, writable } from 'svelte/store';
+import { source, createTransition } from './slideshow-source';
+import type { Image } from './data';
 
 // Mock the data module
 vi.mock('./data', () => ({
@@ -151,5 +152,150 @@ describe('Slideshow Source', () => {
         // Timer should not advance anymore
         vi.advanceTimersByTime(1000);
         expect(get(store).id).toBe('image2'); // Should stay the same
+    });
+});
+
+describe('createTransition', () => {
+    const imageA: Image = { id: 'A', format: 'jpeg', width: 800, height: 600, title: 'A' };
+    const imageB: Image = { id: 'B', format: 'jpeg', width: 800, height: 600, title: 'B' };
+    const imageC: Image = { id: 'C', format: 'jpeg', width: 800, height: 600, title: 'C' };
+    const imageD: Image = { id: 'D', format: 'jpeg', width: 800, height: 600, title: 'D' };
+
+    beforeEach(() => {
+        vi.useFakeTimers();
+    });
+
+    afterEach(() => {
+        vi.useRealTimers();
+    });
+
+    it('should initialize with first image from store', () => {
+        const store = writable<Image>(imageA);
+        const t = createTransition(store);
+
+        expect(t.image?.id).toBe('A');
+        expect(t.previousImage?.id).toBe('A');
+        expect(t.isFirstImage).toBe(true);
+
+        t.destroy();
+    });
+
+    it('should not update image until timeout fires', () => {
+        const store = writable<Image>(imageA);
+        const t = createTransition(store);
+
+        store.set(imageB);
+
+        // Before timeout: image should still be A
+        expect(t.image?.id).toBe('A');
+
+        // After timeout: image should be B
+        vi.advanceTimersByTime(100);
+        expect(t.image?.id).toBe('B');
+
+        t.destroy();
+    });
+
+    it('should set previousImage to current image during transition', () => {
+        const store = writable<Image>(imageA);
+        const t = createTransition(store);
+
+        // A → B transition
+        store.set(imageB);
+        vi.advanceTimersByTime(100);
+        expect(t.image?.id).toBe('B');
+        expect(t.previousImage?.id).toBe('A');
+
+        // B → C transition — the key test case:
+        // previousImage must be B (the displayed image), not A
+        store.set(imageC);
+        vi.advanceTimersByTime(100);
+        expect(t.image?.id).toBe('C');
+        expect(t.previousImage?.id).toBe('B');
+
+        // C → D transition
+        store.set(imageD);
+        vi.advanceTimersByTime(100);
+        expect(t.image?.id).toBe('D');
+        expect(t.previousImage?.id).toBe('C');
+
+        t.destroy();
+    });
+
+    it('should update previousImage and image in the same synchronous block', () => {
+        const store = writable<Image>(imageA);
+        const t = createTransition(store);
+
+        // Track all intermediate states during the transition
+        const states: { image: string; previous: string }[] = [];
+        t.onChange(() => {
+            states.push({
+                image: t.image?.id ?? 'null',
+                previous: t.previousImage?.id ?? 'null',
+            });
+        });
+
+        // Clear init state
+        states.length = 0;
+
+        store.set(imageB);
+        vi.advanceTimersByTime(100);
+
+        // The timeout callback should produce exactly ONE state change
+        // where both previousImage and image are updated together.
+        // If they were updated separately, we'd see an intermediate state.
+        const timeoutState = states[states.length - 1];
+        expect(timeoutState).toBeDefined();
+        expect(timeoutState!.previous).toBe('A');
+        expect(timeoutState!.image).toBe('B');
+
+        t.destroy();
+    });
+
+    it('should set isFirstImage to false after first transition', () => {
+        const store = writable<Image>(imageA);
+        const t = createTransition(store);
+
+        expect(t.isFirstImage).toBe(true);
+
+        store.set(imageB);
+        expect(t.isFirstImage).toBe(true); // Still true before timeout
+
+        vi.advanceTimersByTime(100);
+        expect(t.isFirstImage).toBe(false);
+
+        t.destroy();
+    });
+
+    it('should cancel pending timeout on destroy', () => {
+        const store = writable<Image>(imageA);
+        const t = createTransition(store);
+
+        store.set(imageB);
+        // Timeout is pending (100ms)
+
+        t.destroy();
+
+        // Advance past timeout — image should NOT have changed
+        vi.advanceTimersByTime(200);
+        expect(t.image?.id).toBe('A');
+    });
+
+    it('should handle rapid store changes by cancelling previous timeout', () => {
+        const store = writable<Image>(imageA);
+        const t = createTransition(store);
+
+        // Emit B, then quickly emit C before B's timeout fires
+        store.set(imageB);
+        vi.advanceTimersByTime(50); // Only 50ms, B's timeout hasn't fired
+
+        store.set(imageC);
+        vi.advanceTimersByTime(100); // C's timeout fires
+
+        // Should show C, with previousImage = A (B was never displayed)
+        expect(t.image?.id).toBe('C');
+        expect(t.previousImage?.id).toBe('A');
+
+        t.destroy();
     });
 });

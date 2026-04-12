@@ -2,7 +2,7 @@
     import { onDestroy } from 'svelte';
     import { fade } from 'svelte/transition';
     import Img from './img.svelte';
-    import { source } from './slideshow-source';
+    import { source, createTransition } from './slideshow-source';
     import type { Image } from './data';
 
     let { images = [], wide = false }: { images?: string[]; wide?: boolean } = $props();
@@ -11,33 +11,19 @@
     let duration = 1000;
 
     const imageSource = source(images, interval);
-    let image = $state<Image | null>(null);
-    let previousImage = $state<Image | null>(null);
-    let isFirstImage = $state(true);
-    let timeoutId: ReturnType<typeof setTimeout>;
+    const transition = createTransition(imageSource);
 
-    const unsub = imageSource.subscribe(($img) => {
-        if (image === null) {
-            image = $img;
-            previousImage = $img;
-        } else {
-            // Capture current image before the timeout
-            const prev = image;
-            timeoutId = setTimeout(() => {
-                // Update both in the same synchronous block so Svelte
-                // renders them in a single batch — no frame where the
-                // bottom layer shows a stale image.
-                previousImage = prev;
-                image = $img;
-                isFirstImage = false;
-            }, 100);
-        }
+    let image = $state<Image | null>(transition.image);
+    let previousImage = $state<Image | null>(transition.previousImage);
+    let isFirstImage = $state(transition.isFirstImage);
+
+    transition.onChange(() => {
+        image = transition.image;
+        previousImage = transition.previousImage;
+        isFirstImage = transition.isFirstImage;
     });
 
-    onDestroy(() => {
-        unsub();
-        clearTimeout(timeoutId);
-    });
+    onDestroy(() => transition.destroy());
 </script>
 
 <div class="relative">

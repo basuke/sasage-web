@@ -1,5 +1,47 @@
-import { readable, type Readable } from 'svelte/store';
+import { readable, type Readable, type Subscriber } from 'svelte/store';
 import { data, findImage, imagePath, type Image } from './data';
+
+/**
+ * Manages crossfade transition state for a slideshow.
+ * When the store emits a new image, `previousImage` is set to the current
+ * `image` and `image` is updated to the new value — both in the same
+ * synchronous block so renderers can batch them in a single frame.
+ */
+export function createTransition(imageSource: Readable<Image>) {
+    let image: Image | null = null;
+    let previousImage: Image | null = null;
+    let isFirstImage = true;
+    let timeoutId: ReturnType<typeof setTimeout>;
+    let listener: (() => void) | null = null;
+
+    const unsub = imageSource.subscribe(($img) => {
+        if (image === null) {
+            image = $img;
+            previousImage = $img;
+        } else {
+            const prev = image;
+            timeoutId = setTimeout(() => {
+                previousImage = prev;
+                image = $img;
+                isFirstImage = false;
+                listener?.();
+            }, 100);
+        }
+        listener?.();
+    });
+
+    return {
+        get image() { return image; },
+        get previousImage() { return previousImage; },
+        get isFirstImage() { return isFirstImage; },
+        onChange(fn: () => void) { listener = fn; },
+        destroy() {
+            unsub();
+            clearTimeout(timeoutId);
+            listener = null;
+        },
+    };
+}
 
 export function source(imageIds: string[], interval: number = 5000): Readable<Image> {
     const images: Image[] = imageIds
