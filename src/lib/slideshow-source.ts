@@ -31,10 +31,18 @@ export function createTransition(imageSource: Readable<Image>) {
     });
 
     return {
-        get image() { return image; },
-        get previousImage() { return previousImage; },
-        get isFirstImage() { return isFirstImage; },
-        onChange(fn: () => void) { listener = fn; },
+        get image() {
+            return image;
+        },
+        get previousImage() {
+            return previousImage;
+        },
+        get isFirstImage() {
+            return isFirstImage;
+        },
+        onChange(fn: () => void) {
+            listener = fn;
+        },
         destroy() {
             unsub();
             clearTimeout(timeoutId);
