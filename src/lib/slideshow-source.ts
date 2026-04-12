@@ -2,50 +2,66 @@ import { readable, type Readable, type Subscriber } from 'svelte/store';
 import { data, findImage, imagePath, type Image } from './data';
 
 /**
- * Manages crossfade transition state for a slideshow.
- * When the store emits a new image, `previousImage` is set to the current
- * `image` and `image` is updated to the new value — both in the same
- * synchronous block so renderers can batch them in a single frame.
+ * Manages crossfade transition state for a slideshow using two alternating layers.
+ *
+ * Instead of destroying/recreating DOM elements (which causes flashes),
+ * two persistent layers alternate: the new image is placed in the inactive
+ * layer, then that layer becomes active. CSS opacity transitions handle
+ * the crossfade — no setTimeout, no {#key} blocks needed.
  */
 export function createTransition(imageSource: Readable<Image>) {
-    let image: Image | null = null;
-    let previousImage: Image | null = null;
+    let imageA: Image | null = null;
+    let imageB: Image | null = null;
+    let activeLayer: 'a' | 'b' = 'a';
     let isFirstImage = true;
-    let timeoutId: ReturnType<typeof setTimeout>;
     let listener: (() => void) | null = null;
 
     const unsub = imageSource.subscribe(($img) => {
-        if (image === null) {
-            image = $img;
-            previousImage = $img;
+        if (imageA === null) {
+            // First image — both layers show the same image
+            imageA = $img;
+            imageB = $img;
+            activeLayer = 'a';
         } else {
-            const prev = image;
-            timeoutId = setTimeout(() => {
-                previousImage = prev;
-                image = $img;
-                isFirstImage = false;
-                listener?.();
-            }, 100);
+            // Place new image in the inactive layer, then switch
+            if (activeLayer === 'a') {
+                imageB = $img;
+                activeLayer = 'b';
+            } else {
+                imageA = $img;
+                activeLayer = 'a';
+            }
+            isFirstImage = false;
         }
         listener?.();
     });
 
     return {
-        get image() {
-            return image;
+        get imageA() {
+            return imageA;
         },
-        get previousImage() {
-            return previousImage;
+        get imageB() {
+            return imageB;
+        },
+        get activeLayer() {
+            return activeLayer;
         },
         get isFirstImage() {
             return isFirstImage;
+        },
+        /** Returns the image currently being displayed (in the active layer). */
+        get current() {
+            return activeLayer === 'a' ? imageA : imageB;
+        },
+        /** Returns the image in the inactive layer (the one fading out). */
+        get previous() {
+            return activeLayer === 'a' ? imageB : imageA;
         },
         onChange(fn: () => void) {
             listener = fn;
         },
         destroy() {
             unsub();
-            clearTimeout(timeoutId);
             listener = null;
         },
     };

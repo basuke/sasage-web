@@ -161,93 +161,86 @@ describe('createTransition', () => {
     const imageC: Image = { id: 'C', format: 'jpeg', width: 800, height: 600, title: 'C' };
     const imageD: Image = { id: 'D', format: 'jpeg', width: 800, height: 600, title: 'D' };
 
-    beforeEach(() => {
-        vi.useFakeTimers();
-    });
-
-    afterEach(() => {
-        vi.useRealTimers();
-    });
-
-    it('should initialize with first image from store', () => {
+    it('should initialize both layers with first image', () => {
         const store = writable<Image>(imageA);
         const t = createTransition(store);
 
-        expect(t.image?.id).toBe('A');
-        expect(t.previousImage?.id).toBe('A');
+        expect(t.imageA?.id).toBe('A');
+        expect(t.imageB?.id).toBe('A');
+        expect(t.activeLayer).toBe('a');
         expect(t.isFirstImage).toBe(true);
 
         t.destroy();
     });
 
-    it('should not update image until timeout fires', () => {
+    it('should place new image in inactive layer and switch active', () => {
         const store = writable<Image>(imageA);
         const t = createTransition(store);
 
+        // A → B: layer B gets new image, becomes active
         store.set(imageB);
+        expect(t.imageA?.id).toBe('A');
+        expect(t.imageB?.id).toBe('B');
+        expect(t.activeLayer).toBe('b');
 
-        // Before timeout: image should still be A
-        expect(t.image?.id).toBe('A');
-
-        // After timeout: image should be B
-        vi.advanceTimersByTime(100);
-        expect(t.image?.id).toBe('B');
-
-        t.destroy();
-    });
-
-    it('should set previousImage to current image during transition', () => {
-        const store = writable<Image>(imageA);
-        const t = createTransition(store);
-
-        // A → B transition
-        store.set(imageB);
-        vi.advanceTimersByTime(100);
-        expect(t.image?.id).toBe('B');
-        expect(t.previousImage?.id).toBe('A');
-
-        // B → C transition — the key test case:
-        // previousImage must be B (the displayed image), not A
+        // B → C: layer A gets new image, becomes active
         store.set(imageC);
-        vi.advanceTimersByTime(100);
-        expect(t.image?.id).toBe('C');
-        expect(t.previousImage?.id).toBe('B');
-
-        // C → D transition
-        store.set(imageD);
-        vi.advanceTimersByTime(100);
-        expect(t.image?.id).toBe('D');
-        expect(t.previousImage?.id).toBe('C');
+        expect(t.imageA?.id).toBe('C');
+        expect(t.imageB?.id).toBe('B');
+        expect(t.activeLayer).toBe('a');
 
         t.destroy();
     });
 
-    it('should update previousImage and image in the same synchronous block', () => {
+    it('should always show current image in active layer (current getter)', () => {
         const store = writable<Image>(imageA);
         const t = createTransition(store);
 
-        // Track all intermediate states during the transition
-        const states: { image: string; previous: string }[] = [];
-        t.onChange(() => {
-            states.push({
-                image: t.image?.id ?? 'null',
-                previous: t.previousImage?.id ?? 'null',
-            });
-        });
-
-        // Clear init state
-        states.length = 0;
+        expect(t.current?.id).toBe('A');
 
         store.set(imageB);
-        vi.advanceTimersByTime(100);
+        expect(t.current?.id).toBe('B');
 
-        // The timeout callback should produce exactly ONE state change
-        // where both previousImage and image are updated together.
-        // If they were updated separately, we'd see an intermediate state.
-        const timeoutState = states[states.length - 1];
-        expect(timeoutState).toBeDefined();
-        expect(timeoutState!.previous).toBe('A');
-        expect(timeoutState!.image).toBe('B');
+        store.set(imageC);
+        expect(t.current?.id).toBe('C');
+
+        store.set(imageD);
+        expect(t.current?.id).toBe('D');
+
+        t.destroy();
+    });
+
+    it('should keep previous image in inactive layer for crossfade', () => {
+        const store = writable<Image>(imageA);
+        const t = createTransition(store);
+
+        // Initially both layers show A
+        expect(t.previous?.id).toBe('A');
+
+        // A → B: previous (inactive) still shows A while B fades in
+        store.set(imageB);
+        expect(t.previous?.id).toBe('A');
+
+        // B → C: previous shows B while C fades in
+        store.set(imageC);
+        expect(t.previous?.id).toBe('B');
+
+        // C → D: previous shows C while D fades in
+        store.set(imageD);
+        expect(t.previous?.id).toBe('C');
+
+        t.destroy();
+    });
+
+    it('should update immediately with no setTimeout delay', () => {
+        const store = writable<Image>(imageA);
+        const t = createTransition(store);
+
+        store.set(imageB);
+
+        // Should be updated immediately — no timer needed
+        expect(t.current?.id).toBe('B');
+        expect(t.activeLayer).toBe('b');
 
         t.destroy();
     });
@@ -259,42 +252,25 @@ describe('createTransition', () => {
         expect(t.isFirstImage).toBe(true);
 
         store.set(imageB);
-        expect(t.isFirstImage).toBe(true); // Still true before timeout
-
-        vi.advanceTimersByTime(100);
         expect(t.isFirstImage).toBe(false);
 
         t.destroy();
     });
 
-    it('should cancel pending timeout on destroy', () => {
+    it('should notify listener on every state change', () => {
         const store = writable<Image>(imageA);
         const t = createTransition(store);
 
+        const calls: string[] = [];
+        t.onChange(() => calls.push(t.current?.id ?? 'null'));
+
+        // Clear the initial call
+        calls.length = 0;
+
         store.set(imageB);
-        // Timeout is pending (100ms)
-
-        t.destroy();
-
-        // Advance past timeout — image should NOT have changed
-        vi.advanceTimersByTime(200);
-        expect(t.image?.id).toBe('A');
-    });
-
-    it('should handle rapid store changes by cancelling previous timeout', () => {
-        const store = writable<Image>(imageA);
-        const t = createTransition(store);
-
-        // Emit B, then quickly emit C before B's timeout fires
-        store.set(imageB);
-        vi.advanceTimersByTime(50); // Only 50ms, B's timeout hasn't fired
-
         store.set(imageC);
-        vi.advanceTimersByTime(100); // C's timeout fires
 
-        // Should show C, with previousImage = A (B was never displayed)
-        expect(t.image?.id).toBe('C');
-        expect(t.previousImage?.id).toBe('A');
+        expect(calls).toEqual(['B', 'C']);
 
         t.destroy();
     });
