@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { onDestroy } from 'svelte';
     import { fade } from 'svelte/transition';
     import Img from './img.svelte';
     import { source } from './slideshow-source';
@@ -13,27 +14,24 @@
     let image = $state<Image | null>(null);
     let previousImage = $state<Image | null>(null);
     let isFirstImage = $state(true);
+    let timeoutId: ReturnType<typeof setTimeout>;
 
-    $effect(() => {
-        let timeoutId: ReturnType<typeof setTimeout>;
-
-        const unsub = imageSource.subscribe(($img) => {
-            if (image === null) {
+    const unsub = imageSource.subscribe(($img) => {
+        if (image === null) {
+            image = $img;
+            previousImage = $img;
+        } else {
+            previousImage = image;
+            timeoutId = setTimeout(() => {
                 image = $img;
-                previousImage = $img;
-            } else {
-                previousImage = image;
-                timeoutId = setTimeout(() => {
-                    image = $img;
-                    isFirstImage = false;
-                }, 100);
-            }
-        });
+                isFirstImage = false;
+            }, 100);
+        }
+    });
 
-        return () => {
-            unsub();
-            clearTimeout(timeoutId);
-        };
+    onDestroy(() => {
+        unsub();
+        clearTimeout(timeoutId);
     });
 </script>
 
