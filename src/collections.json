@@ -1,0 +1,174 @@
+{
+    "topImages": ["top/1", "top/2", "top/3", "top/4", "top/5", "top/6", "top/7"],
+    "topImagesWide": [
+        "top/wide-1",
+        "top/wide-2",
+        "top/wide-3",
+        "top/wide-4",
+        "top/wide-5",
+        "top/wide-6",
+        "top/wide-7"
+    ],
+    "works": [
+        {
+            "id": "zine-2023",
+            "image": "zine-2023/Seven-Classic-Cat-Antics",
+            "title": "Seven Classic Cat Antics",
+            "subtitle": {
+                "en": "Personal work (2023)\nZine for the SF Zine Fest\n\nFor the SF Zine Fest 2023, I made a zine about cats,\nusing some Japanese onomatopoeia\nto show the behaviors I was interested in.",
+                "ja": "パーソナルワーク\nSF Zine FestのためのZine（2023）\n\nSF Zine Fest 2023に参加するにあたり、\n猫によくある7つの行動についてのZineを\n日本語のオノマトペを交えながら制作、販売しました。"
+            },
+            "images": [
+                "zine-2023/Cover",
+                "zine-2023/1",
+                "zine-2023/2-3",
+                "zine-2023/4-5",
+                "zine-2023/6-7",
+                "zine-2023/8-9",
+                "zine-2023/10-11",
+                "zine-2023/12-13",
+                "zine-2023/14-15",
+                "zine-2023/16p"
+            ]
+        },
+        {
+            "id": "gift-cards",
+            "image": "gift-cards/cover",
+            "title": "Gift Cards",
+            "subtitle": {
+                "en": "Client work (2023)\n[pamxy, Inc.](https://pamxy.co.jp/)\n\nIllustrations for gift card of\nJapanese e-commerce site called [giff letter](https://www.giff-letter.com/)",
+                "ja": "クライアントワーク (2023)\n[株式会社 pamxy](https://pamxy.co.jp/) 様\n\ne-コマース ([giff leter](https://www.giff-letter.com/)) \nギフトカードのイラストレーション"
+            },
+            "images": [
+                "gift-cards/card-1",
+                "gift-cards/card-2",
+                "gift-cards/card-3",
+                "gift-cards/card-4",
+                "gift-cards/card-5",
+                "gift-cards/card-6",
+                "gift-cards/card-7",
+                "gift-cards/card-8",
+                "gift-cards/card-9",
+                "gift-cards/card-10",
+                "gift-cards/card-11",
+                "gift-cards/card-12",
+                "gift-cards/card-13",
+                "gift-cards/card-14",
+                "gift-cards/card-15"
+            ]
+        },
+        {
+            "id": "halloween",
+            "image": "works/halloween",
+            "title": "Halloween Card",
+            "subtitle": {
+                "en": "Client work (2022)\n[Storm Literary Agency](https://www.stormliteraryagency.com/)\n\nHalloween card for e-mail signature (2022)",
+                "ja": "クライアントワーク (2022)\n[Storm Literary Agency](https://www.stormliteraryagency.com/) 様\n\ne-mailで使われるハロウインカードのイラスト"
+            },
+            "images": ["works/halloween"]
+        },
+        {
+            "id": "lost-in-the-rain",
+            "image": "books/lost-in-the-rain/cover",
+            "title": "LOST IN THE RAIN",
+            "subtitle": {
+                "en": "Personal work.\nChildren's book\n\nThis work was selected for\n[The AOI World Illustration Awards longlist](https://theaoi.com/wia/mayumi-sasage-lost-in-the-rain/).",
+                "ja": "パーソナルワーク\n絵本\n\nこの作品は\n[The AOI World Illustration Awards longlist](https://theaoi.com/wia/mayumi-sasage-lost-in-the-rain/)\nに選ばれました."
+            },
+            "images": [
+                "books/lost-in-the-rain/page1",
+                "books/lost-in-the-rain/page2",
+                "books/lost-in-the-rain/page3",
+                "books/lost-in-the-rain/page4",
+                "books/lost-in-the-rain/page5"
+            ]
+        },
+        {
+            "id": "book-2",
+            "image": "books/flowers/cover",
+            "title": "Flowers",
+            "subtitle": {
+                "en": "Personal work.\nOracle Cards (2019)",
+                "ja": "パーソナルワーク\nオラクルカード (2019)"
+            },
+            "images": [
+                "books/flowers/1",
+                "books/flowers/2",
+                "books/flowers/3",
+                "books/flowers/4",
+                "books/flowers/5",
+                "books/flowers/6",
+                "books/flowers/7",
+                "books/flowers/8",
+                "books/flowers/9",
+                "books/flowers/10",
+                "books/flowers/11",
+                "books/flowers/12",
+                "books/flowers/13",
+                "books/flowers/14",
+                "books/flowers/15"
+            ]
+        },
+        {
+            "id": "book-3",
+            "image": "books/farmersmaket/cover",
+            "title": "Farmers Market",
+            "subtitle": {
+                "en": "Personal work.\nmagazine (2020)",
+                "ja": "パーソナルワーク\n雑誌の特集ページ (2020)"
+            },
+            "images": [
+                "books/farmersmaket/fm2",
+                "books/farmersmaket/fm3",
+                "books/farmersmaket/fm4",
+                "books/farmersmaket/fm1"
+            ]
+        },
+        {
+            "id": "love-is-love",
+            "image": "works/love-is-love",
+            "title": "Love is Love",
+            "subtitle": {
+                "en": "Personal work\n\nThis work was selected for\n[3x3 Internationa Illustration Show No. 19, 2022](https://3x3mag.com/annuals/annual19/s/sasage-mayumi-91175)\nHonotable Mention",
+                "ja": "パーソナルワーク\n\nこの作品は\n[3x3 Internationa Illustration Show No. 19, 2022](https://3x3mag.com/annuals/annual19/s/sasage-mayumi-91175)\nHonotable Mentionに選ばれました"
+            },
+            "images": ["illustration/ws2", "illustration/ws3", "illustration/ws4"]
+        }
+    ],
+    "illustrations": [
+        "illustration/1",
+        "2026-03-03/2026-03-03-1",
+        "illustration/2023-5",
+        "illustration/2023-6",
+        "2026-03-03/2026-03-03-2",
+        "2026-03-03/2026-03-03-3",
+        "2026-03-03/2026-03-03-4",
+        "2026-03-03/2026-03-03-5",
+        "2026-03-03/2026-03-03-6",
+        "2026-03-03/2026-03-03-7",
+        "2026-03-03/2026-03-03-8",
+        "2026-03-03/2026-03-03-9",
+        "2026-03-03/2026-03-03-10",
+        "2026-03-03/2026-03-03-11",
+        "2026-03-03/2026-03-03-12",
+        "2026-03-03/2026-03-03-13",
+        "illustration/2023-8",
+        "illustration/2023-3",
+        "illustration/2023-1",
+        "illustration/2023-2",
+        "illustration/2023-4",
+        "illustration/ws5",
+        "illustration/ws6",
+        "illustration/ws7",
+        "illustration/ws10",
+        "2026-03-03/2026-03-03-14",
+        "spiced-tea/1",
+        "spiced-tea/2",
+        "spiced-tea/3",
+        "summer/a",
+        "summer/b",
+        "summer/c",
+        "morning-routine/a",
+        "morning-routine/b"
+    ]
+}
