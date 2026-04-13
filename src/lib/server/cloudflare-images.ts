@@ -1,5 +1,3 @@
-import sharp from 'sharp';
-
 export interface CloudflareConfig {
     accountId: string;
     apiToken: string;
@@ -25,7 +23,17 @@ function authHeaders(config: CloudflareConfig) {
     return { Authorization: `Bearer ${config.apiToken}` };
 }
 
+async function loadSharp() {
+    // Use a variable to prevent bundlers from statically resolving sharp.
+    // sharp is a native Node.js module that cannot run in Cloudflare Workers,
+    // but admin API endpoints are dev-only (guarded by requireDev).
+    const pkg = 'sharp';
+    const mod = await import(/* @vite-ignore */ pkg);
+    return mod.default as typeof import('sharp');
+}
+
 export async function getImageInfo(buffer: Uint8Array): Promise<ImageInfo> {
+    const sharp = await loadSharp();
     const metadata = await sharp(buffer).metadata();
     return {
         format: metadata.format ?? 'unknown',
@@ -35,7 +43,7 @@ export async function getImageInfo(buffer: Uint8Array): Promise<ImageInfo> {
 }
 
 export async function computeSha1(buffer: Uint8Array): Promise<string> {
-    const crypto = await import('crypto');
+    const crypto = await import('node:crypto');
     return crypto.createHash('sha1').update(buffer).digest('hex');
 }
 
