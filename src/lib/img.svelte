@@ -13,6 +13,7 @@
         wide = false,
         asis = false,
         priority = false,
+        onload = undefined,
     }: {
         id?: string | null | undefined;
         image?: Image | null;
@@ -24,6 +25,7 @@
         wide?: boolean;
         asis?: boolean;
         priority?: boolean;
+        onload?: (() => void) | undefined;
     } = $props();
 
     let image = $derived(id ? findImage(data.images, id) : imageProp);
@@ -114,6 +116,7 @@
             alt={translated(image, 'title', $lang)}
             loading={priority ? "eager" : "lazy"}
             fetchpriority={priority ? "high" : "auto"}
+            {onload}
         />
     </picture>
 {/if}

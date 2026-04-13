@@ -16,12 +16,23 @@
     let activeLayer = $state(transition.activeLayer);
     let isFirstImage = $state(transition.isFirstImage);
 
+    // The layer we want to switch to once the image loads
+    let pendingLayer = $state(transition.activeLayer);
+
     transition.onChange(() => {
+        // Update images immediately (loads start in invisible layer)
         imageA = transition.imageA;
         imageB = transition.imageB;
-        activeLayer = transition.activeLayer;
         isFirstImage = transition.isFirstImage;
+        // Don't switch activeLayer yet — wait for onload
+        pendingLayer = transition.activeLayer;
     });
+
+    function handleLoad(layer: 'a' | 'b') {
+        if (pendingLayer === layer) {
+            activeLayer = layer;
+        }
+    }
 
     onDestroy(() => transition.destroy());
 </script>
@@ -32,14 +43,18 @@
             style:opacity={activeLayer === 'a' ? 1 : 0}
             style:transition="opacity {duration}ms ease"
         >
-            <Img image={imageA} square={!wide} {wide} priority={isFirstImage && activeLayer === 'a'} />
+            <Img image={imageA} square={!wide} {wide}
+                 priority={isFirstImage && activeLayer === 'a'}
+                 onload={() => handleLoad('a')} />
         </div>
         <div
             class="absolute top-0 left-0"
             style:opacity={activeLayer === 'b' ? 1 : 0}
             style:transition="opacity {duration}ms ease"
         >
-            <Img image={imageB} square={!wide} {wide} priority={isFirstImage && activeLayer === 'b'} />
+            <Img image={imageB} square={!wide} {wide}
+                 priority={isFirstImage && activeLayer === 'b'}
+                 onload={() => handleLoad('b')} />
         </div>
     {/if}
 </div>
