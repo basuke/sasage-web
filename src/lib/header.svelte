@@ -1,7 +1,7 @@
 <script lang="ts">
     import { fly } from 'svelte/transition';
     import { data } from './data';
-    import { page } from '$app/stores';
+    import { page } from '$app/state';
     import ExternalLinks from './external-links.svelte';
     import Container from './container.svelte';
     import SlideShow from './slideshow.svelte';
@@ -14,15 +14,15 @@
 
     // top page detection
 
-    $: isTopPage = $page.url.pathname === '/';
+    let isTopPage = $derived(page.url.pathname === '/');
 
     // fixed header
 
-    let y = 0;
-    let navElem: HTMLElement;
+    let y = $state(0);
+    let navElem = $state<HTMLElement | undefined>(undefined);
     const margin = 20;
 
-    $: navFixed = navElem ? y > navElem.offsetTop + navElem.offsetHeight + margin : false;
+    let navFixed = $derived(navElem ? y > navElem.offsetTop + navElem.offsetHeight + margin : false);
 </script>
 
 <svelte:window bind:scrollY={y} />

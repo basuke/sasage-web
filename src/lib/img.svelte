@@ -2,27 +2,33 @@
     import { data, lang, findImage, imagePath, translated } from './data';
     import type { Image } from './data';
 
-    export let id: string | null | undefined = null;
-    export let image: Image | null = null;
-    export let className = '';
+    let {
+        id = null,
+        image: imageProp = null,
+        className = '',
+        columns = 0,
+        span = 1,
+        square = false,
+        r4x3 = false,
+        wide = false,
+        asis = false,
+        priority = false,
+        onload = undefined,
+    }: {
+        id?: string | null | undefined;
+        image?: Image | null;
+        className?: string;
+        columns?: number;
+        span?: number;
+        square?: boolean;
+        r4x3?: boolean;
+        wide?: boolean;
+        asis?: boolean;
+        priority?: boolean;
+        onload?: (() => void) | undefined;
+    } = $props();
 
-    export let columns = 0;
-    export let span = 1;
-
-    export let square = false; // display square
-    export let r4x3 = false; // display 4:3
-    export let wide = false; // display 2:1
-    export let asis = false; // display original
-    export let priority = false; // high priority loading for above-the-fold images
-
-    let width: number, height: number;
-    if (id) {
-        image = findImage(data.images, id);
-        if (image) {
-            width = image.width;
-            height = image.height;
-        }
-    }
+    let image = $derived(id ? findImage(data.images, id) : imageProp);
 
     function genMedia(w: number) {
         if (columns && columns > 1 && span >= 1) {
@@ -37,78 +43,80 @@
         height: number;
         variant: string;
     };
-    let sources: Source[] = [];
-    let variant = '';
 
-    if (asis) {
-        // just list that original.
-        variant = 'asis';
-    } else if (square) {
-        // list only squares
-        sources = [
-            {width: 480, height: 480, variant: 'square', media: genMedia(480)},
-            {width: 960, height: 960, variant: 'square2x', media: genMedia(960)},
-        ];
-        const source = sources.pop();
-        if (source) {
-            width = source.width;
-            height = source.height;
-            variant = source.variant;
-        }
-    } else if (r4x3) {
-        // list only 4:3
-        sources = [480, 960, 1440, 1920].map((w) => {
-            const h = (w / 4) * 3;
-            return {
-                media: genMedia(w),
-                width: w,
-                height: h,
-                variant: `portrait${w}`,
-            };
-        });
-        const source = sources.pop();
-        if (source) {
-            width = source.width;
-            height = source.height;
-            variant = source.variant;
-        }
-    } else if (wide) {
-        // list only squares
-        sources = [480, 960, 1440, 1920].map((w) => {
-            const h = w / 2;
-            return {
-                media: genMedia(w),
-                width: w,
-                height: h,
-                variant: `wide${w}`,
-            };
-        });
-    } else {
-        // list width constraint and original at the end
+    let layout = $derived.by(() => {
+        let w = image?.width ?? 0;
+        let h = image?.height ?? 0;
+        let sources: Source[] = [];
+        let variant = '';
 
-        sources = [480, 960, 1440, 1920].map((w) => ({
-            media: genMedia(w),
-            width: w,
-            height: 0,
-            variant: `mx${w}`,
-        }));
-    }
+        if (asis) {
+            variant = 'asis';
+        } else if (square) {
+            sources = [
+                {width: 480, height: 480, variant: 'square', media: genMedia(480)},
+                {width: 960, height: 960, variant: 'square2x', media: genMedia(960)},
+            ];
+            const source = sources.pop();
+            if (source) {
+                w = source.width;
+                h = source.height;
+                variant = source.variant;
+            }
+        } else if (r4x3) {
+            sources = [480, 960, 1440, 1920].map((mw) => {
+                const mh = (mw / 4) * 3;
+                return {
+                    media: genMedia(mw),
+                    width: mw,
+                    height: mh,
+                    variant: `portrait${mw}`,
+                };
+            });
+            const source = sources.pop();
+            if (source) {
+                w = source.width;
+                h = source.height;
+                variant = source.variant;
+            }
+        } else if (wide) {
+            sources = [480, 960, 1440, 1920].map((mw) => {
+                const mh = mw / 2;
+                return {
+                    media: genMedia(mw),
+                    width: mw,
+                    height: mh,
+                    variant: `wide${mw}`,
+                };
+            });
+        } else {
+            sources = [480, 960, 1440, 1920].map((mw) => ({
+                media: genMedia(mw),
+                width: mw,
+                height: 0,
+                variant: `mx${mw}`,
+            }));
+        }
+
+        return { width: w, height: h, sources, variant };
+    });
 </script>
 
 {#if image}
     <picture>
-        {#each sources as source}
+        {#each layout.sources as source}
             {@const media = source.media}
             <source {media} srcset={imagePath(image.id, source.variant)} />
         {/each}
         <img
             class={className}
-            src={imagePath(image.id, variant)}
-            {width}
-            {height}
+            src={imagePath(image.id, layout.variant)}
+            width={layout.width}
+            height={layout.height}
             alt={translated(image, 'title', $lang)}
             loading={priority ? "eager" : "lazy"}
             fetchpriority={priority ? "high" : "auto"}
+            {onload}
         />
     </picture>
 {/if}

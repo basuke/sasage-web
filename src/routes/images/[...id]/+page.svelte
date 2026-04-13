@@ -2,11 +2,10 @@
     import { lang, translated, type Image } from '$lib/data';
     import Img from '$lib/img.svelte';
 
-    /** @type {import('./$types').PageData} */
-    export let data;
-    const image: Image = data.image;
-    const title = translated(image, 'title', $lang) ?? '';
-    const description = translated(image, 'description', $lang) ?? '';
+    let { data }: { data: { image: Image } } = $props();
+    let image = $derived(data.image);
+    let title = $derived(translated(image, 'title', $lang) ?? '');
+    let description = $derived(translated(image, 'description', $lang) ?? '');
 </script>
 
 <div class="h-full flex flex-col justify-between items-center">

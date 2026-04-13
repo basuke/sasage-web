@@ -2,13 +2,15 @@
     import ImageCell from '$lib/image-cell.svelte';
     import { data, findImage } from './data';
 
-    export let images: string[] = [];
-    export let columns: number = 0;
-    export let gap = 4;
-
-    if (!columns && allWide(images)) {
-        columns = 1;
-    }
+    let {
+        images = [],
+        columns: columnsProp = 0,
+        gap = 4,
+    }: {
+        images?: string[];
+        columns?: number;
+        gap?: number;
+    } = $props();
 
     function allWide(images: string[]): boolean {
         return images
@@ -16,6 +18,8 @@
             .filter((n) => n)
             .every((image) => !image || image.width > image?.height);
     }
+
+    let columns = $derived(!columnsProp && allWide(images) ? 1 : columnsProp);
 </script>
 
 {#if columns > 0}

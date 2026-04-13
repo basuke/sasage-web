@@ -2,12 +2,21 @@
     import { findImage, data } from './data';
     import Img from './img.svelte';
 
-    export let id: string | undefined = undefined;
-    export let columns: number = 0;
-    export let link = '';
-    export let title = '';
-    export let square = false;
-    export let r4x3 = false;
+    let {
+        id = undefined,
+        columns = 0,
+        link = '',
+        title = '',
+        square = false,
+        r4x3 = false,
+    }: {
+        id?: string | undefined;
+        columns?: number;
+        link?: string;
+        title?: string;
+        square?: boolean;
+        r4x3?: boolean;
+    } = $props();
 
     const image = id ? findImage(data.images, id) : null;
     let cellClass = 'px-16 sm:px-8';
