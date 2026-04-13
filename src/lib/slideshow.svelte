@@ -32,14 +32,18 @@
             style:opacity={activeLayer === 'a' ? 1 : 0}
             style:transition="opacity {duration}ms ease"
         >
-            <Img image={imageA} square={!wide} {wide} priority={isFirstImage && activeLayer === 'a'} />
+            {#key imageA}
+                <Img image={imageA} square={!wide} {wide} priority={isFirstImage && activeLayer === 'a'} />
+            {/key}
         </div>
         <div
             class="absolute top-0 left-0"
             style:opacity={activeLayer === 'b' ? 1 : 0}
             style:transition="opacity {duration}ms ease"
         >
-            <Img image={imageB} square={!wide} {wide} priority={isFirstImage && activeLayer === 'b'} />
+            {#key imageB}
+                <Img image={imageB} square={!wide} {wide} priority={isFirstImage && activeLayer === 'b'} />
+            {/key}
         </div>
     {/if}
 </div>
