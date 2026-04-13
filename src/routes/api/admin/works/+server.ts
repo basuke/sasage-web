@@ -1,0 +1,46 @@
+import { json, error } from '@sveltejs/kit';
+import type { RequestHandler } from '@sveltejs/kit';
+import type { Work, TranslatableString } from '$lib/data';
+import { requireDev, parseJsonBody } from '$lib/server/admin-guard';
+import { readCollections, writeCollections } from '$lib/server/data-store';
+
+export const GET: RequestHandler = async () => {
+    requireDev();
+    const collections = readCollections();
+    return json({ works: collections.works });
+};
+
+export const POST: RequestHandler = async ({ request }) => {
+    requireDev();
+    const body = await parseJsonBody(request);
+
+    if (!body.id || typeof body.id !== 'string') {
+        throw error(400, 'Work id is required');
+    }
+    if (body.title === undefined || body.title === null) {
+        throw error(400, 'Work title is required');
+    }
+
+    const collections = readCollections();
+
+    if (collections.works.some((w) => w.id === body.id)) {
+        throw error(400, 'Work with this id already exists');
+    }
+
+    const newWork: Work = {
+        id: body.id as string,
+        title: body.title as TranslatableString,
+        images: (body.images as string[] | undefined) ?? [],
+    };
+    if (body.subtitle !== undefined) {
+        newWork.subtitle = body.subtitle as TranslatableString;
+    }
+    if (body.image !== undefined) {
+        newWork.image = body.image as string;
+    }
+
+    collections.works.push(newWork);
+    writeCollections(collections);
+
+    return json({ work: newWork }, { status: 201 });
+};
