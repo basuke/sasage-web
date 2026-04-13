@@ -23,22 +23,27 @@ Object.defineProperty(window, 'matchMedia', {
     disconnect: vi.fn(),
 }));
 
-// Mock document methods for image preloading
-Object.defineProperty(document, 'head', {
-    writable: true,
-    value: {
-        appendChild: vi.fn(),
-    },
+// Mock document.head.appendChild for image preloading (preserve original for DOM operations)
+const originalHeadAppendChild = document.head.appendChild.bind(document.head);
+document.head.appendChild = vi.fn().mockImplementation((node: Node) => {
+    return originalHeadAppendChild(node);
 });
 
-Object.defineProperty(document, 'createElement', {
-    writable: true,
-    value: vi.fn().mockReturnValue({
-        rel: '',
-        as: '',
-        href: '',
-    }),
-});
+// Wrap document.createElement to support preloading mocks while preserving DOM functionality
+const originalCreateElement = document.createElement.bind(document);
+document.createElement = vi
+    .fn()
+    .mockImplementation((tagName: string, options?: ElementCreationOptions) => {
+        return originalCreateElement(tagName, options);
+    }) as unknown as typeof document.createElement;
+
+// Mock URL.createObjectURL/revokeObjectURL for file preview
+if (typeof URL.createObjectURL === 'undefined') {
+    URL.createObjectURL = vi.fn().mockReturnValue('blob:mock-url');
+}
+if (typeof URL.revokeObjectURL === 'undefined') {
+    URL.revokeObjectURL = vi.fn();
+}
 
 // Mock ResizeObserver
 (global as any).ResizeObserver = vi.fn().mockImplementation(() => ({
