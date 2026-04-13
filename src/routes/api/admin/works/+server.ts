@@ -27,15 +27,25 @@ export const POST: RequestHandler = async ({ request }) => {
         throw error(400, 'Work with this id already exists');
     }
 
+    let images: string[] = [];
+    if (body.images !== undefined) {
+        if (!Array.isArray(body.images) || !body.images.every((v) => typeof v === 'string')) {
+            throw error(400, 'images must be an array of strings');
+        }
+        images = body.images;
+    }
+
     const newWork: Work = {
         id: body.id as string,
         title: body.title as TranslatableString,
-        images: (body.images as string[] | undefined) ?? [],
+        images,
     };
     if (body.subtitle !== undefined) {
+        if (body.subtitle === null) throw error(400, 'subtitle cannot be null');
         newWork.subtitle = body.subtitle as TranslatableString;
     }
     if (body.image !== undefined) {
+        if (body.image === null) throw error(400, 'image cannot be null');
         newWork.image = body.image as string;
     }
 

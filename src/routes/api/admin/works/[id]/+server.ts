@@ -16,9 +16,11 @@ export const PATCH: RequestHandler = async ({ params, request }) => {
     const body = await parseJsonBody(request);
 
     if (body.title !== undefined) {
+        if (body.title === null) throw error(400, 'title cannot be null');
         work.title = body.title as TranslatableString;
     }
     if (body.subtitle !== undefined) {
+        if (body.subtitle === null) throw error(400, 'subtitle cannot be null');
         work.subtitle = body.subtitle as TranslatableString;
     }
     if (body.image !== undefined) {
@@ -29,7 +31,10 @@ export const PATCH: RequestHandler = async ({ params, request }) => {
         }
     }
     if (body.images !== undefined) {
-        work.images = body.images as string[];
+        if (!Array.isArray(body.images) || !body.images.every((v) => typeof v === 'string')) {
+            throw error(400, 'images must be an array of strings');
+        }
+        work.images = body.images;
     }
 
     writeCollections(collections);

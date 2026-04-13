@@ -21,8 +21,15 @@ export function getCloudflareConfig(): CloudflareConfig {
 
 export async function parseJsonBody(request: Request): Promise<Record<string, unknown>> {
     try {
-        return (await request.json()) as Record<string, unknown>;
-    } catch {
+        const body = await request.json();
+
+        if (typeof body !== 'object' || body === null || Array.isArray(body)) {
+            throw error(400, 'Request body must be a JSON object');
+        }
+
+        return body as Record<string, unknown>;
+    } catch (e) {
+        if (e && typeof e === 'object' && 'status' in e) throw e;
         throw error(400, 'Invalid JSON in request body');
     }
 }

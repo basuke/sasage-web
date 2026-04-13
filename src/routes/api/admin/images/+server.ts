@@ -2,7 +2,7 @@ import { json, error } from '@sveltejs/kit';
 import type { RequestHandler } from '@sveltejs/kit';
 import { requireDev, getCloudflareConfig } from '$lib/server/admin-guard';
 import { readImages, writeImages } from '$lib/server/data-store';
-import { uploadImage, getImageInfo, computeSha1 } from '$lib/server/cloudflare-images';
+import { uploadImage, getImageInfo } from '$lib/server/cloudflare-images';
 import type { Image } from '$lib/data';
 
 export const GET: RequestHandler = async () => {
@@ -29,7 +29,6 @@ export const POST: RequestHandler = async ({ request }) => {
 
     const buffer = new Uint8Array(await file.arrayBuffer());
     const imageInfo = await getImageInfo(buffer);
-    const sha1 = await computeSha1(buffer);
 
     const config = getCloudflareConfig();
     const result = await uploadImage(config, file, id);

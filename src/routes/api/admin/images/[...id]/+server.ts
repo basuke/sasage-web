@@ -29,9 +29,11 @@ export const PATCH: RequestHandler = async ({ params, request }) => {
     const body = await parseJsonBody(request);
 
     if (body.title !== undefined) {
+        if (body.title === null) throw error(400, 'title cannot be null');
         image.title = body.title as TranslatableString;
     }
     if (body.description !== undefined) {
+        if (body.description === null) throw error(400, 'description cannot be null');
         image.description = body.description as TranslatableString;
     }
 
@@ -50,7 +52,10 @@ export const DELETE: RequestHandler = async ({ params }) => {
     if (!images[id]) throw error(404, 'Image not found');
 
     const config = getCloudflareConfig();
-    await deleteCloudflareImage(config, id);
+    const deleted = await deleteCloudflareImage(config, id);
+    if (!deleted) {
+        throw error(502, 'Failed to delete image from Cloudflare');
+    }
 
     delete images[id];
     writeImages(images);

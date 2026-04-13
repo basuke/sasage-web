@@ -40,7 +40,6 @@ import {
     uploadImage,
     deleteImage as deleteCloudflareImage,
     getImageInfo,
-    computeSha1,
 } from '$lib/server/cloudflare-images';
 
 // Import endpoint handlers
@@ -171,7 +170,6 @@ describe('Images API - list', () => {
 
     it('POST uploads a new image', async () => {
         vi.mocked(getImageInfo).mockResolvedValue({ format: 'jpeg', width: 640, height: 480 });
-        vi.mocked(computeSha1).mockResolvedValue('abc123');
         vi.mocked(uploadImage).mockResolvedValue({ success: true, id: 'new/image' });
 
         const req = formDataRequest({
@@ -271,6 +269,16 @@ describe('Images API - single', () => {
         expect(writtenCollections.topImages).toEqual([]);
         expect(writtenCollections.works[0]!.images).toEqual(['test/image-2']);
         expect(writtenCollections.works[0]!.image).toBeUndefined();
+    });
+
+    it('DELETE returns 502 when Cloudflare deletion fails', async () => {
+        vi.mocked(deleteCloudflareImage).mockResolvedValue(false);
+
+        await expectHttpError(
+            () => imageDELETE(mockEvent({ params: { id: 'test/image-1' } })),
+            502,
+        );
+        expect(writeImages).not.toHaveBeenCalled();
     });
 
     it('DELETE returns 404 for non-existent image', async () => {
