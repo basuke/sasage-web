@@ -38,12 +38,15 @@
         />
     {/if}
 
-    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all pointer-events-none">
-        <div class="absolute bottom-0 left-0 right-0 p-2 text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-            <p class="truncate font-mono">{image.id}</p>
-            <p>{image.width}&times;{image.height} &middot; {image.format}</p>
-        </div>
-    </div>
+    <a
+        href="/admin/images/{image.id}"
+        class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all"
+    >
+        <span class="absolute bottom-0 left-0 right-0 p-2 text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+            <span class="block truncate font-mono">{image.id}</span>
+            <span class="block">{image.width}&times;{image.height} &middot; {image.format}</span>
+        </span>
+    </a>
 
     {#if ondelete}
         <button
