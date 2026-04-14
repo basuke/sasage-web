@@ -25,7 +25,7 @@
     let originalIllustrations = $state<string[]>([]);
 
     let saving = $state<CollectionKey | null>(null);
-    let saveMessage = $state<{ key: CollectionKey; text: string } | null>(null);
+    let saveStatus = $state<{ key: CollectionKey; message: string; success: boolean } | null>(null);
 
     let showPicker = $state(false);
 
@@ -98,7 +98,7 @@
         if (saving) return;
         const key = activeTab;
         saving = key;
-        saveMessage = null;
+        saveStatus = null;
 
         try {
             const body: Record<string, string[]> = {};
@@ -126,10 +126,10 @@
                 originalIllustrations = [...col.illustrations];
             }
 
-            saveMessage = { key, text: 'Saved successfully' };
-            setTimeout(() => { saveMessage = null; }, 2000);
+            saveStatus = { key, message: 'Saved successfully', success: true };
+            setTimeout(() => { saveStatus = null; }, 2000);
         } catch (e) {
-            saveMessage = { key, text: e instanceof Error ? e.message : 'Save failed' };
+            saveStatus = { key, message: e instanceof Error ? e.message : 'Save failed', success: false };
         } finally {
             saving = null;
         }
@@ -157,15 +157,7 @@
                     >
                         {tab.label}
                         <span class="ml-1 text-xs text-gray-400">
-                            ({activeTab === 'topImages' && tab.key === 'topImages'
-                                ? topImages.length
-                                : activeTab === 'topImagesWide' && tab.key === 'topImagesWide'
-                                    ? topImagesWide.length
-                                    : tab.key === 'illustrations'
-                                        ? illustrations.length
-                                        : tab.key === 'topImages'
-                                            ? topImages.length
-                                            : topImagesWide.length})
+                            ({{ topImages: topImages.length, topImagesWide: topImagesWide.length, illustrations: illustrations.length }[tab.key]})
                         </span>
                     </button>
                 {/each}
@@ -190,9 +182,9 @@
                 {saving === activeTab ? 'Saving...' : 'Save'}
             </button>
 
-            {#if saveMessage && saveMessage.key === activeTab}
-                <span class="text-sm {saveMessage.text.includes('failed') ? 'text-red-600' : 'text-green-600'}">
-                    {saveMessage.text}
+            {#if saveStatus && saveStatus.key === activeTab}
+                <span class="text-sm {saveStatus.success ? 'text-green-600' : 'text-red-600'}">
+                    {saveStatus.message}
                 </span>
             {/if}
 

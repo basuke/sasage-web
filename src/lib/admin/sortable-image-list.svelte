@@ -90,7 +90,7 @@
                 {#if onremove}
                     <button
                         type="button"
-                        class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity
+                        class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity
                                w-5 h-5 rounded bg-red-500 text-white hover:bg-red-600 text-xs flex items-center justify-center"
                         title="Remove from collection"
                         onclick={() => handleRemove(id)}

@@ -59,6 +59,7 @@
                 <button
                     type="button"
                     class="text-gray-400 hover:text-gray-600 text-xl leading-none flex-shrink-0"
+                    aria-label="Close"
                     onclick={handleClose}
                 >
                     &times;

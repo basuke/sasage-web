@@ -12,7 +12,7 @@
     let loading = $state(true);
     let error = $state<string | null>(null);
     let saving = $state(false);
-    let saveMessage = $state<string | null>(null);
+    let saveStatus = $state<{ message: string; success: boolean } | null>(null);
     let showDeleteDialog = $state(false);
     let deleting = $state(false);
 
@@ -70,13 +70,14 @@
     async function handleSave() {
         if (!image || saving) return;
         saving = true;
-        saveMessage = null;
+        saveStatus = null;
 
         try {
-            const body: Record<string, TranslatableString> = {
-                title: editTitle,
-                description: editDescription,
-            };
+            const body: Record<string, TranslatableString> = { title: editTitle };
+
+            if (JSON.stringify(editDescription) !== JSON.stringify(image.description ?? '')) {
+                body.description = editDescription;
+            }
 
             const res = await fetch(`/api/admin/images/${imageId}`, {
                 method: 'PATCH',
@@ -90,10 +91,10 @@
             image = data.image;
             editTitle = image!.title;
             editDescription = image!.description ?? '';
-            saveMessage = 'Saved successfully';
-            setTimeout(() => { saveMessage = null; }, 2000);
+            saveStatus = { message: 'Saved successfully', success: true };
+            setTimeout(() => { saveStatus = null; }, 2000);
         } catch (e) {
-            saveMessage = e instanceof Error ? e.message : 'Save failed';
+            saveStatus = { message: e instanceof Error ? e.message : 'Save failed', success: false };
         } finally {
             saving = false;
         }
@@ -189,9 +190,9 @@
                         {saving ? 'Saving...' : 'Save'}
                     </button>
 
-                    {#if saveMessage}
-                        <span class="text-sm {saveMessage.includes('failed') ? 'text-red-600' : 'text-green-600'}">
-                            {saveMessage}
+                    {#if saveStatus}
+                        <span class="text-sm {saveStatus.success ? 'text-green-600' : 'text-red-600'}">
+                            {saveStatus.message}
                         </span>
                     {/if}
 

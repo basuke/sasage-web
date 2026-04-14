@@ -13,7 +13,7 @@
     let loading = $state(true);
     let error = $state<string | null>(null);
     let saving = $state(false);
-    let saveMessage = $state<string | null>(null);
+    let saveStatus = $state<{ message: string; success: boolean } | null>(null);
     let showDeleteDialog = $state(false);
     let deleting = $state(false);
     let showImagePicker = $state(false);
@@ -71,19 +71,20 @@
     async function handleSave() {
         if (!work || saving) return;
         saving = true;
-        saveMessage = null;
+        saveStatus = null;
 
         try {
             const body: Record<string, unknown> = {
                 title: editTitle,
-                subtitle: editSubtitle,
                 images: editImages,
             };
 
-            if (editCoverImage !== undefined) {
-                body.image = editCoverImage;
-            } else {
-                body.image = null;
+            if (JSON.stringify(editSubtitle) !== JSON.stringify(work.subtitle ?? '')) {
+                body.subtitle = editSubtitle;
+            }
+
+            if (editCoverImage !== work.image) {
+                body.image = editCoverImage ?? null;
             }
 
             const res = await fetch(`/api/admin/works/${workId}`, {
@@ -100,10 +101,10 @@
             editSubtitle = work!.subtitle ?? '';
             editCoverImage = work!.image;
             editImages = [...work!.images];
-            saveMessage = 'Saved successfully';
-            setTimeout(() => { saveMessage = null; }, 2000);
+            saveStatus = { message: 'Saved successfully', success: true };
+            setTimeout(() => { saveStatus = null; }, 2000);
         } catch (e) {
-            saveMessage = e instanceof Error ? e.message : 'Save failed';
+            saveStatus = { message: e instanceof Error ? e.message : 'Save failed', success: false };
         } finally {
             saving = false;
         }
@@ -160,7 +161,7 @@
                         />
                         <button
                             type="button"
-                            class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity
+                            class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity
                                    px-2 py-1 rounded text-xs bg-red-500 text-white hover:bg-red-600"
                             onclick={() => { editCoverImage = undefined; }}
                         >
@@ -231,9 +232,9 @@
                         {saving ? 'Saving...' : 'Save'}
                     </button>
 
-                    {#if saveMessage}
-                        <span class="text-sm {saveMessage.includes('failed') ? 'text-red-600' : 'text-green-600'}">
-                            {saveMessage}
+                    {#if saveStatus}
+                        <span class="text-sm {saveStatus.success ? 'text-green-600' : 'text-red-600'}">
+                            {saveStatus.message}
                         </span>
                     {/if}
 

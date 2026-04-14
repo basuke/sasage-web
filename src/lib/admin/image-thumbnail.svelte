@@ -51,7 +51,7 @@
     {#if ondelete}
         <button
             type="button"
-            class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity
+            class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity
                    w-6 h-6 rounded text-xs flex items-center justify-center
                    {isUsed
                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
