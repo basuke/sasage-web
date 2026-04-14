@@ -62,8 +62,5 @@
             "axios": "^1.8.0"
         }
     },
-    "type": "module",
-    "dependencies": {
-        "wrangler": "^4.82.2"
-    }
+    "type": "module"
 }
