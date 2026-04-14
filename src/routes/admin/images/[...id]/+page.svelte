@@ -73,15 +73,10 @@
         saveMessage = null;
 
         try {
-            const body: Record<string, TranslatableString> = { title: editTitle };
-            if (
-                editDescription &&
-                (typeof editDescription === 'string'
-                    ? editDescription
-                    : (editDescription.en ?? '') + (editDescription.ja ?? ''))
-            ) {
-                body.description = editDescription;
-            }
+            const body: Record<string, TranslatableString> = {
+                title: editTitle,
+                description: editDescription,
+            };
 
             const res = await fetch(`/api/admin/images/${imageId}`, {
                 method: 'PATCH',
@@ -205,7 +200,7 @@
                             type="button"
                             class="px-4 py-2 text-sm rounded-md bg-red-600 text-white hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
                             disabled={isUsed}
-                            title={isUsed ? 'Cannot delete: image is used in collections' : 'Delete image'}
+                            title={isUsed ? 'Cannot delete: image is in use' : 'Delete image'}
                             onclick={() => { showDeleteDialog = true; }}
                         >
                             Delete

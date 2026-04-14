@@ -1,15 +1,12 @@
 <script lang="ts">
     import { imagePath } from '$lib/data';
-    import type { Image } from '$lib/data';
 
     let {
         imageIds,
-        allImages = {},
         onreorder,
         onremove,
     }: {
         imageIds: string[];
-        allImages?: Record<string, Image>;
         onreorder?: (ids: string[]) => void;
         onremove?: (id: string) => void;
     } = $props();
@@ -65,7 +62,7 @@
 </script>
 
 {#if imageIds.length === 0}
-    <p class="text-sm text-gray-400 py-4 text-center">No images in this collection.</p>
+    <p class="text-sm text-gray-400 py-4 text-center">No images yet.</p>
 {:else}
     <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
         {#each imageIds as id, i (id)}

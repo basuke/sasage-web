@@ -50,7 +50,7 @@ describe('ImageThumbnail', () => {
             props: { image: mockImage, usages, ondelete: handleDelete },
         });
 
-        const deleteBtn = screen.getByTitle('Cannot delete: image is used in collections');
+        const deleteBtn = screen.getByTitle('Cannot delete: image is in use');
         expect(deleteBtn).toBeDisabled();
     });
 

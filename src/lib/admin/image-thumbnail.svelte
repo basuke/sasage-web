@@ -40,7 +40,7 @@
 
     <a
         href="/admin/images/{image.id}"
-        class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all"
+        class="absolute inset-0 bottom-auto aspect-square bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all"
     >
         <span class="absolute bottom-0 left-0 right-0 p-2 text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">
             <span class="block truncate font-mono">{image.id}</span>
@@ -57,7 +57,7 @@
                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                        : 'bg-red-500 text-white hover:bg-red-600 cursor-pointer'}"
             disabled={isUsed}
-            title={isUsed ? 'Cannot delete: image is used in collections' : 'Delete image'}
+            title={isUsed ? 'Cannot delete: image is in use' : 'Delete image'}
             onclick={handleDelete}
         >
             &times;

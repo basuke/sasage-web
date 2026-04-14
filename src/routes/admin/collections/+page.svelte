@@ -16,10 +16,6 @@
     let error = $state<string | null>(null);
 
     let allImages = $state<Image[]>([]);
-    let imageMap = $derived<Record<string, Image>>(
-        Object.fromEntries(allImages.map((img) => [img.id, img])),
-    );
-
     let topImages = $state<string[]>([]);
     let topImagesWide = $state<string[]>([]);
     let illustrations = $state<string[]>([]);
@@ -207,7 +203,6 @@
 
         <SortableImageList
             imageIds={currentIds()}
-            allImages={imageMap}
             onreorder={handleReorder}
             onremove={handleRemove}
         />

@@ -117,9 +117,9 @@ describe('Work CRUD logic', () => {
             expect(updated.images).toEqual(['img/3', 'img/4']);
         });
 
-        it('clears optional fields with null', () => {
-            const updated = updateWork(base, { subtitle: null, image: null });
-            expect(updated.subtitle).toBeUndefined();
+        it('clears subtitle with empty string and image with null', () => {
+            const updated = updateWork(base, { subtitle: '', image: null });
+            expect(updated.subtitle).toBe('');
             expect(updated.image).toBeUndefined();
         });
 

@@ -62,7 +62,7 @@
                     {/if}
                     <div class="p-3">
                         <h3 class="text-sm font-medium text-gray-800 truncate group-hover:text-blue-600">
-                            {typeof work.title === 'string' ? work.title : (work.title.en ?? work.title.ja ?? work.id)}
+                            {typeof work.title === 'string' ? work.title : (work.title.en || work.title.ja || work.id)}
                         </h3>
                         <p class="text-xs text-gray-500 mt-0.5">
                             {work.images.length} image{work.images.length !== 1 ? 's' : ''}

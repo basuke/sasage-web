@@ -34,18 +34,18 @@
     }
 
     function handleKeydown(e: KeyboardEvent) {
-        if (e.key === 'Escape') handleClose();
+        if (open && e.key === 'Escape') handleClose();
     }
 </script>
 
+<svelte:window onkeydown={handleKeydown} />
+
 {#if open}
-    <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
     <div
         class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40"
         role="dialog"
         aria-modal="true"
         aria-label="Select an image"
-        onkeydown={handleKeydown}
     >
         <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full mx-4 max-h-[80vh] flex flex-col">
             <div class="p-4 border-b border-gray-200 flex items-center gap-3">

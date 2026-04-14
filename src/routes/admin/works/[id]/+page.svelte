@@ -26,10 +26,6 @@
 
     let workId = $derived(page.params.id);
 
-    let imageMap = $derived<Record<string, Image>>(
-        Object.fromEntries(allImages.map((img) => [img.id, img])),
-    );
-
     let hasChanges = $derived(
         work !== null &&
             (JSON.stringify(editTitle) !== JSON.stringify(work.title) ||
@@ -80,12 +76,9 @@
         try {
             const body: Record<string, unknown> = {
                 title: editTitle,
+                subtitle: editSubtitle,
                 images: editImages,
             };
-
-            if (editSubtitle && (typeof editSubtitle === 'string' ? editSubtitle : ((editSubtitle.en ?? '') + (editSubtitle.ja ?? '')))) {
-                body.subtitle = editSubtitle;
-            }
 
             if (editCoverImage !== undefined) {
                 body.image = editCoverImage;
@@ -223,7 +216,6 @@
 
                     <SortableImageList
                         imageIds={editImages}
-                        allImages={imageMap}
                         onreorder={(ids) => { editImages = ids; }}
                         onremove={(id) => { editImages = editImages.filter((x) => x !== id); }}
                     />

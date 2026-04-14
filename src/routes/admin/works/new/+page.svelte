@@ -20,10 +20,6 @@
     let editCoverImage = $state<string | undefined>(undefined);
     let editImages = $state<string[]>([]);
 
-    let imageMap = $derived<Record<string, Image>>(
-        Object.fromEntries(allImages.map((img) => [img.id, img])),
-    );
-
     let isValid = $derived(editId.trim() !== '' && editTitle !== '' && (typeof editTitle !== 'object' || (editTitle.en ?? '') !== ''));
 
     async function loadImages() {
@@ -183,7 +179,6 @@
 
                     <SortableImageList
                         imageIds={editImages}
-                        allImages={imageMap}
                         onreorder={(ids) => { editImages = ids; }}
                         onremove={(id) => { editImages = editImages.filter((x) => x !== id); }}
                     />

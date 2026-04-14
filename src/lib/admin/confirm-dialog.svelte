@@ -28,18 +28,18 @@
     }
 
     function handleKeydown(e: KeyboardEvent) {
-        if (e.key === 'Escape') handleCancel();
+        if (open && e.key === 'Escape') handleCancel();
     }
 </script>
 
+<svelte:window onkeydown={handleKeydown} />
+
 {#if open}
-    <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
     <div
         class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40"
         role="dialog"
         aria-modal="true"
         aria-labelledby="confirm-title"
-        onkeydown={handleKeydown}
     >
         <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6">
             <h3 id="confirm-title" class="text-lg font-semibold text-gray-900 mb-2">{title}</h3>

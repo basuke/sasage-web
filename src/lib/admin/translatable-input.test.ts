@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import type { TranslatableString, Lang } from '$lib/data';
 
 // Test the translatable input logic (en/ja switching, value output format)
