@@ -211,6 +211,10 @@ After implementing features and before committing, always perform a self-review 
 5. **Link correctness**: hrefs that point to list pages when detail pages exist, stale routes
 6. **Type safety edge cases**: `??` vs `||` for empty-string fallbacks, `exactOptionalPropertyTypes` compliance
 
+### Copilot Review After Push
+
+After pushing a PR, always request a Copilot review by commenting `@copilot` on the PR. Wait a few minutes, then check the review comments and address any valid feedback before moving on.
+
 ## Implementation Summary
 
 This repository has been significantly enhanced with:
