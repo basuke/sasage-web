@@ -200,6 +200,21 @@ pnpm upload-images
 
 - Before pushing commit to PR, please run test, check the format and fix the lint errors.
 
+### Self-Review Before Commit
+
+After implementing features and before committing, always perform a self-review by spawning a review agent. The review should check for:
+
+1. **Accessibility/UX bugs**: keyboard handlers on non-focusable elements, focus management, overlay z-index blocking interactive elements
+2. **Data flow completeness**: can users clear/reset every field they can set? Are optional fields always sent in PATCH when changed (including clearing)?
+3. **Unused code**: props declared but never read, imports not referenced, derived values with no consumers
+4. **Wording accuracy**: tooltips, empty states, and messages that assume a single context but are used in multiple contexts
+5. **Link correctness**: hrefs that point to list pages when detail pages exist, stale routes
+6. **Type safety edge cases**: `??` vs `||` for empty-string fallbacks, `exactOptionalPropertyTypes` compliance
+
+### Copilot Review After Push
+
+After pushing a PR, always request a Copilot review by commenting `@copilot` on the PR. Wait a few minutes, then check the review comments and address any valid feedback before moving on.
+
 ## Implementation Summary
 
 This repository has been significantly enhanced with:

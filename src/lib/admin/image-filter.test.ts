@@ -101,7 +101,10 @@ describe('buildImageUsageMap', () => {
         const coverUsages = map.get('books/lost-in-the-rain/cover');
 
         expect(coverUsages).toBeDefined();
-        expect(coverUsages).toContainEqual({ label: 'lost-in-the-rain', href: '/admin/works' });
+        expect(coverUsages).toContainEqual({
+            label: 'lost-in-the-rain',
+            href: '/admin/works/lost-in-the-rain',
+        });
     });
 
     it('returns undefined for unused images', () => {

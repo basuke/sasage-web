@@ -53,10 +53,10 @@ export function buildImageUsageMap(collections: Collections): Map<string, ImageU
 
     for (const work of collections.works) {
         if (work.image) {
-            add(work.image, { label: work.id, href: '/admin/works' });
+            add(work.image, { label: work.id, href: `/admin/works/${work.id}` });
         }
         for (const id of work.images) {
-            add(id, { label: work.id, href: '/admin/works' });
+            add(id, { label: work.id, href: `/admin/works/${work.id}` });
         }
     }
 

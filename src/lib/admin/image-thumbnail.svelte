@@ -38,23 +38,26 @@
         />
     {/if}
 
-    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all pointer-events-none">
-        <div class="absolute bottom-0 left-0 right-0 p-2 text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-            <p class="truncate font-mono">{image.id}</p>
-            <p>{image.width}&times;{image.height} &middot; {image.format}</p>
-        </div>
-    </div>
+    <a
+        href="/admin/images/{image.id}"
+        class="absolute inset-0 bottom-auto aspect-square bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all"
+    >
+        <span class="absolute bottom-0 left-0 right-0 p-2 text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+            <span class="block truncate font-mono">{image.id}</span>
+            <span class="block">{image.width}&times;{image.height} &middot; {image.format}</span>
+        </span>
+    </a>
 
     {#if ondelete}
         <button
             type="button"
-            class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity
+            class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity
                    w-6 h-6 rounded text-xs flex items-center justify-center
                    {isUsed
                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                        : 'bg-red-500 text-white hover:bg-red-600 cursor-pointer'}"
             disabled={isUsed}
-            title={isUsed ? 'Cannot delete: image is used in collections' : 'Delete image'}
+            title={isUsed ? 'Cannot delete: image is in use' : 'Delete image'}
             onclick={handleDelete}
         >
             &times;
