@@ -60,7 +60,8 @@ function extractText(ts: string | TranslatableString | undefined): {
     return { text: ts.en ?? null, text_ja: ts.ja ?? null };
 }
 
-const root = join(import.meta.dirname ?? process.cwd(), '..');
+const scriptDir = import.meta.dirname ?? new URL('.', import.meta.url).pathname;
+const root = join(scriptDir, '..');
 const imagesRaw = readFileSync(join(root, 'src', 'images.json'), 'utf-8');
 const collectionsRaw = readFileSync(join(root, 'src', 'collections.json'), 'utf-8');
 
