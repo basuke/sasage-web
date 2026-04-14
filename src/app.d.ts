@@ -9,7 +9,11 @@ declare namespace App {
         lang: Lang;
     }
 
-    // interface Platform {}
+    interface Platform {
+        env?: {
+            DB?: import('$lib/server/d1-types').D1Database;
+        };
+    }
 
     // interface Stuff {}
 }

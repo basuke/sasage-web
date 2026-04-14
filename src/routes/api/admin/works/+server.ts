@@ -2,15 +2,16 @@ import { json, error } from '@sveltejs/kit';
 import type { RequestHandler } from '@sveltejs/kit';
 import type { Work, TranslatableString } from '$lib/data';
 import { requireDev, parseJsonBody } from '$lib/server/admin-guard';
-import { readCollections, writeCollections } from '$lib/server/data-store';
+import { getDataStore } from '$lib/server/data-store';
 
-export const GET: RequestHandler = async () => {
+export const GET: RequestHandler = async ({ platform }) => {
     requireDev();
-    const collections = readCollections();
+    const store = getDataStore(platform);
+    const collections = await store.readCollections();
     return json({ works: collections.works });
 };
 
-export const POST: RequestHandler = async ({ request }) => {
+export const POST: RequestHandler = async ({ request, platform }) => {
     requireDev();
     const body = await parseJsonBody(request);
 
@@ -21,7 +22,8 @@ export const POST: RequestHandler = async ({ request }) => {
         throw error(400, 'Work title is required');
     }
 
-    const collections = readCollections();
+    const store = getDataStore(platform);
+    const collections = await store.readCollections();
 
     if (collections.works.some((w) => w.id === body.id)) {
         throw error(400, 'Work with this id already exists');
@@ -50,7 +52,7 @@ export const POST: RequestHandler = async ({ request }) => {
     }
 
     collections.works.push(newWork);
-    writeCollections(collections);
+    await store.writeCollections(collections);
 
     return json({ work: newWork }, { status: 201 });
 };

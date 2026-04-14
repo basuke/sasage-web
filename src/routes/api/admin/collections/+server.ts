@@ -1,18 +1,20 @@
 import { json, error } from '@sveltejs/kit';
 import type { RequestHandler } from '@sveltejs/kit';
 import { requireDev, parseJsonBody } from '$lib/server/admin-guard';
-import { readCollections, writeCollections } from '$lib/server/data-store';
+import { getDataStore } from '$lib/server/data-store';
 
-export const GET: RequestHandler = async () => {
+export const GET: RequestHandler = async ({ platform }) => {
     requireDev();
-    const collections = readCollections();
+    const store = getDataStore(platform);
+    const collections = await store.readCollections();
     return json({ collections });
 };
 
-export const PATCH: RequestHandler = async ({ request }) => {
+export const PATCH: RequestHandler = async ({ request, platform }) => {
     requireDev();
     const body = await parseJsonBody(request);
-    const collections = readCollections();
+    const store = getDataStore(platform);
+    const collections = await store.readCollections();
 
     if (body.topImages !== undefined) {
         if (!Array.isArray(body.topImages)) throw error(400, 'topImages must be an array');
@@ -27,6 +29,6 @@ export const PATCH: RequestHandler = async ({ request }) => {
         collections.illustrations = body.illustrations as string[];
     }
 
-    writeCollections(collections);
+    await store.writeCollections(collections);
     return json({ collections });
 };

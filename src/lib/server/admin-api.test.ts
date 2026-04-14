@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import type { RequestEvent } from '@sveltejs/kit';
 import type { ImageSet } from '$lib/data';
-import type { Collections } from '$lib/server/data-store';
+import type { Collections, DataStore } from '$lib/server/data-store';
 
 // Mock $app/environment
 vi.mock('$app/environment', () => ({ dev: true }));
@@ -19,12 +19,9 @@ vi.mock('$lib/server/admin-guard', async (importOriginal) => {
     };
 });
 
-// Mock data-store
+// Mock data-store — mock getDataStore factory
 vi.mock('$lib/server/data-store', () => ({
-    readImages: vi.fn(),
-    writeImages: vi.fn(),
-    readCollections: vi.fn(),
-    writeCollections: vi.fn(),
+    getDataStore: vi.fn(),
 }));
 
 // Mock cloudflare-images
@@ -35,7 +32,7 @@ vi.mock('$lib/server/cloudflare-images', () => ({
     computeSha1: vi.fn(),
 }));
 
-import { readImages, writeImages, readCollections, writeCollections } from '$lib/server/data-store';
+import { getDataStore } from '$lib/server/data-store';
 import {
     uploadImage,
     deleteImage as deleteCloudflareImage,
@@ -93,6 +90,15 @@ const mockCollections: Collections = {
         },
     ],
     illustrations: ['test/image-2'],
+};
+
+// --- Mock store ---
+
+let mockStore: {
+    readImages: ReturnType<typeof vi.fn>;
+    writeImages: ReturnType<typeof vi.fn>;
+    readCollections: ReturnType<typeof vi.fn>;
+    writeCollections: ReturnType<typeof vi.fn>;
 };
 
 // --- Helpers ---
@@ -155,8 +161,14 @@ async function expectHttpError(fn: () => unknown, status: number): Promise<void>
 
 beforeEach(() => {
     vi.clearAllMocks();
-    vi.mocked(readImages).mockReturnValue(structuredClone(mockImages));
-    vi.mocked(readCollections).mockReturnValue(structuredClone(mockCollections));
+
+    mockStore = {
+        readImages: vi.fn().mockResolvedValue(structuredClone(mockImages)),
+        writeImages: vi.fn().mockResolvedValue(undefined),
+        readCollections: vi.fn().mockResolvedValue(structuredClone(mockCollections)),
+        writeCollections: vi.fn().mockResolvedValue(undefined),
+    };
+    vi.mocked(getDataStore).mockReturnValue(mockStore as unknown as DataStore);
 });
 
 describe('Images API - list', () => {
@@ -185,7 +197,7 @@ describe('Images API - list', () => {
         expect(data.image.id).toBe('new/image');
         expect(data.image.title).toBe('New Image');
         expect(data.image.format).toBe('jpeg');
-        expect(writeImages).toHaveBeenCalledTimes(1);
+        expect(mockStore.writeImages).toHaveBeenCalledTimes(1);
     });
 
     it('POST returns 400 when file is missing', async () => {
@@ -234,7 +246,7 @@ describe('Images API - single', () => {
         expect(res.status).toBe(200);
         expect(data.image.title).toBe('Updated Title');
         expect(data.image.description).toBe('A description');
-        expect(writeImages).toHaveBeenCalledTimes(1);
+        expect(mockStore.writeImages).toHaveBeenCalledTimes(1);
     });
 
     it('PATCH returns 404 for non-existent image', async () => {
@@ -262,10 +274,10 @@ describe('Images API - single', () => {
             { accountId: 'test-account', apiToken: 'test-token' },
             'test/image-1',
         );
-        expect(writeImages).toHaveBeenCalledTimes(1);
+        expect(mockStore.writeImages).toHaveBeenCalledTimes(1);
 
         // Verify collections were cleaned up
-        const writtenCollections = vi.mocked(writeCollections).mock.calls[0]![0];
+        const writtenCollections = mockStore.writeCollections.mock.calls[0]![0] as Collections;
         expect(writtenCollections.topImages).toEqual([]);
         expect(writtenCollections.works[0]!.images).toEqual(['test/image-2']);
         expect(writtenCollections.works[0]!.image).toBeUndefined();
@@ -278,7 +290,7 @@ describe('Images API - single', () => {
             () => imageDELETE(mockEvent({ params: { id: 'test/image-1' } })),
             502,
         );
-        expect(writeImages).not.toHaveBeenCalled();
+        expect(mockStore.writeImages).not.toHaveBeenCalled();
     });
 
     it('DELETE returns 404 for non-existent image', async () => {
@@ -309,7 +321,7 @@ describe('Collections API', () => {
         expect(res.status).toBe(200);
         expect(data.collections.topImages).toEqual(['img-a', 'img-b']);
         expect(data.collections.illustrations).toEqual(['img-c']);
-        expect(writeCollections).toHaveBeenCalledTimes(1);
+        expect(mockStore.writeCollections).toHaveBeenCalledTimes(1);
     });
 
     it('PATCH returns 400 for invalid field type', async () => {
@@ -366,7 +378,7 @@ describe('Works API - list', () => {
         expect(data.work.id).toBe('new-work');
         expect(data.work.title.en).toBe('New Work');
         expect(data.work.images).toEqual(['img-1', 'img-2']);
-        expect(writeCollections).toHaveBeenCalledTimes(1);
+        expect(mockStore.writeCollections).toHaveBeenCalledTimes(1);
     });
 
     it('POST returns 400 when id is missing', async () => {
@@ -404,7 +416,7 @@ describe('Works API - single', () => {
         expect(res.status).toBe(200);
         expect(data.work.title).toBe('Updated Work');
         expect(data.work.images).toEqual(['img-new']);
-        expect(writeCollections).toHaveBeenCalledTimes(1);
+        expect(mockStore.writeCollections).toHaveBeenCalledTimes(1);
     });
 
     it('PATCH returns 404 for non-existent work', async () => {
@@ -426,7 +438,7 @@ describe('Works API - single', () => {
         expect(res.status).toBe(200);
         expect(data.success).toBe(true);
 
-        const writtenCollections = vi.mocked(writeCollections).mock.calls[0]![0];
+        const writtenCollections = mockStore.writeCollections.mock.calls[0]![0] as Collections;
         expect(writtenCollections.works).toHaveLength(0);
     });
 
