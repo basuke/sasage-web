@@ -1,12 +1,11 @@
 import { json, error } from '@sveltejs/kit';
 import type { RequestHandler } from '@sveltejs/kit';
 import type { TranslatableString } from '$lib/data';
-import { requireDev, getCloudflareConfig, parseJsonBody } from '$lib/server/admin-guard';
+import { getCloudflareConfig, parseJsonBody } from '$lib/server/admin-guard';
 import { getDataStore } from '$lib/server/data-store';
 import { deleteImage as deleteCloudflareImage } from '$lib/server/cloudflare-images';
 
 export const GET: RequestHandler = async ({ params, platform }) => {
-    requireDev();
     const id = params.id;
     if (!id) throw error(400, 'Image ID is required');
 
@@ -19,7 +18,6 @@ export const GET: RequestHandler = async ({ params, platform }) => {
 };
 
 export const PATCH: RequestHandler = async ({ params, request, platform }) => {
-    requireDev();
     const id = params.id;
     if (!id) throw error(400, 'Image ID is required');
 
@@ -46,7 +44,6 @@ export const PATCH: RequestHandler = async ({ params, request, platform }) => {
 };
 
 export const DELETE: RequestHandler = async ({ params, platform }) => {
-    requireDev();
     const id = params.id;
     if (!id) throw error(400, 'Image ID is required');
 

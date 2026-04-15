@@ -1,11 +1,10 @@
 import { json, error } from '@sveltejs/kit';
 import type { RequestHandler } from '@sveltejs/kit';
 import type { TranslatableString } from '$lib/data';
-import { requireDev, parseJsonBody } from '$lib/server/admin-guard';
+import { parseJsonBody } from '$lib/server/admin-guard';
 import { getDataStore } from '$lib/server/data-store';
 
 export const PATCH: RequestHandler = async ({ params, request, platform }) => {
-    requireDev();
     const id = params.id;
     if (!id) throw error(400, 'Work ID is required');
 
@@ -43,7 +42,6 @@ export const PATCH: RequestHandler = async ({ params, request, platform }) => {
 };
 
 export const DELETE: RequestHandler = async ({ params, platform }) => {
-    requireDev();
     const id = params.id;
     if (!id) throw error(400, 'Work ID is required');
 

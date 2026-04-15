@@ -7,11 +7,14 @@ type Lang = 'en' | 'ja';
 declare namespace App {
     interface Locals {
         lang: Lang;
+        /** True if the current request has a valid admin session */
+        authenticated: boolean;
     }
 
     interface Platform {
         env?: {
             DB?: import('$lib/server/d1-types').D1Database;
+            ADMIN_PASSWORD_HASH?: string;
         };
     }
 

@@ -25,8 +25,8 @@ function authHeaders(config: CloudflareConfig) {
 
 async function loadSharp() {
     // Use a variable to prevent bundlers from statically resolving sharp.
-    // sharp is a native Node.js module that cannot run in Cloudflare Workers,
-    // but admin API endpoints are dev-only (guarded by requireDev).
+    // sharp is a native Node.js module that cannot run in Cloudflare Workers.
+    // Image upload/info is expected to run in dev or Node.js environments.
     const pkg = 'sharp';
     const mod = await import(/* @vite-ignore */ pkg);
     return mod.default as typeof import('sharp');

@@ -1,12 +1,5 @@
-import { dev } from '$app/environment';
 import { error } from '@sveltejs/kit';
 import type { CloudflareConfig } from './cloudflare-images';
-
-export function requireDev(): void {
-    if (!dev) {
-        throw error(403, 'Admin API is only available in development mode');
-    }
-}
 
 export function getCloudflareConfig(): CloudflareConfig {
     const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
