@@ -2,27 +2,29 @@ import { json, error } from '@sveltejs/kit';
 import type { RequestHandler } from '@sveltejs/kit';
 import type { TranslatableString } from '$lib/data';
 import { requireDev, getCloudflareConfig, parseJsonBody } from '$lib/server/admin-guard';
-import { readImages, writeImages, readCollections, writeCollections } from '$lib/server/data-store';
+import { getDataStore } from '$lib/server/data-store';
 import { deleteImage as deleteCloudflareImage } from '$lib/server/cloudflare-images';
 
-export const GET: RequestHandler = async ({ params }) => {
+export const GET: RequestHandler = async ({ params, platform }) => {
     requireDev();
     const id = params.id;
     if (!id) throw error(400, 'Image ID is required');
 
-    const images = readImages();
+    const store = getDataStore(platform);
+    const images = await store.readImages();
     const image = images[id];
     if (!image) throw error(404, 'Image not found');
 
     return json({ image });
 };
 
-export const PATCH: RequestHandler = async ({ params, request }) => {
+export const PATCH: RequestHandler = async ({ params, request, platform }) => {
     requireDev();
     const id = params.id;
     if (!id) throw error(400, 'Image ID is required');
 
-    const images = readImages();
+    const store = getDataStore(platform);
+    const images = await store.readImages();
     const image = images[id];
     if (!image) throw error(404, 'Image not found');
 
@@ -38,17 +40,18 @@ export const PATCH: RequestHandler = async ({ params, request }) => {
     }
 
     images[id] = image;
-    writeImages(images);
+    await store.writeImages(images);
 
     return json({ image });
 };
 
-export const DELETE: RequestHandler = async ({ params }) => {
+export const DELETE: RequestHandler = async ({ params, platform }) => {
     requireDev();
     const id = params.id;
     if (!id) throw error(400, 'Image ID is required');
 
-    const images = readImages();
+    const store = getDataStore(platform);
+    const images = await store.readImages();
     if (!images[id]) throw error(404, 'Image not found');
 
     const config = getCloudflareConfig();
@@ -58,9 +61,9 @@ export const DELETE: RequestHandler = async ({ params }) => {
     }
 
     delete images[id];
-    writeImages(images);
+    await store.writeImages(images);
 
-    const collections = readCollections();
+    const collections = await store.readCollections();
     collections.topImages = collections.topImages.filter((imgId) => imgId !== id);
     collections.topImagesWide = collections.topImagesWide.filter((imgId) => imgId !== id);
     collections.illustrations = collections.illustrations.filter((imgId) => imgId !== id);
@@ -70,7 +73,7 @@ export const DELETE: RequestHandler = async ({ params }) => {
             delete work.image;
         }
     }
-    writeCollections(collections);
+    await store.writeCollections(collections);
 
     return json({ success: true });
 };

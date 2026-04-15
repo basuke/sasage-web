@@ -1,6 +1,6 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, afterEach } from 'vitest';
 import fs from 'fs';
-import { readImages, writeImages, readCollections, writeCollections } from './data-store';
+import { JsonDataStore, toTranslatable, fromTranslatable } from './data-store';
 import type { Collections } from './data-store';
 import type { ImageSet } from '../data';
 
@@ -37,65 +37,121 @@ const mockCollections: Collections = {
     illustrations: ['illustration/1', 'illustration/2'],
 };
 
-describe('readImages', () => {
-    beforeEach(() => {
-        vi.mocked(fs.readFileSync).mockReturnValue(JSON.stringify(mockImages));
-    });
+describe('JsonDataStore', () => {
+    const store = new JsonDataStore();
 
     afterEach(() => {
         vi.restoreAllMocks();
     });
 
-    it('should read and parse images.json', () => {
-        const result = readImages();
+    it('readImages should read and parse images.json', async () => {
+        vi.mocked(fs.readFileSync).mockReturnValue(JSON.stringify(mockImages));
+        const result = await store.readImages();
         expect(result['test/image-1']?.id).toBe('test/image-1');
         expect(result['test/image-2']?.format).toBe('png');
     });
-});
 
-describe('writeImages', () => {
-    afterEach(() => {
-        vi.restoreAllMocks();
-    });
-
-    it('should write images as formatted JSON', () => {
-        writeImages(mockImages);
+    it('writeImages should write images as formatted JSON', async () => {
+        await store.writeImages(mockImages);
         expect(fs.writeFileSync).toHaveBeenCalledTimes(1);
         const [, content] = vi.mocked(fs.writeFileSync).mock.calls[0]!;
         const parsed = JSON.parse(content as string);
         expect(parsed['test/image-1'].id).toBe('test/image-1');
     });
-});
 
-describe('readCollections', () => {
-    beforeEach(() => {
+    it('readCollections should read and parse collections.json', async () => {
         vi.mocked(fs.readFileSync).mockReturnValue(JSON.stringify(mockCollections));
-    });
-
-    afterEach(() => {
-        vi.restoreAllMocks();
-    });
-
-    it('should read and parse collections.json', () => {
-        const result = readCollections();
+        const result = await store.readCollections();
         expect(result.topImages).toEqual(['top/1', 'top/2']);
         expect(result.works).toHaveLength(1);
         expect(result.illustrations).toHaveLength(2);
     });
-});
 
-describe('writeCollections', () => {
-    afterEach(() => {
-        vi.restoreAllMocks();
-    });
-
-    it('should write collections as formatted JSON', () => {
-        writeCollections(mockCollections);
+    it('writeCollections should write collections as formatted JSON', async () => {
+        await store.writeCollections(mockCollections);
         expect(fs.writeFileSync).toHaveBeenCalledTimes(1);
         const [, content] = vi.mocked(fs.writeFileSync).mock.calls[0]!;
         const parsed = JSON.parse(content as string);
         expect(parsed.topImages).toEqual(['top/1', 'top/2']);
         expect(parsed.works[0].id).toBe('work-1');
+    });
+});
+
+describe('toTranslatable', () => {
+    it('returns plain string when only text is provided', () => {
+        expect(toTranslatable('Hello', null)).toBe('Hello');
+    });
+
+    it('returns bilingual object when text_ja is provided', () => {
+        expect(toTranslatable('Hello', 'こんにちは')).toEqual({
+            en: 'Hello',
+            ja: 'こんにちは',
+        });
+    });
+
+    it('returns empty string when both are null', () => {
+        expect(toTranslatable(null, null)).toBe('');
+    });
+
+    it('handles null text with non-null text_ja', () => {
+        const result = toTranslatable(null, '日本語');
+        expect(result).toEqual({ ja: '日本語' });
+        expect(result).not.toHaveProperty('en');
+    });
+
+    it('handles empty strings', () => {
+        expect(toTranslatable('', null)).toBe('');
+    });
+});
+
+describe('fromTranslatable', () => {
+    it('converts plain string to text fields', () => {
+        expect(fromTranslatable('Hello')).toEqual({ text: 'Hello', text_ja: null });
+    });
+
+    it('converts bilingual object to text fields', () => {
+        expect(fromTranslatable({ en: 'Hello', ja: 'こんにちは' })).toEqual({
+            text: 'Hello',
+            text_ja: 'こんにちは',
+        });
+    });
+
+    it('handles partial bilingual object (en only)', () => {
+        expect(fromTranslatable({ en: 'English only' })).toEqual({
+            text: 'English only',
+            text_ja: null,
+        });
+    });
+
+    it('handles partial bilingual object (ja only)', () => {
+        expect(fromTranslatable({ ja: '日本語のみ' })).toEqual({
+            text: null,
+            text_ja: '日本語のみ',
+        });
+    });
+
+    it('handles empty string', () => {
+        expect(fromTranslatable('')).toEqual({ text: '', text_ja: null });
+    });
+
+    it('handles empty object', () => {
+        expect(fromTranslatable({})).toEqual({ text: null, text_ja: null });
+    });
+});
+
+describe('TranslatableString round-trip', () => {
+    it('plain string survives round-trip', () => {
+        const original = 'Hello World';
+        const { text, text_ja } = fromTranslatable(original);
+        const result = toTranslatable(text, text_ja);
+        expect(result).toBe(original);
+    });
+
+    it('bilingual object survives round-trip', () => {
+        const original = { en: 'Hello', ja: 'こんにちは' };
+        const { text, text_ja } = fromTranslatable(original);
+        const result = toTranslatable(text, text_ja);
+        expect(result).toEqual(original);
     });
 });
 
