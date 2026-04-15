@@ -124,6 +124,14 @@ function rowToImage(row: ImageRow): Image {
     return image;
 }
 
+const D1_BATCH_LIMIT = 99;
+
+async function batchAll(db: D1Database, stmts: D1PreparedStatement[]): Promise<void> {
+    for (let i = 0; i < stmts.length; i += D1_BATCH_LIMIT) {
+        await db.batch(stmts.slice(i, i + D1_BATCH_LIMIT));
+    }
+}
+
 export class D1DataStore implements DataStore {
     constructor(private db: D1Database) {}
 
@@ -165,7 +173,7 @@ export class D1DataStore implements DataStore {
             );
         }
 
-        await this.db.batch(stmts);
+        await batchAll(this.db, stmts);
     }
 
     async readCollections(): Promise<Collections> {
@@ -281,7 +289,7 @@ export class D1DataStore implements DataStore {
             }
         }
 
-        await this.db.batch(stmts);
+        await batchAll(this.db, stmts);
     }
 }
 
