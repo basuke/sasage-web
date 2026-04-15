@@ -1,3 +1,4 @@
+import { dev } from '$app/environment';
 import { D1DataStore } from '$lib/server/data-store';
 import type { ImageSet } from '$lib/data';
 import type { LayoutServerLoad } from './$types';
@@ -28,7 +29,7 @@ export const load: LayoutServerLoad = async ({ platform, url }) => {
             topImagesWide: collections.topImagesWide,
             works: collections.works,
             illustrations: collections.illustrations,
-            debug: false,
+            debug: dev,
         };
     }
 
@@ -39,6 +40,6 @@ export const load: LayoutServerLoad = async ({ platform, url }) => {
         topImagesWide: staticCollections.topImagesWide,
         works: staticCollections.works,
         illustrations: staticCollections.illustrations,
-        debug: process.env.NODE_ENV === 'development',
+        debug: dev,
     };
 };

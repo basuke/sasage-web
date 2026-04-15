@@ -1,5 +1,5 @@
-import { describe, it, expect, vi } from 'vitest';
-import type { Work, ImageSet } from '$lib/data';
+import { describe, it, expect } from 'vitest';
+import type { Work } from '$lib/data';
 
 // Test the works page server load logic directly
 // (We test the findWork logic since the actual +page.server.ts

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { loadAllData, loadImages, loadCollections } from './data-loader';
-import type { ImageSet, Work } from '../data';
+import type { ImageSet } from '../data';
 import type { Collections } from './data-store';
 
 // Mock data-store module
