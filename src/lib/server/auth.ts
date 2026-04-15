@@ -36,7 +36,7 @@ async function pbkdf2Hash(password: string, salt: Uint8Array): Promise<ArrayBuff
     return crypto.subtle.deriveBits(
         {
             name: 'PBKDF2',
-            salt: salt.buffer as ArrayBuffer,
+            salt: new Uint8Array(salt),
             iterations: PBKDF2_ITERATIONS,
             hash: 'SHA-256',
         },

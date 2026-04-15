@@ -29,12 +29,19 @@
     }
 </script>
 
+<svelte:head>
+    <title>Admin Login</title>
+</svelte:head>
+
 <div class="min-h-screen flex items-center justify-center bg-gray-50">
     <div class="max-w-sm w-full bg-white rounded-lg shadow-md p-8">
         <h1 class="text-2xl font-semibold text-gray-800 text-center mb-6">Admin Login</h1>
 
         {#if errorMessage}
-            <div class="mb-4 p-3 bg-red-50 border border-red-200 rounded-md text-red-700 text-sm">
+            <div
+                role="alert"
+                class="mb-4 p-3 bg-red-50 border border-red-200 rounded-md text-red-700 text-sm"
+            >
                 {errorMessage}
             </div>
         {/if}
