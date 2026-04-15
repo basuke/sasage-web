@@ -1,20 +1,21 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { get, writable } from 'svelte/store';
 import { source, createTransition } from './slideshow-source';
-import type { Image } from './data';
+import type { Image, ImageSet } from './data';
 
 // Mock the data module
 vi.mock('./data', () => ({
-    data: {
-        images: {
-            image1: { id: 'image1', format: 'jpeg', width: 800, height: 600, title: 'Image 1' },
-            image2: { id: 'image2', format: 'jpeg', width: 800, height: 600, title: 'Image 2' },
-            image3: { id: 'image3', format: 'jpeg', width: 800, height: 600, title: 'Image 3' },
-        },
-    },
-    findImage: vi.fn((images, id) => images[id] || null),
-    imagePath: vi.fn((id, variant = 'public') => `https://imagedelivery.net/hash/${id}/${variant}`),
+    findImage: vi.fn((images: ImageSet, id: string) => images[id] || null),
+    imagePath: vi.fn(
+        (id: string, variant = 'public') => `https://imagedelivery.net/hash/${id}/${variant}`,
+    ),
 }));
+
+const mockImages: ImageSet = {
+    image1: { id: 'image1', format: 'jpeg', width: 800, height: 600, title: 'Image 1' },
+    image2: { id: 'image2', format: 'jpeg', width: 800, height: 600, title: 'Image 2' },
+    image3: { id: 'image3', format: 'jpeg', width: 800, height: 600, title: 'Image 3' },
+};
 
 describe('Slideshow Source', () => {
     beforeEach(() => {
@@ -39,24 +40,26 @@ describe('Slideshow Source', () => {
     });
 
     it('should throw error for less than 2 images', () => {
-        expect(() => source(['image1'], 1000)).toThrow(
+        expect(() => source(mockImages, ['image1'], 1000)).toThrow(
             'More than two valid image ids are required',
         );
     });
 
     it('should throw error for empty array', () => {
-        expect(() => source([], 1000)).toThrow('More than two valid image ids are required');
+        expect(() => source(mockImages, [], 1000)).toThrow(
+            'More than two valid image ids are required',
+        );
     });
 
     it('should start with first image', () => {
-        const store = source(['image1', 'image2', 'image3'], 1000);
+        const store = source(mockImages, ['image1', 'image2', 'image3'], 1000);
         const currentImage = get(store);
 
         expect(currentImage.id).toBe('image1');
     });
 
     it('should cycle through images on interval', () => {
-        const store = source(['image1', 'image2', 'image3'], 1000);
+        const store = source(mockImages, ['image1', 'image2', 'image3'], 1000);
         let currentImage: any;
 
         // Subscribe to activate the store
@@ -83,7 +86,7 @@ describe('Slideshow Source', () => {
     });
 
     it('should preload next image on initialization', () => {
-        const store = source(['image1', 'image2', 'image3'], 1000);
+        const store = source(mockImages, ['image1', 'image2', 'image3'], 1000);
         const unsubscribe = store.subscribe(() => {}); // Activate the store
 
         // Should preload image2 (next after image1)
@@ -94,7 +97,7 @@ describe('Slideshow Source', () => {
     });
 
     it('should preload next image on each cycle', () => {
-        const store = source(['image1', 'image2', 'image3'], 1000);
+        const store = source(mockImages, ['image1', 'image2', 'image3'], 1000);
         const unsubscribe = store.subscribe(() => {}); // Activate the store
 
         // Clear initial calls
@@ -117,7 +120,7 @@ describe('Slideshow Source', () => {
             id === 'invalid' ? null : images[id] || null,
         );
 
-        const store = source(['image1', 'invalid', 'image2'], 1000);
+        const store = source(mockImages, ['image1', 'invalid', 'image2'], 1000);
         let currentImage: any;
 
         const unsubscribe = store.subscribe((image) => {
@@ -139,7 +142,7 @@ describe('Slideshow Source', () => {
     });
 
     it('should cleanup interval on unsubscribe', () => {
-        const store = source(['image1', 'image2'], 1000);
+        const store = source(mockImages, ['image1', 'image2'], 1000);
         const unsubscribe = store.subscribe(() => {});
 
         // Verify timer is running

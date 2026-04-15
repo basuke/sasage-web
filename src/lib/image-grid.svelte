@@ -1,6 +1,8 @@
 <script lang="ts">
     import ImageCell from '$lib/image-cell.svelte';
-    import { data, findImage } from './data';
+    import { findImage } from './data';
+    import type { ImageSet } from './data';
+    import { page } from '$app/state';
 
     let {
         images = [],
@@ -13,8 +15,9 @@
     } = $props();
 
     function allWide(images: string[]): boolean {
+        const allImages = (page.data.images ?? {}) as ImageSet;
         return images
-            .map((id) => findImage(data.images, id))
+            .map((id) => findImage(allImages, id))
             .filter((n) => n)
             .every((image) => !image || image.width > image?.height);
     }

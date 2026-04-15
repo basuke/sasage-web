@@ -1,9 +1,5 @@
-const debug = process.env.NODE_ENV === 'development';
-
 import { writable } from 'svelte/store';
 import type { Writable } from 'svelte/store';
-import images from '../images.json';
-import collections from '../collections.json';
 import { browser } from '$app/environment';
 import { default as MarkdownIt } from 'markdown-it';
 export const email = 'sasage.mayumi@gmail.com';
@@ -87,16 +83,3 @@ export function translated(obj: Translatable | undefined, key: string, lang: str
     const htmls = lines.map((line) => md.renderInline(line));
     return htmls.join('<br>');
 }
-
-export const data: {
-    debug: boolean;
-    topImages: string[];
-    topImagesWide: string[];
-    works: Work[];
-    illustrations: string[];
-    images: ImageSet;
-} = {
-    debug,
-    ...collections,
-    images: images as ImageSet,
-};
