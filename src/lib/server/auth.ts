@@ -87,9 +87,11 @@ export async function getPasswordHash(platform?: App.Platform): Promise<string |
         ?.ADMIN_PASSWORD_HASH;
     if (typeof platformHash === 'string' && platformHash) return platformHash;
 
-    // Check process.env (dev mode)
-    const envHash = process.env.ADMIN_PASSWORD_HASH;
-    if (envHash) return envHash;
+    // Check process.env only on the explicit Node/dev path
+    if (dev && typeof process !== 'undefined') {
+        const envHash = process.env.ADMIN_PASSWORD_HASH;
+        if (envHash) return envHash;
+    }
 
     // In dev mode, use default password "admin"
     if (dev) {
@@ -182,6 +184,12 @@ let memoryStore: MemorySessionStore | undefined;
 export function getSessionStore(platform?: App.Platform): SessionStore {
     const db = platform?.env?.DB;
     if (db) return new D1SessionStore(db);
+
+    if (!dev) {
+        throw new Error(
+            'Session store misconfiguration: missing required D1 binding `DB` in non-dev environment.',
+        );
+    }
 
     if (!memoryStore) memoryStore = new MemorySessionStore();
     return memoryStore;
