@@ -1,3 +1,5 @@
+console.log('[hooks.server] module loaded');
+
 import { parseAcceptLanguage } from 'intl-parse-accept-language';
 import { redirect, error, type Handle } from '@sveltejs/kit';
 import { SESSION_COOKIE, getSessionStore } from '$lib/server/auth';
