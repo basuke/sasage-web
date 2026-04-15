@@ -8,6 +8,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
     // --- Authentication ---
     const path = event.url.pathname;
+    console.log('[hooks.server] path:', path);
     const isAdminPage = path.startsWith('/admin') && path !== '/admin/login';
     const isAdminApi = path.startsWith('/api/admin') && !path.startsWith('/api/admin/auth');
 
