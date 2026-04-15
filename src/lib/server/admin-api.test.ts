@@ -6,12 +6,11 @@ import type { Collections, DataStore } from '$lib/server/data-store';
 // Mock $app/environment
 vi.mock('$app/environment', () => ({ dev: true }));
 
-// Mock admin-guard — keep requireDev as a no-op, mock getCloudflareConfig
+// Mock admin-guard — mock getCloudflareConfig
 vi.mock('$lib/server/admin-guard', async (importOriginal) => {
     const orig = (await importOriginal()) as Record<string, unknown>;
     return {
         ...orig,
-        requireDev: vi.fn(),
         getCloudflareConfig: vi.fn().mockReturnValue({
             accountId: 'test-account',
             apiToken: 'test-token',
@@ -108,7 +107,7 @@ function mockEvent(overrides: Partial<RequestEvent> = {}): RequestEvent {
         params: {},
         request: new Request('http://localhost'),
         url: new URL('http://localhost'),
-        locals: { lang: 'en' },
+        locals: { lang: 'en', authenticated: true },
         cookies: {} as RequestEvent['cookies'],
         fetch: globalThis.fetch,
         getClientAddress: () => '127.0.0.1',

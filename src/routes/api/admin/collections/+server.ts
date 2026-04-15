@@ -1,17 +1,15 @@
 import { json, error } from '@sveltejs/kit';
 import type { RequestHandler } from '@sveltejs/kit';
-import { requireDev, parseJsonBody } from '$lib/server/admin-guard';
+import { parseJsonBody } from '$lib/server/admin-guard';
 import { getDataStore } from '$lib/server/data-store';
 
 export const GET: RequestHandler = async ({ platform }) => {
-    requireDev();
     const store = getDataStore(platform);
     const collections = await store.readCollections();
     return json({ collections });
 };
 
 export const PATCH: RequestHandler = async ({ request, platform }) => {
-    requireDev();
     const body = await parseJsonBody(request);
     const store = getDataStore(platform);
     const collections = await store.readCollections();

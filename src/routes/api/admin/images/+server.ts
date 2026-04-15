@@ -1,20 +1,17 @@
 import { json, error } from '@sveltejs/kit';
 import type { RequestHandler } from '@sveltejs/kit';
-import { requireDev, getCloudflareConfig } from '$lib/server/admin-guard';
+import { getCloudflareConfig } from '$lib/server/admin-guard';
 import { getDataStore } from '$lib/server/data-store';
 import { uploadImage, getImageInfo } from '$lib/server/cloudflare-images';
 import type { Image } from '$lib/data';
 
 export const GET: RequestHandler = async ({ platform }) => {
-    requireDev();
     const store = getDataStore(platform);
     const images = await store.readImages();
     return json({ images: Object.values(images) });
 };
 
 export const POST: RequestHandler = async ({ request, platform }) => {
-    requireDev();
-
     const formData = await request.formData();
     const file = formData.get('file');
     const id = formData.get('id');
