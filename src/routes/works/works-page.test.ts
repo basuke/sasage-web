@@ -1,9 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import type { Work } from '$lib/data';
 
-// Test the works page server load logic directly
-// (We test the findWork logic since the actual +page.server.ts
-// depends on SvelteKit types that are generated at build time)
+// Test findWork utility used by the works page server load
 
 import { findWork } from '$lib/data';
 
@@ -22,7 +20,7 @@ const mockWorks: Work[] = [
     },
 ];
 
-describe('Works page server load', () => {
+describe('findWork', () => {
     it('should find work by ID', () => {
         const work = findWork(mockWorks, 'zine-2023');
         expect(work).toBeDefined();

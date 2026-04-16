@@ -21,7 +21,7 @@ const mockImages: ImageSet = {
     },
 };
 
-describe('Images page server load', () => {
+describe('findImage', () => {
     it('should find image by simple ID', () => {
         const image = findImage(mockImages, 'profile');
         expect(image).not.toBeNull();
