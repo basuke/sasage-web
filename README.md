@@ -101,3 +101,44 @@ Put the following in .env file.
 CLOUDFLARE_ACCOUNT_ID = <account id>;
 CLOUDFLARE_IMAGES_API_TOKEN = <api token>;
 ```
+
+# Admin authentication
+
+The admin GUI at `/admin` and admin API at `/api/admin/*` are protected by
+password authentication. Sessions are stored in D1 (production) or in memory
+(dev), and the password is stored as a PBKDF2 hash in an environment variable.
+
+## Local development
+
+In dev mode, if `ADMIN_PASSWORD_HASH` is not set, a default password of
+`admin` is used automatically. To use a custom dev password, add the hash to
+your `.env` file:
+
+```
+ADMIN_PASSWORD_HASH=<salt_hex>:<hash_hex>
+```
+
+## Production setup
+
+1. Generate a password hash:
+
+    ```
+    pnpm hash-password
+    ```
+
+    (Or pass the password as an argument: `pnpm hash-password 'my-password'`.)
+
+2. In the Cloudflare Pages dashboard, open **Settings → Environment variables**
+   and add a new variable:
+    - Name: `ADMIN_PASSWORD_HASH`
+    - Value: the `salt_hex:hash_hex` string from step 1
+    - Type: **Secret** (encrypted)
+
+3. Apply the sessions table migration to D1:
+
+    ```
+    wrangler d1 execute <database-name> --file=migrations/0002_sessions.sql --remote
+    ```
+
+To change the password later, repeat step 1 with a new password and update the
+`ADMIN_PASSWORD_HASH` variable in Cloudflare Pages.

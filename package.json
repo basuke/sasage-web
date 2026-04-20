@@ -4,6 +4,7 @@
     "license": "MIT",
     "scripts": {
         "upload-images": "node scripts/upload.mjs",
+        "hash-password": "node scripts/hash-password.mjs",
         "dev": "vite dev",
         "build": "vite build",
         "package": "svelte-kit package",
