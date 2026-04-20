@@ -4,15 +4,11 @@ compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
 
 # D1 database binding
-# To set up:
-#   1. pnpm wrangler d1 create sasage-web-db
-#   2. Uncomment the [[d1_databases]] block below and fill in database_id
-#   3. pnpm wrangler d1 migrations apply sasage-web-db --remote
-#   4. Also bind `DB` to the database in the Cloudflare Pages dashboard
-#      (Settings → Functions → D1 database bindings)
-#
-# [[d1_databases]]
-# binding = "DB"
-# database_name = "sasage-web-db"
-# database_id = "<fill-in-after-d1-create>"
-# migrations_dir = "migrations"
+# Migrations: pnpm wrangler d1 migrations apply sasage-web-db --remote
+# Also bind `DB` in the Cloudflare Pages dashboard
+# (Settings → Functions → D1 database bindings)
+[[d1_databases]]
+binding = "DB"
+database_name = "sasage-web-db"
+database_id = "da903698-8721-4858-9ec7-530fe08a56a1"
+migrations_dir = "migrations"
