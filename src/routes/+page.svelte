@@ -1,12 +1,13 @@
 <script lang="ts">
-    import { data } from '$lib/data';
-
+    import type { Work } from '$lib/data';
     import WorkGrid from '$lib/work-grid.svelte';
     import ImageGrid from '$lib/image-grid.svelte';
     import Container from '$lib/container.svelte';
 
-    const works = data.works;
-    const illustrations = data.illustrations;
+    let { data }: { data: { works: Work[]; illustrations: string[] } } = $props();
+
+    let works = $derived(data.works);
+    let illustrations = $derived(data.illustrations);
 </script>
 
 <svelte:head>

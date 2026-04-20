@@ -1,12 +1,12 @@
 /**
- * Migration script: JSON files → D1 SQL
+ * Seed script: JSON files → D1 SQL
  *
  * Reads src/images.json and src/collections.json, outputs SQL INSERT statements
  * that can be applied to a D1 database.
  *
  * Usage:
- *   npx tsx scripts/migrate-to-d1.ts > migrations/0002_seed_data.sql
- *   wrangler d1 execute sasage-web-db --local --file=migrations/0002_seed_data.sql
+ *   pnpm tsx scripts/migrate-to-d1.ts > /tmp/seed.sql
+ *   pnpm wrangler d1 execute sasage-web-db --remote --file=/tmp/seed.sql
  */
 
 import { readFileSync } from 'node:fs';

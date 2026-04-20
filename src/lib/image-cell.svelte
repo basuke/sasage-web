@@ -1,5 +1,7 @@
 <script lang="ts">
-    import { findImage, data } from './data';
+    import { findImage } from './data';
+    import type { ImageSet } from './data';
+    import { page } from '$app/state';
     import Img from './img.svelte';
 
     let {
@@ -18,7 +20,7 @@
         r4x3?: boolean;
     } = $props();
 
-    const image = id ? findImage(data.images, id) : null;
+    const image = id ? findImage((page.data.images ?? {}) as ImageSet, id) : null;
     let cellClass = 'px-16 sm:px-8';
     let span = 1;
 

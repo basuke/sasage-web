@@ -1,5 +1,5 @@
 import { readable, type Readable, type Subscriber } from 'svelte/store';
-import { data, findImage, imagePath, type Image } from './data';
+import { findImage, imagePath, type Image, type ImageSet } from './data';
 
 /**
  * Manages crossfade transition state for a slideshow using two alternating layers.
@@ -67,9 +67,13 @@ export function createTransition(imageSource: Readable<Image>) {
     };
 }
 
-export function source(imageIds: string[], interval: number = 5000): Readable<Image> {
+export function source(
+    allImages: ImageSet,
+    imageIds: string[],
+    interval: number = 5000,
+): Readable<Image> {
     const images: Image[] = imageIds
-        .map((id) => findImage(data.images, id) as Image)
+        .map((id) => findImage(allImages, id) as Image)
         .filter((n) => n);
     if (images.length < 2) {
         throw new Error('More than two valid image ids are required');

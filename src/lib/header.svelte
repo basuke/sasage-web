@@ -1,6 +1,5 @@
 <script lang="ts">
     import { fly } from 'svelte/transition';
-    import { data } from './data';
     import { page } from '$app/state';
     import ExternalLinks from './external-links.svelte';
     import Container from './container.svelte';
@@ -36,11 +35,11 @@
                 <div class="mb-4 px-4 md:text-right"><ExternalLinks /></div>
 
                 <div class="lg:hidden">
-                    <SlideShow images={data.topImages} />
+                    <SlideShow images={(page.data.topImages ?? []) as string[]} />
                 </div>
 
                 <div class="hidden lg:block">
-                    <SlideShow images={data.topImagesWide} wide />
+                    <SlideShow images={(page.data.topImagesWide ?? []) as string[]} wide />
                 </div>
 
                 <ul class="my-3 flex justify-center text-xl font-light space-x-4 text-gray-500">
@@ -78,7 +77,7 @@
         </div>
     {/if}
 
-    {#if data.debug}
+    {#if page.data.debug}
         <div
             class="px-2 py-1 fixed left-1 bottom-1 text-xs rounded bg-blue-400 bg-opacity-70 text-indigo-100"
         >

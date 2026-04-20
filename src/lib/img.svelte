@@ -1,6 +1,7 @@
 <script lang="ts">
-    import { data, lang, findImage, imagePath, translated } from './data';
-    import type { Image } from './data';
+    import { lang, findImage, imagePath, translated } from './data';
+    import type { Image, ImageSet } from './data';
+    import { page } from '$app/state';
 
     let {
         id = null,
@@ -28,7 +29,7 @@
         onload?: (() => void) | undefined;
     } = $props();
 
-    let image = $derived(id ? findImage(data.images, id) : imageProp);
+    let image = $derived(id ? findImage((page.data.images ?? {}) as ImageSet, id) : imageProp);
 
     function genMedia(w: number) {
         if (columns && columns > 1 && span >= 1) {

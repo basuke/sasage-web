@@ -9,6 +9,9 @@
 .vercel
 .output
 
+# Wrangler local state
+.wrangler/
+
 # Logs
 logs
 *.log

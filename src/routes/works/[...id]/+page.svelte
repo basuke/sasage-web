@@ -4,10 +4,10 @@
     import ImageGrid from '$lib/image-grid.svelte';
     import Container from '$lib/container.svelte';
 
-    let { data }: { data: { work: Work; images: string[] } } = $props();
+    let { data }: { data: { work: Work; workImages: string[] } } = $props();
 
     let work = $derived(data.work);
-    let images = $derived(data.images);
+    let images = $derived(data.workImages);
 
     let title = $derived(translated(work, 'title', $lang) ?? '');
     let subtitle = $derived(translated(work, 'subtitle', $lang) ?? '');
