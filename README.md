@@ -16,6 +16,55 @@ node (18)
 
 Pushing to origin/main invokes deployment to Cloudflare Pages. (via GitHub Action)
 
+The site loads data from Cloudflare D1 at request time (with static JSON fallback when D1 is unavailable).
+
+## D1 Database Setup
+
+### Initial setup (one-time)
+
+```bash
+# 1. Create the D1 database
+pnpm wrangler d1 create sasage-web-db
+
+# 2. Copy the database_id from the output into wrangler.toml
+
+# 3. Apply schema migrations
+pnpm wrangler d1 migrations apply sasage-web-db --remote
+
+# 4. Seed initial data from JSON files
+pnpm tsx scripts/migrate-to-d1.ts > /tmp/seed.sql
+pnpm wrangler d1 execute sasage-web-db --remote --file=/tmp/seed.sql
+```
+
+### Adding new migrations
+
+```bash
+# Create a new migration file
+pnpm wrangler d1 migrations create sasage-web-db <migration-name>
+
+# Edit the generated file in migrations/
+
+# Apply to remote
+pnpm wrangler d1 migrations apply sasage-web-db --remote
+
+# Apply to local (for development)
+pnpm wrangler d1 migrations apply sasage-web-db --local
+```
+
+### Local development with D1
+
+```bash
+# Start dev server with local D1 (SQLite-backed)
+pnpm wrangler pages dev .svelte-kit/cloudflare --d1=DB
+
+# Or use vite dev (falls back to static JSON, no D1 needed)
+pnpm dev
+```
+
+### Bindings
+
+The D1 binding is defined in `wrangler.toml` and automatically picked up by Cloudflare Pages. No manual dashboard configuration is needed.
+
 # How to run tests?
 
 This project includes comprehensive testing infrastructure:
