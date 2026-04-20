@@ -171,27 +171,93 @@ pnpm upload-images
 - `/about` - About page
 - `/collections/[...id]` - Collection pages
 
+### Admin Routes (authenticated)
+
+- `/admin` - Dashboard
+- `/admin/login` - Password login
+- `/admin/images` - Image gallery, upload, metadata editing
+- `/admin/collections` - Collection reordering and membership management
+- `/admin/works` - Works CRUD (title, subtitle, cover, work images)
+
+All `/admin/*` and `/api/admin/*` routes are gated by `src/hooks.server.ts`, which validates the `admin_session` cookie against the session store. Unauthenticated requests are redirected to `/admin/login` (pages) or rejected with 401 (API).
+
+### Admin API
+
+- `POST   /api/admin/auth/login` - password → session cookie
+- `POST   /api/admin/auth/logout`
+- `GET    /api/admin/auth/status` - current session state
+- `GET    /api/admin/images`, `PATCH /api/admin/images/[id]`, `DELETE /api/admin/images/[id]`
+- `POST   /api/admin/images/upload` - proxies to Cloudflare Images
+- `GET    /api/admin/collections`, `PUT /api/admin/collections/[name]`
+- `GET    /api/admin/works`, `POST /api/admin/works`, `PATCH /api/admin/works/[id]`, `DELETE /api/admin/works/[id]`, `PUT /api/admin/works/reorder`
+
+### Data Layer: D1 + JSON Fallback
+
+The public site and admin API share a `DataStore` interface (`src/lib/server/data-store.ts`). In production, `D1DataStore` (`src/lib/server/d1-data-store.ts`) reads and writes Cloudflare D1. In local dev without a `DB` binding, the layout server falls back to the bundled `src/images.json` / `src/collections.json` for read-only rendering — admin writes require D1.
+
+D1 schema (see `migrations/`):
+
+- `images(id, format, width, height, title, title_ja, description, description_ja, sha1, created_at)`
+- `collections(name, image_id, position)` - ordered membership
+- `works(id, cover_image_id, title, title_ja, subtitle, subtitle_ja, position)`
+- `work_images(work_id, image_id, position)` - ordered membership
+- `sessions(token, expires_at)` with `idx_sessions_expires_at`
+
+### Authentication
+
+- Passwords are stored as `salt_hex:hash_hex` PBKDF2-SHA256 (100k iterations) in the `ADMIN_PASSWORD_HASH` secret.
+- Generate a hash with `pnpm hash-password <password>` and store it in the Cloudflare Pages environment (or `.env` for dev).
+- In dev, if `ADMIN_PASSWORD_HASH` is unset, the password defaults to `admin` (logged once to the console).
+- Session tokens are 32 random bytes (hex). Sessions live in the `sessions` D1 table in production and an in-memory `MemorySessionStore` in dev.
+- `SESSION_MAX_AGE = 7 days`. The `admin_session` cookie is HttpOnly, SameSite=Lax, Secure in prod.
+
 ### Image Pipeline
 
 1. Local images stored in `/images/` directory
 2. Upload script (`scripts/upload.mjs`) processes and uploads to Cloudflare Images
-3. Image metadata stored in `src/images.json`
-4. Dynamic image variants served via Cloudflare Images CDN
+3. Image metadata stored in `src/images.json` (legacy seed data for D1 + dev fallback)
+4. Admin upload endpoint streams new uploads to Cloudflare Images and records metadata in D1
+5. Dynamic image variants served via Cloudflare Images CDN
 
 ### Content Management
 
-- Content definitions in `src/lib/data.ts`
-- Bilingual support via `TranslatableString` type
-- Works and illustrations managed as TypeScript objects
+- Bilingual support via `TranslatableString` type (`{ en, ja }`)
+- Public data is loaded from D1 in `src/routes/+layout.server.ts` with static-JSON fallback
+- Admin writes go through `DataStore` methods, so the same validation applies to all mutation paths
+
+### Environment Setup
+
+Required bindings and secrets (set in Cloudflare Pages → Settings → Functions):
+
+- `DB` - D1 database binding (name: `sasage-web-db`, see `wrangler.toml`)
+- `ADMIN_PASSWORD_HASH` - PBKDF2 hash from `pnpm hash-password`
+- Cloudflare Images credentials for the upload script (see `scripts/upload.mjs`)
+
+Apply D1 migrations with:
+
+```bash
+pnpm wrangler d1 migrations apply sasage-web-db --remote
+```
 
 ## Key Files to Understand
 
-- `src/lib/data.ts` - Main data definitions and image utilities
+- `src/lib/data.ts` - Shared data definitions, types, and image utilities
 - `src/lib/img.svelte` - Responsive image component with Cloudflare integration
 - `src/lib/image-grid.svelte` - Grid layout for image galleries
+- `src/lib/image-cell.svelte` - Individual cell with aspect-ratio-aware layout
 - `src/lib/slideshow-source.ts` - Slideshow logic with image preloading
+- `src/lib/server/data-store.ts` - `DataStore` interface used by public + admin
+- `src/lib/server/d1-data-store.ts` - D1 implementation of `DataStore`
+- `src/lib/server/auth.ts` - PBKDF2 hashing, session stores (memory + D1)
+- `src/lib/server/cloudflare-images.ts` - Cloudflare Images API client
+- `src/hooks.server.ts` - Admin route auth guard
+- `src/routes/api/admin/` - Admin REST endpoints
+- `src/routes/admin/` - Admin UI (SvelteKit pages)
+- `src/lib/admin/` - Admin-only components (image-picker, works-crud, etc.)
+- `migrations/` - D1 schema migrations
 - `scripts/upload.mjs` - Image upload automation
-- `src/images.json` - Image metadata (generated by upload script)
+- `scripts/hash-password.mjs` - Admin password hash generator
+- `src/images.json` - Image metadata (seed data + dev fallback)
 - `eslint.config.js` - ESLint v9 flat configuration
 - `vitest.config.ts` - Test configuration and setup
 - `.github/workflows/` - CI/CD pipeline definitions

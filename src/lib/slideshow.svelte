@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onDestroy } from 'svelte';
+    import { onDestroy, untrack } from 'svelte';
     import type { ImageSet } from './data';
     import { page } from '$app/state';
     import Img from './img.svelte';
@@ -10,7 +10,11 @@
     const interval = 8000;
     const duration = 1000;
 
-    const imageSource = source((page.data.images ?? {}) as ImageSet, images, interval);
+    // The slideshow's source and transition are intentionally initialized once from
+    // the starting props; they manage their own interval and subscription lifecycle.
+    const imageSource = untrack(() =>
+        source((page.data.images ?? {}) as ImageSet, images, interval),
+    );
     const transition = createTransition(imageSource);
 
     let imageA = $state(transition.imageA);
