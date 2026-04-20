@@ -3,6 +3,15 @@ pages_build_output_dir = ".svelte-kit/cloudflare"
 compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
 
-# D1 database binding is configured in the Cloudflare Pages dashboard.
-# For local development with D1, use:
-#   wrangler pages dev --d1=DB=<database-id>
+# D1 database binding
+# To set up:
+#   1. pnpm wrangler d1 create sasage-web-db
+#   2. Copy the printed database_id into `database_id` below
+#   3. pnpm wrangler d1 migrations apply sasage-web-db --remote
+#   4. Bind `DB` to this database in the Cloudflare Pages dashboard
+#      (Settings → Functions → D1 database bindings)
+[[d1_databases]]
+binding = "DB"
+database_name = "sasage-web-db"
+database_id = "REPLACE_WITH_DATABASE_ID"
+migrations_dir = "migrations"
