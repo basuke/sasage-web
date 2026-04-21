@@ -95,7 +95,10 @@ class MemoryUserStore implements UserStore {
     private users = new Map<string, User>();
 
     constructor(seed?: User) {
-        if (seed) this.users.set(seed.email, seed);
+        if (seed) {
+            const key = normalizeEmail(seed.email);
+            this.users.set(key, { ...seed, email: key });
+        }
     }
 
     async findByEmail(email: string): Promise<User | null> {

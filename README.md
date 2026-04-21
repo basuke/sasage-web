@@ -144,6 +144,14 @@ below) and apply the generated SQL with `pnpm wrangler d1 execute <database>
 
 3. Log in at `/admin/login` with the email + password.
 
-To change a password, re-register the same email with a new password. The
-`INSERT` will fail (email is the primary key); use `UPDATE users SET
-password_hash = '...' WHERE email = '...'` instead, or `DELETE` the row first.
+To change a password, delete the existing user row and re-register. Example:
+
+```
+pnpm wrangler d1 execute sasage-web-db --remote --command "DELETE FROM users WHERE email = 'you@example.com'"
+pnpm create-user you@example.com
+# ... then pipe / paste the printed INSERT into wrangler d1 execute ...
+```
+
+The `DELETE` also clears any active sessions for that user (via the
+`ON DELETE CASCADE` foreign key on `sessions.user_email`), forcing a
+re-login with the new password.

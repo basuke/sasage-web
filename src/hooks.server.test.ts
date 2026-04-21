@@ -136,6 +136,13 @@ describe('hooks.server - admin pages (unauthenticated)', () => {
         const event = createMockEvent('/admin/works', { cookie: 'invalid-token' });
         await expectRedirect(() => handle({ event, resolve: mockResolve }), 303, '/admin/login');
     });
+
+    it('deletes the session cookie when the session is invalid', async () => {
+        mockValidate.mockResolvedValue(null);
+        const event = createMockEvent('/admin/works', { cookie: 'invalid-token' });
+        await expectRedirect(() => handle({ event, resolve: mockResolve }), 303, '/admin/login');
+        expect(event.cookies.delete).toHaveBeenCalledWith('admin_session', { path: '/' });
+    });
 });
 
 describe('hooks.server - admin API (unauthenticated)', () => {

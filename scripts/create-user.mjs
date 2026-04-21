@@ -13,7 +13,10 @@
  *
  *   pnpm create-user me@example.com | pnpm wrangler d1 execute sasage-web-db --remote --command "$(cat)"
  *
- * Or copy/paste the SQL into `wrangler d1 execute ... --command "..."`.
+ * Or copy/paste the `wrangler d1 execute ...` command the script prints.
+ *
+ * Note: this script does not mask password input — it's an admin-only tool
+ * run interactively in a trusted terminal.
  */
 
 import { createInterface } from 'node:readline/promises';
@@ -62,34 +65,12 @@ function sqlEscape(value) {
     return value.replace(/'/g, "''");
 }
 
-async function prompt(rl, question, { silent = false } = {}) {
-    if (!silent) return rl.question(question);
-
-    // Silent prompt (suppresses echo) for passwords when attached to a TTY.
-    const answer = await new Promise((resolve) => {
-        const onData = (buf) => {
-            const s = buf.toString('utf8');
-            // Ignore control sequences; readline will pick up the final line.
-            if (s.includes('')) {
-                stdout.write('\n');
-                exit(130);
-            }
-        };
-        stdin.on('data', onData);
-        rl.question(question).then((v) => {
-            stdin.off('data', onData);
-            resolve(v);
-        });
-    });
-    return answer;
-}
-
 async function readInteractive(initialEmail, initialPassword) {
     const rl = createInterface({ input: stdin, output: stderr });
     try {
         let email = initialEmail ?? '';
         if (!email) {
-            email = await prompt(rl, 'Email: ');
+            email = await rl.question('Email: ');
         }
         email = normalizeEmail(email);
         if (!email) {
@@ -103,12 +84,12 @@ async function readInteractive(initialEmail, initialPassword) {
 
         let password = initialPassword ?? '';
         if (!password) {
-            password = await prompt(rl, 'Password: ');
+            password = await rl.question('Password: ');
             if (!password) {
                 stderr.write('Password cannot be empty\n');
                 exit(1);
             }
-            const confirm = await prompt(rl, 'Confirm:  ');
+            const confirm = await rl.question('Confirm:  ');
             if (password !== confirm) {
                 stderr.write('Passwords do not match\n');
                 exit(1);
@@ -145,3 +126,7 @@ stderr.write(
 );
 stderr.write('\n');
 stderr.write('For local dev, replace --remote with --local.\n');
+stderr.write(
+    'To replace an existing user first delete then re-create:\n' +
+        `  pnpm wrangler d1 execute sasage-web-db --remote --command "DELETE FROM users WHERE email = '${sqlEscape(email)}'"\n`,
+);
