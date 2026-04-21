@@ -7,6 +7,9 @@ export const handle: Handle = async ({ event, resolve }) => {
     event.locals.lang = preferredLanguage(event.request);
 
     // --- Authentication ---
+    event.locals.authenticated = false;
+    event.locals.user = null;
+
     const path = event.url.pathname;
     const isAdminPage = path.startsWith('/admin') && path !== '/admin/login';
     const isAdminApi = path.startsWith('/api/admin') && !path.startsWith('/api/admin/auth');
@@ -19,8 +22,8 @@ export const handle: Handle = async ({ event, resolve }) => {
         }
 
         const sessionStore = getSessionStore(event.platform);
-        const valid = await sessionStore.validate(token);
-        if (!valid) {
+        const session = await sessionStore.validate(token);
+        if (!session) {
             // Clear invalid cookie
             event.cookies.delete(SESSION_COOKIE, { path: '/' });
             if (isAdminApi) throw error(401, 'Session expired');
@@ -28,8 +31,7 @@ export const handle: Handle = async ({ event, resolve }) => {
         }
 
         event.locals.authenticated = true;
-    } else {
-        event.locals.authenticated = false;
+        event.locals.user = { email: session.userEmail };
     }
 
     return resolve(event);

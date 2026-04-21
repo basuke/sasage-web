@@ -159,6 +159,9 @@ pnpm check
 
 # Upload images to Cloudflare
 pnpm upload-images
+
+# Register an admin user (emits INSERT SQL for D1)
+pnpm create-user [email] [password]
 ```
 
 ## Architecture Notes
@@ -174,7 +177,7 @@ pnpm upload-images
 ### Admin Routes (authenticated)
 
 - `/admin` - Dashboard
-- `/admin/login` - Password login
+- `/admin/login` - Email + password login
 - `/admin/images` - Image gallery, upload, metadata editing
 - `/admin/collections` - Collection reordering and membership management
 - `/admin/works` - Works CRUD (title, subtitle, cover, work images)
@@ -183,9 +186,8 @@ All `/admin/*` and `/api/admin/*` routes are gated by `src/hooks.server.ts`, whi
 
 ### Admin API
 
-- `POST   /api/admin/auth/login` - password → session cookie
-- `POST   /api/admin/auth/logout`
-- `GET    /api/admin/auth/status` - current session state
+- `POST   /api/admin/auth` - `{ email, password }` → session cookie
+- `DELETE /api/admin/auth` - logout (clears session)
 - `GET    /api/admin/images`, `PATCH /api/admin/images/[id]`, `DELETE /api/admin/images/[id]`
 - `POST   /api/admin/images/upload` - proxies to Cloudflare Images
 - `GET    /api/admin/collections`, `PUT /api/admin/collections/[name]`
@@ -201,14 +203,16 @@ D1 schema (see `migrations/`):
 - `collections(name, image_id, position)` - ordered membership
 - `works(id, cover_image_id, title, title_ja, subtitle, subtitle_ja, position)`
 - `work_images(work_id, image_id, position)` - ordered membership
-- `sessions(token, expires_at)` with `idx_sessions_expires_at`
+- `users(email, password_hash, created_at)`
+- `sessions(token, user_email, expires_at)` with `idx_sessions_expires_at`, FK → `users(email)` ON DELETE CASCADE
 
 ### Authentication
 
-- Passwords are stored as `salt_hex:hash_hex` PBKDF2-SHA256 (100k iterations) in the `ADMIN_PASSWORD_HASH` secret.
-- Generate a hash with `pnpm hash-password <password>` and store it in the Cloudflare Pages environment (or `.env` for dev).
-- In dev, if `ADMIN_PASSWORD_HASH` is unset, the password defaults to `admin` (logged once to the console).
-- Session tokens are 32 random bytes (hex). Sessions live in the `sessions` D1 table in production and an in-memory `MemorySessionStore` in dev.
+- Login requires email + password. Users are stored in the `users` D1 table; the login form uses `autocomplete="username"` / `current-password"` for password-manager compatibility.
+- Passwords are stored as `salt_hex:hash_hex` PBKDF2-SHA256 (100k iterations) in `users.password_hash`. Constant-time verification; a dummy hash is verified for unknown emails so timing does not reveal which emails exist.
+- Register a user with `pnpm create-user [email] [password]`. The script prints an `INSERT INTO users (...)` statement to stdout for piping into `wrangler d1 execute`.
+- In dev, if no `DB` binding is present, an in-memory user store is seeded with `admin@example.com` / `admin` (logged once to the console).
+- Session tokens are 32 random bytes (hex). Sessions live in the `sessions` D1 table in production and an in-memory `MemorySessionStore` in dev. Each session row carries the owning `user_email`, exposed to request handlers as `event.locals.user = { email }`.
 - `SESSION_MAX_AGE = 7 days`. The `admin_session` cookie is HttpOnly, SameSite=Lax, Secure in prod.
 
 ### Image Pipeline
@@ -229,8 +233,7 @@ D1 schema (see `migrations/`):
 
 Required bindings and secrets (set in Cloudflare Pages → Settings → Functions):
 
-- `DB` - D1 database binding (name: `sasage-web-db`, see `wrangler.toml`)
-- `ADMIN_PASSWORD_HASH` - PBKDF2 hash from `pnpm hash-password`
+- `DB` - D1 database binding (name: `sasage-web-db`, see `wrangler.toml`); admin users live in this database (`users` table)
 - Cloudflare Images credentials for the upload script (see `scripts/upload.mjs`)
 
 Apply D1 migrations with:
@@ -256,7 +259,7 @@ pnpm wrangler d1 migrations apply sasage-web-db --remote
 - `src/lib/admin/` - Admin-only components (image-picker, works-crud, etc.)
 - `migrations/` - D1 schema migrations
 - `scripts/upload.mjs` - Image upload automation
-- `scripts/hash-password.mjs` - Admin password hash generator
+- `scripts/create-user.mjs` - Admin user registration (emits SQL for D1)
 - `src/images.json` - Image metadata (seed data + dev fallback)
 - `eslint.config.js` - ESLint v9 flat configuration
 - `vitest.config.ts` - Test configuration and setup

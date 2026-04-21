@@ -7,15 +7,16 @@ vi.mock('$app/environment', () => ({ dev: true }));
 // Mock auth module
 const mockCreate = vi.fn();
 const mockDelete = vi.fn();
-const mockGetPasswordHash = vi.fn();
-const mockVerifyPassword = vi.fn();
+const mockAuthenticateUser = vi.fn();
+const mockGetUserStore = vi.fn().mockResolvedValue({ findByEmail: vi.fn() });
 const mockGenerateSessionToken = vi.fn().mockReturnValue('mock-session-token');
 
 vi.mock('$lib/server/auth', () => ({
     SESSION_COOKIE: 'admin_session',
     SESSION_MAX_AGE: 604800,
-    getPasswordHash: (...args: unknown[]) => mockGetPasswordHash(...args),
-    verifyPassword: (...args: unknown[]) => mockVerifyPassword(...args),
+    authenticateUser: (...args: unknown[]) => mockAuthenticateUser(...args),
+    getUserStore: (...args: unknown[]) => mockGetUserStore(...args),
+    normalizeEmail: (email: string) => email.trim().toLowerCase(),
     generateSessionToken: () => mockGenerateSessionToken(),
     getSessionStore: () => ({
         create: mockCreate,
@@ -35,7 +36,7 @@ function mockEvent(overrides: Partial<RequestEvent> = {}): RequestEvent {
         params: {},
         request: new Request('http://localhost'),
         url: new URL('http://localhost'),
-        locals: { lang: 'en' as Lang, authenticated: false },
+        locals: { lang: 'en' as Lang, authenticated: false, user: null },
         cookies: {
             get: (name: string) => cookieStore.get(name),
             set: vi.fn((name: string, value: string) => cookieStore.set(name, value)),
@@ -78,17 +79,22 @@ beforeEach(() => {
 });
 
 describe('Auth API - POST (login)', () => {
-    it('returns 200 and sets session cookie on correct password', async () => {
-        mockGetPasswordHash.mockResolvedValue('stored-hash');
-        mockVerifyPassword.mockResolvedValue(true);
+    it('returns 200 and sets session cookie on valid email + password', async () => {
+        mockAuthenticateUser.mockResolvedValue('user@example.com');
 
-        const event = mockEvent({ request: jsonRequest('POST', { password: 'correct' }) });
+        const event = mockEvent({
+            request: jsonRequest('POST', { email: 'user@example.com', password: 'correct' }),
+        });
         const res = await POST(event);
         const data = await res.json();
 
         expect(res.status).toBe(200);
         expect(data.success).toBe(true);
-        expect(mockCreate).toHaveBeenCalledWith('mock-session-token', expect.any(Number));
+        expect(mockCreate).toHaveBeenCalledWith(
+            'mock-session-token',
+            'user@example.com',
+            expect.any(Number),
+        );
         expect(event.cookies.set).toHaveBeenCalledWith(
             'admin_session',
             'mock-session-token',
@@ -99,32 +105,79 @@ describe('Auth API - POST (login)', () => {
         );
     });
 
-    it('returns 401 on incorrect password', async () => {
-        mockGetPasswordHash.mockResolvedValue('stored-hash');
-        mockVerifyPassword.mockResolvedValue(false);
+    it('stores the normalized email in the session on login', async () => {
+        mockAuthenticateUser.mockResolvedValue('user@example.com');
+
+        const event = mockEvent({
+            request: jsonRequest('POST', {
+                email: '  User@Example.COM ',
+                password: 'correct',
+            }),
+        });
+        await POST(event);
+
+        expect(mockCreate).toHaveBeenCalledWith(
+            'mock-session-token',
+            'user@example.com',
+            expect.any(Number),
+        );
+    });
+
+    it('returns 401 on bad credentials', async () => {
+        mockAuthenticateUser.mockResolvedValue(null);
 
         await expectHttpError(
-            () => POST(mockEvent({ request: jsonRequest('POST', { password: 'wrong' }) })),
+            () =>
+                POST(
+                    mockEvent({
+                        request: jsonRequest('POST', {
+                            email: 'user@example.com',
+                            password: 'wrong',
+                        }),
+                    }),
+                ),
             401,
         );
     });
 
-    it('returns 503 when auth is not configured', async () => {
-        mockGetPasswordHash.mockResolvedValue(undefined);
-
+    it('returns 400 when email is missing', async () => {
         await expectHttpError(
-            () => POST(mockEvent({ request: jsonRequest('POST', { password: 'anything' }) })),
-            503,
+            () => POST(mockEvent({ request: jsonRequest('POST', { password: 'pw' }) })),
+            400,
+        );
+    });
+
+    it('returns 400 when email is empty', async () => {
+        await expectHttpError(
+            () =>
+                POST(mockEvent({ request: jsonRequest('POST', { email: '   ', password: 'pw' }) })),
+            400,
         );
     });
 
     it('returns 400 when password is missing', async () => {
-        await expectHttpError(() => POST(mockEvent({ request: jsonRequest('POST', {}) })), 400);
+        await expectHttpError(
+            () =>
+                POST(
+                    mockEvent({
+                        request: jsonRequest('POST', { email: 'user@example.com' }),
+                    }),
+                ),
+            400,
+        );
     });
 
     it('returns 400 when password is empty', async () => {
         await expectHttpError(
-            () => POST(mockEvent({ request: jsonRequest('POST', { password: '' }) })),
+            () =>
+                POST(
+                    mockEvent({
+                        request: jsonRequest('POST', {
+                            email: 'user@example.com',
+                            password: '',
+                        }),
+                    }),
+                ),
             400,
         );
     });

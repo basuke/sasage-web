@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 // Mock $app/environment
 vi.mock('$app/environment', () => ({ dev: true }));
@@ -7,10 +7,15 @@ import {
     createPasswordHash,
     verifyPassword,
     generateSessionToken,
-    getPasswordHash,
+    normalizeEmail,
+    authenticateUser,
+    getUserStore,
     MemorySessionStore,
+    MemoryUserStore,
     SESSION_MAX_AGE,
     SESSION_COOKIE,
+    type User,
+    type UserStore,
 } from './auth';
 
 describe('Password hashing', () => {
@@ -54,6 +59,16 @@ describe('Password hashing', () => {
     });
 });
 
+describe('normalizeEmail', () => {
+    it('lowercases and trims', () => {
+        expect(normalizeEmail('  User@Example.COM ')).toBe('user@example.com');
+    });
+
+    it('leaves already-normalized emails unchanged', () => {
+        expect(normalizeEmail('user@example.com')).toBe('user@example.com');
+    });
+});
+
 describe('Session token generation', () => {
     it('generates a 64-char hex string (32 bytes)', () => {
         const token = generateSessionToken();
@@ -74,75 +89,109 @@ describe('MemorySessionStore', () => {
         store = new MemorySessionStore();
     });
 
-    it('creates and validates a session', async () => {
+    it('creates and validates a session, returning the user email', async () => {
         const token = 'test-token';
         const expiresAt = Date.now() + 60_000;
-        await store.create(token, expiresAt);
-        expect(await store.validate(token)).toBe(true);
+        await store.create(token, 'user@example.com', expiresAt);
+        const session = await store.validate(token);
+        expect(session).toEqual({ userEmail: 'user@example.com' });
     });
 
     it('rejects a non-existent session', async () => {
-        expect(await store.validate('nonexistent')).toBe(false);
+        expect(await store.validate('nonexistent')).toBeNull();
     });
 
     it('rejects an expired session', async () => {
         const token = 'expired-token';
         const expiresAt = Date.now() - 1000; // already expired
-        await store.create(token, expiresAt);
-        expect(await store.validate(token)).toBe(false);
+        await store.create(token, 'user@example.com', expiresAt);
+        expect(await store.validate(token)).toBeNull();
     });
 
     it('deletes a session', async () => {
         const token = 'delete-me';
-        await store.create(token, Date.now() + 60_000);
-        expect(await store.validate(token)).toBe(true);
+        await store.create(token, 'user@example.com', Date.now() + 60_000);
+        expect(await store.validate(token)).not.toBeNull();
 
         await store.delete(token);
-        expect(await store.validate(token)).toBe(false);
+        expect(await store.validate(token)).toBeNull();
     });
 
     it('cleanup removes expired sessions', async () => {
-        await store.create('valid', Date.now() + 60_000);
-        await store.create('expired1', Date.now() - 1000);
-        await store.create('expired2', Date.now() - 2000);
+        await store.create('valid', 'user@example.com', Date.now() + 60_000);
+        await store.create('expired1', 'user@example.com', Date.now() - 1000);
+        await store.create('expired2', 'user@example.com', Date.now() - 2000);
 
         await store.cleanup();
 
-        expect(await store.validate('valid')).toBe(true);
-        // expired ones were already cleaned up by validate or cleanup
-        expect(await store.validate('expired1')).toBe(false);
-        expect(await store.validate('expired2')).toBe(false);
+        expect(await store.validate('valid')).not.toBeNull();
+        expect(await store.validate('expired1')).toBeNull();
+        expect(await store.validate('expired2')).toBeNull();
     });
 });
 
-describe('getPasswordHash', () => {
-    const originalEnv = process.env;
-
-    beforeEach(() => {
-        process.env = { ...originalEnv };
-        delete process.env.ADMIN_PASSWORD_HASH;
+describe('MemoryUserStore', () => {
+    it('returns null for unknown emails', async () => {
+        const store = new MemoryUserStore();
+        expect(await store.findByEmail('nobody@example.com')).toBeNull();
     });
 
-    it('returns env var when ADMIN_PASSWORD_HASH is set', async () => {
-        process.env.ADMIN_PASSWORD_HASH = 'test-salt:test-hash';
-        const hash = await getPasswordHash();
-        expect(hash).toBe('test-salt:test-hash');
+    it('finds a seeded user', async () => {
+        const hash = await createPasswordHash('pw');
+        const user: User = {
+            email: 'user@example.com',
+            passwordHash: hash,
+            createdAt: Date.now(),
+        };
+        const store = new MemoryUserStore(user);
+        const found = await store.findByEmail('user@example.com');
+        expect(found).toEqual(user);
     });
 
-    it('returns platform env when available', async () => {
-        const platform = {
-            env: { ADMIN_PASSWORD_HASH: 'platform-salt:platform-hash' },
-        } as unknown as App.Platform;
-        const hash = await getPasswordHash(platform);
-        expect(hash).toBe('platform-salt:platform-hash');
+    it('lookup is case-insensitive', async () => {
+        const hash = await createPasswordHash('pw');
+        const user: User = {
+            email: 'user@example.com',
+            passwordHash: hash,
+            createdAt: Date.now(),
+        };
+        const store = new MemoryUserStore(user);
+        const found = await store.findByEmail('  USER@Example.com  ');
+        expect(found?.email).toBe('user@example.com');
+    });
+});
+
+describe('authenticateUser', () => {
+    async function makeStoreWithUser(email: string, password: string): Promise<UserStore> {
+        const hash = await createPasswordHash(password);
+        return new MemoryUserStore({ email, passwordHash: hash, createdAt: Date.now() });
+    }
+
+    it('returns the normalized email on success', async () => {
+        const store = await makeStoreWithUser('user@example.com', 'secret');
+        const result = await authenticateUser(store, '  USER@Example.com ', 'secret');
+        expect(result).toBe('user@example.com');
     });
 
-    it('returns a default hash in dev mode when not configured', async () => {
-        const hash = await getPasswordHash();
-        expect(hash).toBeDefined();
-        // Should be verifiable with "admin"
-        const valid = await verifyPassword('admin', hash!);
-        expect(valid).toBe(true);
+    it('returns null on wrong password', async () => {
+        const store = await makeStoreWithUser('user@example.com', 'secret');
+        const result = await authenticateUser(store, 'user@example.com', 'wrong');
+        expect(result).toBeNull();
+    });
+
+    it('returns null for unknown email', async () => {
+        const store = await makeStoreWithUser('user@example.com', 'secret');
+        const result = await authenticateUser(store, 'other@example.com', 'secret');
+        expect(result).toBeNull();
+    });
+});
+
+describe('getUserStore (dev mode)', () => {
+    it('seeds a default dev user when no DB is bound', async () => {
+        const store = await getUserStore();
+        const user = await store.findByEmail('admin@example.com');
+        expect(user).not.toBeNull();
+        expect(await verifyPassword('admin', user!.passwordHash)).toBe(true);
     });
 });
 

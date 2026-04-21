@@ -105,40 +105,45 @@ CLOUDFLARE_IMAGES_API_TOKEN = <api token>;
 # Admin authentication
 
 The admin GUI at `/admin` and admin API at `/api/admin/*` are protected by
-password authentication. Sessions are stored in D1 (production) or in memory
-(dev), and the password is stored as a PBKDF2 hash in an environment variable.
+email + password authentication. Users are stored in the `users` table in D1,
+and sessions are stored in D1 (production) or in memory (dev).
 
 ## Local development
 
-In dev mode, if `ADMIN_PASSWORD_HASH` is not set, a default password of
-`admin` is used automatically. To use a custom dev password, add the hash to
-your `.env` file:
+In dev mode, if no D1 binding is present, a default user is seeded in memory:
 
-```
-ADMIN_PASSWORD_HASH=<salt_hex>:<hash_hex>
-```
+- Email: `admin@example.com`
+- Password: `admin`
+
+To create additional users in a local D1, run the create-user script (see
+below) and apply the generated SQL with `pnpm wrangler d1 execute <database>
+--local --command "..."`.
 
 ## Production setup
 
-1. Generate a password hash:
+1. Apply D1 migrations (creates `users` table, recreates `sessions`):
 
     ```
-    pnpm hash-password
+    pnpm wrangler d1 migrations apply sasage-web-db --remote
     ```
 
-    (Or pass the password as an argument: `pnpm hash-password 'my-password'`.)
-
-2. In the Cloudflare Pages dashboard, open **Settings → Environment variables**
-   and add a new variable:
-    - Name: `ADMIN_PASSWORD_HASH`
-    - Value: the `salt_hex:hash_hex` string from step 1
-    - Type: **Secret** (encrypted)
-
-3. Apply the sessions table migration to D1:
+2. Register a user:
 
     ```
-    wrangler d1 execute <database-name> --file=migrations/0002_sessions.sql --remote
+    pnpm create-user you@example.com
     ```
 
-To change the password later, repeat step 1 with a new password and update the
-`ADMIN_PASSWORD_HASH` variable in Cloudflare Pages.
+    The script prompts for a password, hashes it with PBKDF2-SHA-256
+    (100k iterations), and prints the matching `INSERT INTO users (...)`
+    statement on stdout. Pipe it to wrangler, or copy/paste the command
+    shown by the script:
+
+    ```
+    pnpm wrangler d1 execute sasage-web-db --remote --command "INSERT INTO users ..."
+    ```
+
+3. Log in at `/admin/login` with the email + password.
+
+To change a password, re-register the same email with a new password. The
+`INSERT` will fail (email is the primary key); use `UPDATE users SET
+password_hash = '...' WHERE email = '...'` instead, or `DELETE` the row first.
