@@ -189,6 +189,23 @@ describe('Auth API - POST (login)', () => {
         });
         await expectHttpError(() => POST(mockEvent({ request: req })), 400);
     });
+
+    it('returns 503 when the user store is not configured', async () => {
+        mockGetUserStore.mockRejectedValueOnce(new Error('missing DB binding'));
+
+        await expectHttpError(
+            () =>
+                POST(
+                    mockEvent({
+                        request: jsonRequest('POST', {
+                            email: 'user@example.com',
+                            password: 'pw',
+                        }),
+                    }),
+                ),
+            503,
+        );
+    });
 });
 
 describe('Auth API - DELETE (logout)', () => {

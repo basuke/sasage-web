@@ -5,8 +5,14 @@
 -- email. Any currently-active admin sessions are invalidated by this migration
 -- (users must log in again with their email + password).
 
+-- `email` is stored as lowercase/trimmed by the create-user.mjs script and
+-- by normalizeEmail() in src/lib/server/auth.ts. The COLLATE NOCASE + CHECK
+-- constraint enforces that contract at the schema level so that rows
+-- inserted outside those helpers (e.g. ad-hoc wrangler d1 execute) still
+-- match lookups and cannot create case-variant duplicates.
 CREATE TABLE users (
-  email TEXT PRIMARY KEY,
+  email TEXT PRIMARY KEY COLLATE NOCASE
+    CHECK (email = lower(trim(email))),
   password_hash TEXT NOT NULL,
   created_at INTEGER NOT NULL
 );

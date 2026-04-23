@@ -208,7 +208,7 @@ D1 schema (see `migrations/`):
 
 ### Authentication
 
-- Login requires email + password. Users are stored in the `users` D1 table; the login form uses `autocomplete="username"` / `current-password"` for password-manager compatibility.
+- Login requires email + password. Users are stored in the `users` D1 table; the login form uses `autocomplete="username"` / `autocomplete="current-password"` for password-manager compatibility.
 - Passwords are stored as `salt_hex:hash_hex` PBKDF2-SHA256 (100k iterations) in `users.password_hash`. Constant-time verification; a dummy hash is verified for unknown emails so timing does not reveal which emails exist.
 - Register a user with `pnpm create-user [email] [password]`. The script prints an `INSERT INTO users (...)` statement to stdout for piping into `wrangler d1 execute`.
 - In dev, if no `DB` binding is present, an in-memory user store is seeded with `admin@example.com` / `admin` (logged once to the console).

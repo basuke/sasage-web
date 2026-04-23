@@ -170,16 +170,17 @@ export async function getUserStore(platform?: App.Platform): Promise<UserStore> 
 
 /**
  * Authenticate a user with email + password.
- * Returns the normalized user email on success, or null on failure.
- * Uses a dummy verification on unknown emails to keep timing uniform.
+ * Returns the stored (normalized) user email on success, or null on failure.
+ * `store.findByEmail()` normalizes its argument, so callers may pass a raw
+ * user-supplied email. Runs a dummy hash verification on unknown emails to
+ * keep the response time uniform.
  */
 export async function authenticateUser(
     store: UserStore,
     email: string,
     password: string,
 ): Promise<string | null> {
-    const normalized = normalizeEmail(email);
-    const user = await store.findByEmail(normalized);
+    const user = await store.findByEmail(email);
 
     if (!user) {
         // Run a dummy hash verification so the response time does not leak

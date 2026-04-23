@@ -8,7 +8,6 @@ import {
     generateSessionToken,
     getSessionStore,
     getUserStore,
-    normalizeEmail,
 } from '$lib/server/auth';
 
 /** POST: Login — verify email + password, create session, set cookie */
@@ -32,7 +31,13 @@ export const POST: RequestHandler = async ({ request, cookies, platform }) => {
         throw error(400, 'Password is required');
     }
 
-    const userStore = await getUserStore(platform);
+    let userStore;
+    try {
+        userStore = await getUserStore(platform);
+    } catch {
+        throw error(503, 'Authentication is not configured (missing DB binding)');
+    }
+
     const authenticatedEmail = await authenticateUser(userStore, email, password);
     if (!authenticatedEmail) {
         throw error(401, 'Invalid email or password');
@@ -42,7 +47,7 @@ export const POST: RequestHandler = async ({ request, cookies, platform }) => {
     const token = generateSessionToken();
     const expiresAt = Date.now() + SESSION_MAX_AGE * 1000;
     const sessionStore = getSessionStore(platform);
-    await sessionStore.create(token, normalizeEmail(authenticatedEmail), expiresAt);
+    await sessionStore.create(token, authenticatedEmail, expiresAt);
 
     // Set session cookie
     cookies.set(SESSION_COOKIE, token, {
