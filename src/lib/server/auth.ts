@@ -73,63 +73,165 @@ export async function verifyPassword(password: string, storedHash: string): Prom
     return diff === 0;
 }
 
-// --- Password Hash Retrieval ---
+/** Normalize an email for storage and lookup: trim + lowercase. */
+export function normalizeEmail(email: string): string {
+    return email.trim().toLowerCase();
+}
+
+// --- User Store ---
+
+export interface User {
+    email: string;
+    passwordHash: string;
+    createdAt: number;
+}
+
+export interface UserStore {
+    findByEmail(email: string): Promise<User | null>;
+}
+
+/** In-memory user store for dev mode. Seeded with a default admin user. */
+class MemoryUserStore implements UserStore {
+    private users = new Map<string, User>();
+
+    constructor(seed?: User) {
+        if (seed) {
+            const key = normalizeEmail(seed.email);
+            this.users.set(key, { ...seed, email: key });
+        }
+    }
+
+    async findByEmail(email: string): Promise<User | null> {
+        return this.users.get(normalizeEmail(email)) ?? null;
+    }
+}
+
+interface UserRow {
+    email: string;
+    password_hash: string;
+    created_at: number;
+}
+
+/** D1-backed user store for production */
+class D1UserStore implements UserStore {
+    constructor(private db: D1Database) {}
+
+    async findByEmail(email: string): Promise<User | null> {
+        const row = await this.db
+            .prepare('SELECT email, password_hash, created_at FROM users WHERE email = ?')
+            .bind(normalizeEmail(email))
+            .first<UserRow>();
+
+        if (!row) return null;
+        return {
+            email: row.email,
+            passwordHash: row.password_hash,
+            createdAt: row.created_at,
+        };
+    }
+}
+
+// Dev-mode default user. Seeded lazily on first call to getUserStore().
+const DEV_DEFAULT_EMAIL = 'admin@example.com';
+const DEV_DEFAULT_PASSWORD = 'admin';
+let memoryUserStore: MemoryUserStore | undefined;
+let devUserLogged = false;
+
+async function getMemoryUserStore(): Promise<MemoryUserStore> {
+    if (!memoryUserStore) {
+        const seed: User = {
+            email: DEV_DEFAULT_EMAIL,
+            passwordHash: await createPasswordHash(DEV_DEFAULT_PASSWORD),
+            createdAt: Date.now(),
+        };
+        memoryUserStore = new MemoryUserStore(seed);
+    }
+    if (!devUserLogged) {
+        console.log(
+            `Auth: dev mode — default user ${DEV_DEFAULT_EMAIL} / password ${DEV_DEFAULT_PASSWORD}`,
+        );
+        devUserLogged = true;
+    }
+    return memoryUserStore;
+}
+
+export async function getUserStore(platform?: App.Platform): Promise<UserStore> {
+    const db = platform?.env?.DB;
+    if (db) return new D1UserStore(db);
+
+    if (!dev) {
+        throw new Error(
+            'User store misconfiguration: missing required D1 binding `DB` in non-dev environment.',
+        );
+    }
+
+    return getMemoryUserStore();
+}
 
 /**
- * Get the admin password hash from environment.
- * In dev mode, falls back to a default password "admin" if not configured.
+ * Authenticate a user with email + password.
+ * Returns the stored (normalized) user email on success, or null on failure.
+ * `store.findByEmail()` normalizes its argument, so callers may pass a raw
+ * user-supplied email. Runs a dummy hash verification on unknown emails to
+ * keep the response time uniform.
  */
-let devPasswordHash: string | undefined;
+export async function authenticateUser(
+    store: UserStore,
+    email: string,
+    password: string,
+): Promise<string | null> {
+    const user = await store.findByEmail(email);
 
-export async function getPasswordHash(platform?: App.Platform): Promise<string | undefined> {
-    // Check platform env (Cloudflare Pages production)
-    const platformHash = (platform?.env as Record<string, unknown> | undefined)
-        ?.ADMIN_PASSWORD_HASH;
-    if (typeof platformHash === 'string' && platformHash) return platformHash;
-
-    // Check process.env only on the explicit Node/dev path
-    if (dev && typeof process !== 'undefined') {
-        const envHash = process.env.ADMIN_PASSWORD_HASH;
-        if (envHash) return envHash;
+    if (!user) {
+        // Run a dummy hash verification so the response time does not leak
+        // whether the email exists in the database.
+        await verifyPassword(password, DUMMY_HASH);
+        return null;
     }
 
-    // In dev mode, use default password "admin"
-    if (dev) {
-        if (!devPasswordHash) {
-            devPasswordHash = await createPasswordHash('admin');
-            console.log('Auth: using default dev password "admin"');
-        }
-        return devPasswordHash;
-    }
-
-    return undefined;
+    const ok = await verifyPassword(password, user.passwordHash);
+    return ok ? user.email : null;
 }
+
+// Precomputed hash of an empty string; used only for timing parity in
+// authenticateUser() when the email is unknown.
+const DUMMY_HASH =
+    '00000000000000000000000000000000:0000000000000000000000000000000000000000000000000000000000000000';
 
 // --- Session Management ---
 
+export interface SessionValidation {
+    userEmail: string;
+}
+
 export interface SessionStore {
-    create(token: string, expiresAt: number): Promise<void>;
-    validate(token: string): Promise<boolean>;
+    create(token: string, userEmail: string, expiresAt: number): Promise<void>;
+    validate(token: string): Promise<SessionValidation | null>;
     delete(token: string): Promise<void>;
     cleanup(): Promise<void>;
 }
 
+interface SessionRow {
+    user_email: string;
+    expires_at: number;
+}
+
 /** In-memory session store for dev mode */
 class MemorySessionStore implements SessionStore {
-    private sessions = new Map<string, number>(); // token -> expiresAt timestamp (ms)
+    private sessions = new Map<string, { userEmail: string; expiresAt: number }>();
 
-    async create(token: string, expiresAt: number): Promise<void> {
-        this.sessions.set(token, expiresAt);
+    async create(token: string, userEmail: string, expiresAt: number): Promise<void> {
+        this.sessions.set(token, { userEmail, expiresAt });
     }
 
-    async validate(token: string): Promise<boolean> {
-        const expiresAt = this.sessions.get(token);
-        if (expiresAt === undefined) return false;
-        if (Date.now() > expiresAt) {
+    async validate(token: string): Promise<SessionValidation | null> {
+        const session = this.sessions.get(token);
+        if (!session) return null;
+        if (Date.now() > session.expiresAt) {
             this.sessions.delete(token);
-            return false;
+            return null;
         }
-        return true;
+        return { userEmail: session.userEmail };
     }
 
     async delete(token: string): Promise<void> {
@@ -138,8 +240,8 @@ class MemorySessionStore implements SessionStore {
 
     async cleanup(): Promise<void> {
         const now = Date.now();
-        for (const [token, expiresAt] of this.sessions) {
-            if (now > expiresAt) this.sessions.delete(token);
+        for (const [token, session] of this.sessions) {
+            if (now > session.expiresAt) this.sessions.delete(token);
         }
     }
 }
@@ -148,25 +250,25 @@ class MemorySessionStore implements SessionStore {
 class D1SessionStore implements SessionStore {
     constructor(private db: D1Database) {}
 
-    async create(token: string, expiresAt: number): Promise<void> {
+    async create(token: string, userEmail: string, expiresAt: number): Promise<void> {
         await this.db
-            .prepare('INSERT INTO sessions (token, expires_at) VALUES (?, ?)')
-            .bind(token, expiresAt)
+            .prepare('INSERT INTO sessions (token, user_email, expires_at) VALUES (?, ?, ?)')
+            .bind(token, userEmail, expiresAt)
             .run();
     }
 
-    async validate(token: string): Promise<boolean> {
+    async validate(token: string): Promise<SessionValidation | null> {
         const row = await this.db
-            .prepare('SELECT expires_at FROM sessions WHERE token = ?')
+            .prepare('SELECT user_email, expires_at FROM sessions WHERE token = ?')
             .bind(token)
-            .first<{ expires_at: number }>();
+            .first<SessionRow>();
 
-        if (!row) return false;
+        if (!row) return null;
         if (Date.now() > row.expires_at) {
             await this.delete(token);
-            return false;
+            return null;
         }
-        return true;
+        return { userEmail: row.user_email };
     }
 
     async delete(token: string): Promise<void> {
@@ -204,4 +306,4 @@ export function generateSessionToken(): string {
 
 // --- Exports for testing ---
 
-export { MemorySessionStore };
+export { MemorySessionStore, MemoryUserStore };

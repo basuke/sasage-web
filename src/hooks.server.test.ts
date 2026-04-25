@@ -40,7 +40,7 @@ function createMockEvent(pathname: string, options: { cookie?: string } = {}): R
         request: new Request(`http://localhost${pathname}`, {
             headers: { 'accept-language': 'en' },
         }),
-        locals: { lang: 'en' as Lang, authenticated: false },
+        locals: { lang: 'en' as Lang, authenticated: false, user: null },
         cookies: {
             get: (name: string) => cookieStore.get(name),
             set: vi.fn(),
@@ -90,6 +90,7 @@ describe('hooks.server - public routes', () => {
         const response = await handle({ event, resolve: mockResolve });
         expect(response.status).toBe(200);
         expect(event.locals.authenticated).toBe(false);
+        expect(event.locals.user).toBeNull();
     });
 
     it('passes through /works/test', async () => {
@@ -131,9 +132,16 @@ describe('hooks.server - admin pages (unauthenticated)', () => {
     });
 
     it('redirects /admin/works to /admin/login when invalid session', async () => {
-        mockValidate.mockResolvedValue(false);
+        mockValidate.mockResolvedValue(null);
         const event = createMockEvent('/admin/works', { cookie: 'invalid-token' });
         await expectRedirect(() => handle({ event, resolve: mockResolve }), 303, '/admin/login');
+    });
+
+    it('deletes the session cookie when the session is invalid', async () => {
+        mockValidate.mockResolvedValue(null);
+        const event = createMockEvent('/admin/works', { cookie: 'invalid-token' });
+        await expectRedirect(() => handle({ event, resolve: mockResolve }), 303, '/admin/login');
+        expect(event.cookies.delete).toHaveBeenCalledWith('admin_session', { path: '/' });
     });
 });
 
@@ -144,7 +152,7 @@ describe('hooks.server - admin API (unauthenticated)', () => {
     });
 
     it('returns 401 for /api/admin/works with expired session', async () => {
-        mockValidate.mockResolvedValue(false);
+        mockValidate.mockResolvedValue(null);
         const event = createMockEvent('/api/admin/works', { cookie: 'expired-token' });
         await expectHttpError(() => handle({ event, resolve: mockResolve }), 401);
     });
@@ -157,16 +165,17 @@ describe('hooks.server - admin API (unauthenticated)', () => {
 });
 
 describe('hooks.server - authenticated access', () => {
-    it('allows /admin with valid session', async () => {
-        mockValidate.mockResolvedValue(true);
+    it('allows /admin with valid session and populates user email', async () => {
+        mockValidate.mockResolvedValue({ userEmail: 'user@example.com' });
         const event = createMockEvent('/admin', { cookie: 'valid-token' });
         const response = await handle({ event, resolve: mockResolve });
         expect(response.status).toBe(200);
         expect(event.locals.authenticated).toBe(true);
+        expect(event.locals.user).toEqual({ email: 'user@example.com' });
     });
 
     it('allows /admin/images with valid session', async () => {
-        mockValidate.mockResolvedValue(true);
+        mockValidate.mockResolvedValue({ userEmail: 'user@example.com' });
         const event = createMockEvent('/admin/images', { cookie: 'valid-token' });
         const response = await handle({ event, resolve: mockResolve });
         expect(response.status).toBe(200);
@@ -174,7 +183,7 @@ describe('hooks.server - authenticated access', () => {
     });
 
     it('allows /api/admin/images with valid session', async () => {
-        mockValidate.mockResolvedValue(true);
+        mockValidate.mockResolvedValue({ userEmail: 'user@example.com' });
         const event = createMockEvent('/api/admin/images', { cookie: 'valid-token' });
         const response = await handle({ event, resolve: mockResolve });
         expect(response.status).toBe(200);

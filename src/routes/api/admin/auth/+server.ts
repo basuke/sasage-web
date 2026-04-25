@@ -4,13 +4,13 @@ import type { RequestHandler } from '@sveltejs/kit';
 import {
     SESSION_COOKIE,
     SESSION_MAX_AGE,
-    getPasswordHash,
-    verifyPassword,
+    authenticateUser,
     generateSessionToken,
     getSessionStore,
+    getUserStore,
 } from '$lib/server/auth';
 
-/** POST: Login — verify password, create session, set cookie */
+/** POST: Login — verify email + password, create session, set cookie */
 export const POST: RequestHandler = async ({ request, cookies, platform }) => {
     let body: unknown;
     try {
@@ -19,30 +19,35 @@ export const POST: RequestHandler = async ({ request, cookies, platform }) => {
         throw error(400, 'Invalid JSON');
     }
 
-    if (!body || typeof body !== 'object' || !('password' in body)) {
+    if (!body || typeof body !== 'object') {
+        throw error(400, 'Email and password are required');
+    }
+
+    const { email, password } = body as { email?: unknown; password?: unknown };
+    if (typeof email !== 'string' || !email.trim()) {
+        throw error(400, 'Email is required');
+    }
+    if (typeof password !== 'string' || !password) {
         throw error(400, 'Password is required');
     }
 
-    const password = (body as { password: unknown }).password;
-    if (typeof password !== 'string' || !password) {
-        throw error(400, 'Password must be a non-empty string');
+    let userStore;
+    try {
+        userStore = await getUserStore(platform);
+    } catch {
+        throw error(503, 'Authentication is not configured (missing DB binding)');
     }
 
-    const storedHash = await getPasswordHash(platform);
-    if (!storedHash) {
-        throw error(503, 'Authentication is not configured');
-    }
-
-    const valid = await verifyPassword(password, storedHash);
-    if (!valid) {
-        throw error(401, 'Invalid password');
+    const authenticatedEmail = await authenticateUser(userStore, email, password);
+    if (!authenticatedEmail) {
+        throw error(401, 'Invalid email or password');
     }
 
     // Create session
     const token = generateSessionToken();
     const expiresAt = Date.now() + SESSION_MAX_AGE * 1000;
     const sessionStore = getSessionStore(platform);
-    await sessionStore.create(token, expiresAt);
+    await sessionStore.create(token, authenticatedEmail, expiresAt);
 
     // Set session cookie
     cookies.set(SESSION_COOKIE, token, {

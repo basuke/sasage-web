@@ -9,12 +9,13 @@ declare namespace App {
         lang: Lang;
         /** True if the current request has a valid admin session */
         authenticated: boolean;
+        /** The authenticated user (email), if any */
+        user: { email: string } | null;
     }
 
     interface Platform {
         env?: {
             DB?: import('$lib/server/d1-types').D1Database;
-            ADMIN_PASSWORD_HASH?: string;
         };
     }
 

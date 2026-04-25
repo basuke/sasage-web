@@ -107,7 +107,7 @@ function mockEvent(overrides: Partial<RequestEvent> = {}): RequestEvent {
         params: {},
         request: new Request('http://localhost'),
         url: new URL('http://localhost'),
-        locals: { lang: 'en', authenticated: true },
+        locals: { lang: 'en', authenticated: true, user: { email: 'user@example.com' } },
         cookies: {} as RequestEvent['cookies'],
         fetch: globalThis.fetch,
         getClientAddress: () => '127.0.0.1',
