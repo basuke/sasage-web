@@ -187,12 +187,17 @@ jobs:
                       const pr_number = context.payload.pull_request.number;
                       const updateType = '${{ steps.metadata.outputs.update-type }}';
 
+                      const isMajor = updateType.includes('major');
+                      const reason = isMajor
+                        ? '**Major version update** (or grouped update containing a major bump) detected'
+                        : '**Non patch/minor update** detected (update type could not be classified as patch or minor)';
+
                       const message = [
                         '👋 This Dependabot PR requires manual review:',
                         '',
-                        '- **Major version update** (or grouped update containing a major bump) detected',
+                        '- ' + reason,
                         '',
-                        'Update type reported by Dependabot: `' + updateType + '`',
+                        'Update type reported by Dependabot: `' + (updateType || '(empty)') + '`',
                         '',
                         'Please review the changes and merge manually if appropriate.',
                       ].join('\n');
