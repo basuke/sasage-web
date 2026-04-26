@@ -39,41 +39,27 @@ jobs:
                   # Default to not merging
                   echo "should_merge=false" >> $GITHUB_OUTPUT
 
-                  # Get update type and dependency type
                   UPDATE_TYPE="${{ steps.metadata.outputs.update-type }}"
-                  DEPENDENCY_TYPE="${{ steps.metadata.outputs.dependency-type }}"
-
                   echo "Update type: $UPDATE_TYPE"
-                  echo "Dependency type: $DEPENDENCY_TYPE"
 
-                  # Auto-merge conditions:
-                  # 1. Patch updates for all dependencies
-                  # 2. Minor updates for dev dependencies
-                  # 3. Minor updates for certain safe production dependencies
-
-                  if [[ "$UPDATE_TYPE" == "version-update:semver-patch" ]]; then
-                    echo "✅ Patch update - will auto-merge"
-                    echo "should_merge=true" >> $GITHUB_OUTPUT
-                  elif [[ "$UPDATE_TYPE" == "version-update:semver-minor" ]]; then
-                    if [[ "$DEPENDENCY_TYPE" == "development" ]]; then
-                      echo "✅ Minor update for dev dependency - will auto-merge"
-                      echo "should_merge=true" >> $GITHUB_OUTPUT
-                    else
-                      # Check if it's a safe production dependency
-                      DEPENDENCY_NAME="${{ steps.metadata.outputs.dependency-names }}"
-                      # List of production dependencies safe for minor updates
-                      SAFE_DEPS="@sveltejs/adapter-static @sveltejs/kit svelte vite postcss tailwindcss autoprefixer"
-                      
-                      if echo "$SAFE_DEPS" | grep -q "$DEPENDENCY_NAME"; then
-                        echo "✅ Minor update for safe production dependency - will auto-merge"
-                        echo "should_merge=true" >> $GITHUB_OUTPUT
-                      else
-                        echo "⚠️ Minor update for production dependency - requires manual review"
-                      fi
-                    fi
-                  else
-                    echo "⚠️ Major update - requires manual review"
-                  fi
+                  # Auto-merge all patch/minor updates regardless of dependency type.
+                  # Required CI checks must still pass before the merge actually lands
+                  # (enforced by branch protection / the merge step below).
+                  # Major updates - and grouped PRs whose highest bump is major - are
+                  # left for manual review.
+                  case "$UPDATE_TYPE" in
+                      version-update:semver-patch)
+                          echo "✅ Patch update - will auto-merge"
+                          echo "should_merge=true" >> $GITHUB_OUTPUT
+                          ;;
+                      version-update:semver-minor)
+                          echo "✅ Minor update - will auto-merge"
+                          echo "should_merge=true" >> $GITHUB_OUTPUT
+                          ;;
+                      *)
+                          echo "⚠️ Major update (or unknown) - requires manual review"
+                          ;;
+                  esac
 
             - name: Wait for CI checks
               if: steps.check-merge.outputs.should_merge == 'true'
@@ -187,28 +173,34 @@ jobs:
                         }
                       }
 
+            # Only fire on the initial PR open so reviewers don't get a flood of
+            # duplicate comments when the workflow re-runs on push / CI completion.
             - name: Add comment about manual review
-              if: steps.check-merge.outputs.should_merge == 'false'
+              if: |
+                  steps.check-merge.outputs.should_merge == 'false' &&
+                  github.event_name == 'pull_request' &&
+                  github.event.action == 'opened'
               uses: actions/github-script@v8
               with:
                   script: |
                       const { owner, repo } = context.repo;
-                      const pr_number = context.payload.pull_request?.number;
-
-                      if (!pr_number) return;
-
+                      const pr_number = context.payload.pull_request.number;
                       const updateType = '${{ steps.metadata.outputs.update-type }}';
-                      const dependencyType = '${{ steps.metadata.outputs.dependency-type }}';
 
-                      let message = '👋 This Dependabot PR requires manual review:\n\n';
+                      const isMajor = updateType.includes('major');
+                      const reason = isMajor
+                        ? '**Major version update** (or grouped update containing a major bump) detected'
+                        : '**Non patch/minor update** detected (update type could not be classified as patch or minor)';
 
-                      if (updateType.includes('major')) {
-                        message += '- **Major version update** detected\n';
-                      } else if (updateType.includes('minor') && dependencyType === 'production') {
-                        message += '- **Minor update for production dependency** detected\n';
-                      }
-
-                      message += '\nPlease review the changes and merge manually if appropriate.';
+                      const message = [
+                        '👋 This Dependabot PR requires manual review:',
+                        '',
+                        '- ' + reason,
+                        '',
+                        'Update type reported by Dependabot: `' + (updateType || '(empty)') + '`',
+                        '',
+                        'Please review the changes and merge manually if appropriate.',
+                      ].join('\n');
 
                       await github.rest.issues.createComment({
                         owner,
