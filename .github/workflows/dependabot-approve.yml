@@ -27,14 +27,15 @@ jobs:
                   echo "should_approve=false" >> $GITHUB_OUTPUT
 
                   UPDATE_TYPE="${{ steps.metadata.outputs.update-type }}"
-                  DEPENDENCY_TYPE="${{ steps.metadata.outputs.dependency-type }}"
 
-                  # Auto-approve same conditions as auto-merge
-                  if [[ "$UPDATE_TYPE" == "version-update:semver-patch" ]]; then
-                    echo "should_approve=true" >> $GITHUB_OUTPUT
-                  elif [[ "$UPDATE_TYPE" == "version-update:semver-minor" && "$DEPENDENCY_TYPE" == "development" ]]; then
-                    echo "should_approve=true" >> $GITHUB_OUTPUT
-                  fi
+                  # Auto-approve all patch/minor updates regardless of dependency type.
+                  # Major updates (and grouped PRs whose highest bump is major) are left
+                  # for manual review.
+                  case "$UPDATE_TYPE" in
+                      version-update:semver-patch|version-update:semver-minor)
+                          echo "should_approve=true" >> $GITHUB_OUTPUT
+                          ;;
+                  esac
 
             - name: Auto-approve PR
               if: steps.check-approve.outputs.should_approve == 'true'
@@ -49,7 +50,7 @@ jobs:
                         repo,
                         pull_number: pr_number,
                         event: 'APPROVE',
-                        body: 'Auto-approved by Dependabot workflow for patch/minor dev dependency update'
+                        body: 'Auto-approved by Dependabot workflow (patch/minor update)'
                       });
 
                       console.log(`Approved PR #${pr_number}`);
