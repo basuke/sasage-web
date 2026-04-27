@@ -53,7 +53,7 @@
         "svelte-check": "^4.3.5",
         "svelte-preprocess": "^6.0.3",
         "tailwindcss": "^3.4.19",
-        "tempy": "^3.1.2",
+        "tempy": "^3.2.0",
         "tslib": "^2.8.1",
         "tsx": "^4.21.0",
         "typescript": "^6.0.3",
