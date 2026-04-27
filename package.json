@@ -19,7 +19,7 @@
         "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --write ."
     },
     "devDependencies": {
-        "@cloudflare/workers-types": "^4.20260414.1",
+        "@cloudflare/workers-types": "^4.20260426.1",
         "@playwright/test": "^1.58.1",
         "@sveltejs/adapter-cloudflare": "^7.2.6",
         "@sveltejs/kit": "^2.50.1",
