@@ -22,7 +22,7 @@
         "@cloudflare/workers-types": "^4.20260426.1",
         "@playwright/test": "^1.58.1",
         "@sveltejs/adapter-cloudflare": "^7.2.6",
-        "@sveltejs/kit": "^2.50.1",
+        "@sveltejs/kit": "^2.69.1",
         "@sveltejs/vite-plugin-svelte": "^4.0.4",
         "@testing-library/jest-dom": "^6.9.1",
         "@testing-library/svelte": "^5.3.1",
